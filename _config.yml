@@ -98,3 +98,8 @@ deploy:
   type: git
   repo: git@github.com:HUSTERGS/hustergs.github.io.git
   branch: master
+
+
+# custom config
+sitemap:
+  path: sitemap.xml

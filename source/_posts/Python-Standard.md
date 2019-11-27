@@ -1,10 +1,11 @@
 ---
 title: Python Standard
-date: 2019-08-11 00:06:08
 tags: Python
 categories:
-    - Programming Language
-    - Python
+  - Programming Language
+  - Python
+abbrlink: 4b301912
+date: 2019-08-11 00:06:08
 ---
 
 # Python Standard

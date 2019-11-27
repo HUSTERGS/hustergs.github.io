@@ -1,12 +1,14 @@
 ---
 title: Linux命令行与shell脚本编程大全
-date: 2019-5-16 14:15:57
-tags: 
-   - Linux
-   - Shell
+tags:
+  - Linux
+  - Shell
 categories:
-   - [Programming Language, Shell]
-   - [Linux]
+  - - Programming Language
+    - Shell
+  - - Linux
+abbrlink: 6787f816
+date: 2019-05-16 14:15:57
 ---
 
 ## Basic

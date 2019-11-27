@@ -1,5 +1,6 @@
 ---
 title: 暑期NUS项目
+abbrlink: '49331795'
 tags:
 ---
 

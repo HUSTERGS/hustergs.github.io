@@ -117,11 +117,13 @@ live2d:
   tagMode: false
   debug: false
   model:
-    use: live2d-widget-model-hijiki
+    # use: live2d-widget-model-hijiki
+    use: https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json
   display:
     position: left
     width: 150
     height: 300
+    vOffset: -70
   mobile:
     show: false
   react:

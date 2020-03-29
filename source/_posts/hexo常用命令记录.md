@@ -1,6 +1,7 @@
 ---
 title: hexo常用命令记录
 tags: hexo
+abbrlink: 49eba02e
 date: 2020-03-29 23:29:05
 ---
 

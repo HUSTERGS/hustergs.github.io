@@ -9,7 +9,7 @@ date: 2020-03-30 15:31:22
 ---
 
 ## Interfaces, Lambda Expressions, and InnerClasses
-> 每次读一本书读不完或者读完了又由于没有实践都忘记是真的很烦，作为这个系列的第一篇，希望可以开一个好头。主要的计划是将原本一本书一个md文件改为一个章节一个文件，也许会有帮助？ 冲鸭
+> 又来写只给自己看到笔记了.每次读一本书读不完,或者读完了又由于没有实践就都忘记是真的很烦，作为这个系列的第一篇，希望可以开一个好头。主要的计划是将原本一本书一个md文件改为一个章节一个文件，也许会有帮助？ 
 ### 6.1 Interfaces
 1. 从Java5以来对于`Comparable`有了一些改动，提供了另外一个可选的泛型接口接口的`compareTo`函数由原来的接收一个`Object`作为参数，变为接收一个泛型`T`作为参数，在这种情况下可以免去强制类型转换以及类型判定的繁琐操作
    ```Java
@@ -33,7 +33,7 @@ date: 2020-03-30 15:31:22
    > 理论上Comparable应该实现反向对称性(antisymmetry)，即`X.compareTo(Y) = - Y.compareTo(X)`，而继承有时候会破坏这一点(如果使用泛型的`Comparable`接口的话)
 <!--more-->
 
-2. `interface`所有的方法自动设置为`public`所以没有必要加上访问修饰符(Java 9似乎可以定义`private`方法，静态或者类方法，没有深入了解)。同时在实现(`implement`)一个接口的时候，所有的对应的方法都必须为`public`，与接口对应
+2. `interface`所有的方法自动设置为`public abstract`所以没有必要加上访问修饰符(Java 9似乎可以定义`private`方法，静态或者类方法，没有深入了解)。同时在实现(`implement`)一个接口的时候，所有的对应的方法都必须为`public`，与接口对应
 3. `interface`可以定义方法以及常量(`public static final`)，但是**不能**定义成员(instance field)。同时Java8以后为接口内编写函数体提供了可能
 4. `interface`可以被`extends`。与继承不同，一个类可以实现多个接口(implement multiple interfaces)，这也是接口与抽象类最大的不同(之一？)。不知道多个接口如果有同样的函数会发生什么。
 5. `interface`中可以加入`static`方法，但是不会继承到实现这个接口的类中。换句话就是接口的static方法只能通过接口名进行调用
@@ -93,4 +93,39 @@ date: 2020-03-30 15:31:22
    Object[] people = stream.toArray();// 不满足要求
    Person[] people = stream.toArray(Person[]:new);
    ```
+6. `lambda`表达式由三个部分组成
+   - 参数列表
+   - 函数体
+   - **自由变量**(free variable)
+
+   自由变量即为lambda表达式可以捕获的外界的变量.Java对其有很严格的要求,只能是`effectively final`(An effetively final variable is a variable that is never assigned a new value after it has been initialized)
+   ```Java
+   public static void repeat(String text, int count) {
+      for (int i = 1; i < count; i++) {
+         ActionListener listener = event -> {
+            System.out.println(i + ": " + text);
+            // 出错,由于引用了i, 但是引用text是可以的
+         }
+      }
+   }
+   ```
+7. `lambda`表达式同样有名称冲突的问题.作为lambda表达式参数的名字不能与`lambda`表达式所在的代码块含有的其他变量同名
+8. `this`似乎可以由6来解释,如果在`lambda`表达式中使用`this`变量的话,指的也是环境中的`this`
+9. 使用`@FunctionalInterface`是一个好主意
+10. `Comparators`的一些其他的静态方法.
+    - `comparing`可以用来自定义用于比较的`key`,比如将人(Person)根据名字来比较,此时要求用于比较的`key`本身是可以比较的(也即实现了`Comparable`接口)
+      ```Java
+      Arrays.sort(people, Comparator.comparing(Person::getName));
+      // 参数可以是函数引用也可以是lambda表达式
+      Arrays.sort(people, Comparator.comparing(Person::getName).thenComparing(Person::getFirstName)); // 甚至可以链式制定下一级的比较对象
+      ```
+    - 基本类型没有实现`Comparable`(甚至都不是类),所以`Comparator`有其他的针对基本类型的包装`comparing`函数
+      ```Java
+      Arrays.sort(people, Comparator.comparingInt(p -> p.getName().length()));
+      ```
+### 6.3 Inner Classes
+1. 为什么需要内部类(`Inner Classes`)
+   - 可以向其他的类隐藏内部类的存在
+   - 内部类可以访问包含者的数据,甚至是private的数据
+2. 
 

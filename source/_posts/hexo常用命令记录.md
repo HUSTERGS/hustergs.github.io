@@ -16,4 +16,4 @@ date: 2020-03-29 23:29:05
    其中`layout`主要用到的有`draft`以及`post`，默认为`post`，如果有自定义布局另说
 2. 发布以及更新文章
    - `hexo publish [layout] <title>` 主要用于将草稿(`draft`)发布
-   - 在通过git进行了commit操作之后，依次运行`hexo clean`，`hexo generate`以及`hexo deploy`即可(大概)
+   - 依次运行`hexo clean`(可选)，`hexo generate`以及`hexo deploy`即可(大概)

@@ -43,6 +43,8 @@ date: 2020-04-06 14:19:10
    String middle = ArrayAlg.getMiddle("John", "Q.", "Public");
    ```
    大部分情况下类型推断都可以正常运作,但当传入的参数不是一致的类型时可能会发生问题,编译器会尝试寻找不同类型的共同父类来解决问题
+<!--more-->
+
 ### 8.4 Bounds for Type Variables
 1. bounding type(不知道怎么翻译)
    `<T extends BoundingType>`表示传入的类型T至少为BoundingType的子类,其中BoundType可以是一个类(Class),也可以是一个接口(Interface).并使用`&`来分隔对某一个类型的多个限制,如`<T extends Comparable & Serializable>`

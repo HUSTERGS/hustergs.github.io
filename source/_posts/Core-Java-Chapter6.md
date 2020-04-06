@@ -127,5 +127,68 @@ date: 2020-03-30 15:31:22
 1. 为什么需要内部类(`Inner Classes`)
    - 可以向其他的类隐藏内部类的存在
    - 内部类可以访问包含者的数据,甚至是private的数据
-2. 
+2. 本节使用以下例子
+   ```Java
+   public class TalkingClock
+   {
+      private int interval;
+      private boolean beep;
+      private TalkingClock(int interval, boolean beep) {...}
+      public void start() {...}
+      public class TimePrinter implements ActionListener
+      // an inner class
+      {
+         public void actionPerformed(ActionEvent event)
+         {
+            System.out.println("At the tone, the time is "
+               + Instant.ofEpochMilli(event.getWhen()));
+            if (beep) Toolkit.getDefaultToolkit().beep();
+         }
+      }
+   }
+   ```
+   可以看到内部类`TimerPrinter`访问了外部类中的`beep`成员,并且为`private`,同时我们可将内部类定义为`private`,这样的话就只有外部类可以创建并访问内部类,一般来说一个类都只能是`public`或者包访问权限,内部类是个例外
+2. 内部类访问外部类的方法
+   内部类访问外部类的正确姿势应该是如下:
+   ```Java
+   public void actionPerformed(ActionEvent event)
+   {
+      ...
+      if (TalkingClock.this.beep) Toolkit.getDefautlToolkit().beep();
+   }
+   ```
+   也即通过`OuterClass.this`来访问
+3. 外部类创建内部类
+   在外部类之中,创建内部类使用如下语法`outerObject.new InnerClass(construction parameters)`
+   ```Java
+   ActionListener listener = this.new TimrPrinter(); // this.可以去掉
+   ```
+   而当内部类被声明为`public`,并且从外部访问时(指外部类的外部),就需要明确指出`outerObject`
+   ```Java
+   var jabberer = new TalkingClock(1000, true);
+   TalkingClock.TimePrinter listener = jabberer.new TimePrinter();
+   ```
+   内部类的**静态成员**必须为final,并用常量初始化,同时内部类**不能有静态方法**
+   同时需要认识到内部类是在范围内产生影响,对于JVM来说根本不会意识到内部类的存在,编译器在编译阶段会将内部类转化为普通的类. 同时会通过一些方法来使得这个类能够访问外部类的私有属性,总之就是让其具有更高的访问权限.也正是由于这个原因,理论上是有办法通过内部类来破除外部类的访问限制的,但是仅仅从代码层面无法做到,需要对`.class`文件进行修改,所以一般不考虑
+4. 本地内部类(`Local Inner Classes`)
+   就是在类方法中定义的内部类,这种内部类没有访问权限控制,他们只能够在所属的方法中被访问,但是同时,它不仅能够访问外部类,而且可以访问该方法中的局部变量(只能够是`effectively final`)
+   ```Java
+   public start()
+   {
+      class TimePrinter implements ActionListener
+      {
+         public void actionPerformed(ActionEvent event)
+         {
+            System.out.println("At the tone, the time is "
+               + Instant.ofEpochMilli(event.getWhen()));
+            if (beep) Toolkit.getDefaultToolkit().beep();
+         }
+      }
+      var listener = new TimePrinter();
+      var timer = new Timer(interval, listener);
+      timer.start();
+   }
+   ```
+   实际上在1秒之后,局部变量`beep`已经不存在了,所以在内部类中访问的`beep`实际上是对原有的`beep`进行了复制(是只有基本类型是这样还是类也是这样呢?)
+
 

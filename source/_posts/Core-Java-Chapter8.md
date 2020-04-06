@@ -5,7 +5,9 @@ categories:
   - Programming Language
   - Java
 abbrlink: 4271d7bf
+date: 2020-04-06 14:19:10
 ---
+
 
 ## Generic Programming
 ### 8.2 Defining a Simple Generic Class
@@ -106,5 +108,29 @@ abbrlink: 4271d7bf
 
 
 ### 8.8 Wildcard Types
+> 这一节似乎都在讨论泛型容器,而不是普遍的泛型
+1. 子类
+   `Pair<? extends Employee>`
+   类型`Pair<Manager>`是`Pair<? extends Employee>`的子类(某种意义上的协变性),可以用于函数的复用
+   子类型的泛型限制会导致泛型容器只能够读取而不能写入
+2. 父类
+   `Pair<? super Manager>`可写不可读(似乎还是可以读,只是只能用`Object`来接收)
+
+3. 无限制
+   `Pair<?>`,返回值只能被复制给`Object`,并且不能写入
+   注意到这时没有一个具体类型的替代符号(如`T`),那我们该如何获取具体的类型呢,这时需要另外编写帮助函数,通过另外一个普通泛型函数来获取具体的类型,如
+   ```Java
+   public static <T> void swapHelper(Pair<T> p)
+   {
+       T t = p.getFirst();
+       ....
+   }
+
+   public static void swap(Pair<?> p) 
+   {
+       swapHelper(p);
+   }
+   ```
+   > 其实有点不懂`<?>`和直接`<T>`的区别
+
 ### 8.9 Reflection and Generics
-1. 

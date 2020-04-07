@@ -1,11 +1,13 @@
 ---
 title: gopl-ch3
-abbrlink: 9f2f5f69
 tags: Go
+abbrlink: 9f2f5f69
 categories:
   - Programming Language
   - Go
+date: 2020-04-07 09:59:33
 ---
+
 
 ## Chapter 3
 > Basic Date Types

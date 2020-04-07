@@ -12,6 +12,9 @@ date: 2020-04-06 20:40:53
 ## The Go Programming Language
 > 本系列将从《The Go Programming Language》的第二章开始，记录一些阅读过程中遇到的值得记录的知识点，也希望可以坚持下去，读完整本书
 
+## Chapter 2 
+> Program Structure
+
 ### Names
 1. 在函数外定义的实体(函数本身或者变量),会根据其首字母大小来决定其访问权限，小写字母开头的实体只能在包内访问，大写字母开头的会被`export`，也即其他包中可以通过`import`的方式访问到，如`fmt.Printf`。包名本身始终是小写的
 2. 使用驼峰式而不是下划线
@@ -36,6 +39,8 @@ date: 2020-04-06 20:40:53
    var i, j, k int
    var b, f, s = true, 2.3, "four"
    ```
+<!--more-->
+
 3. 使用简写声明(`short variable declaration`)来**声明**或者**赋值**局部变量
    ```Go
    anim := gif.GIF{LoopCount: nframes}

@@ -15,7 +15,7 @@ tags:
 3. AI and Security
 
 具体介绍如下
-{% asset_img cluster介绍.png %}
+![](暑期NUS项目/cluster介绍.png)
 
 而我最终选择了Big Data之中的Topic 1(太长了就不写出来了)。主要教的就是一种名为`社区发现`(`community detection`)的方法，对相互连接的一些节点进行分析并希望得到一些发现，用老师的话来说就是
 * know what I know

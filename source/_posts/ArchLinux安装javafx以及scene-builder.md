@@ -33,8 +33,7 @@ yay -S javafx-scenebuilder
 ## 配置Intellij
 ### 配置`javafx`
 创建新的工程，jdk选择8，依次选择`Project Structure -> SDKs -> 1.8(或者对应Java8版本的其他名字) -> Classpath`，点击右侧的加号，选择javafx的jar包位置，本机上为`/usr/lib/jvm/java-8-openjdk/jre/ext/jfxrt.jar`(只添加这一个即可)，具体位置不清楚的可以查看`PKGBUILD`文件(或者使用`yay -Ql packageName`)
-{% asset_img javafx_classpath.png %}
-
+![](ArchLinux安装javafx以及scene-builder/javafx_classpath.png)
 使用以下代码进行基础测试
 ```java
 package net.samge;
@@ -72,7 +71,7 @@ public class Main extends Application {
 
 ### 配置scenebuilder
 依次点击`File -> Setting -> Language & Framework -> JavaFx`，在输入框中选择`scenebuilder`的位置，本机上为`/opt/SceneBuilder/SceneBuilder`，不确定的话同样可以通过查看`PKGBUILD`查看具体安装位置再或者通过`yay -Ql packageName`也可以
-{% asset_img scenebuilder_path.png %}
+![](ArchLinux安装javafx以及scene-builder/scenebuilder_path.png)
 新建一个`.fxml`文件(`右键 -> new -> fxml file`),再右键点击该文件,选择最下方的`Open In SceneBuilder`即可在`SceneBuilder`中打开`fxml`文件进行可视化编辑
 
-{% asset_img open_in_scenebuilder.png %}
+![](ArchLinux安装javafx以及scene-builder/open_in_scenebuilder.png)

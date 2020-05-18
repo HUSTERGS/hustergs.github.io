@@ -29,9 +29,9 @@ xbindkeys --defaults > ~/.xbindkeysrc
 ```
 ## 获取目标按键按键码
 命令行下执行`xev`，会出现如下图所示的小方框
-{% asset_img xev.png %}
+![](Archlinux设置鼠标宏-按键映射/xev.png)
 将鼠标移动到黑色方框内，待命令行输出稳定之后，按下目标按键(如侧键)，然后在输出中寻找如下图所示的Button字段,记下对应的数字
-{% asset_img ButtonCode.png %}
+![](Archlinux设置鼠标宏-按键映射/ButtonCode.png)
 ## 编辑配置文件
 编辑刚刚创建的配置文件，加上以下配置
 ```
@@ -50,4 +50,5 @@ killall xbindkeys && xbindkeys
 ```
 测试目标按键是否生效
 
+> 以上步骤在重启之后会失效，所以需要将`xbindkeys`加入开机脚本中，此处不再赘述
 通过`xbindkey`和`xdotool`能够做的远不止如此,xdotool似乎还可以监听其他更加复杂的事件

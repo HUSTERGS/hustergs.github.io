@@ -20,11 +20,11 @@ categories:
    ```sh
    $ sudo /opt/mssql/bin/mssql-conf setup
    ```
-   {% asset_img  选择证书.png %}
+   ![](ArchLinux-安装mssql-server/选择证书.png)
    此处我们选择第二个证书(`2) Developer (free, no production use rights)`),并同意相关条款(`yes`),接着设置**符合规范**的管理员密码
-   {% asset_img 设置密码.png %}
+   ![](ArchLinux-安装mssql-server/设置密码.png)
 <!-- more  -->
-2. 配置相关服务
+1. 配置相关服务
    开机自动启动服务:
    ```sh
    sudo systemctl enable mssql-server
@@ -46,14 +46,14 @@ categories:
    默认用户名为`sa`, 密码为一开始设置的密码,输入后即可键入命令执行
 2. 使用vscode拓展
    安装拓展`SQL Server(mssql)`
-   {% asset_img 拓展.png %}
+   ![](ArchLinux-安装mssql-server/拓展.png)
    `Ctrl + Shift + p`创建新的数据库连接,连接成功后即可编写脚本,并会在右侧显示输出
-   {% asset_img VScode截图.png %}
+   ![](ArchLinux-安装mssql-server/VScode截图.png)
 3. 使用`DataGrip`
    > 可能会提示没有相关驱动,点击下载即可
    添加新数据库,选择`Microsoft SQL Server`
    地址填写`localhost`,端口不用写
    用户名为`sa`
    密码为上述设置的密码,点击`Test connection`测试连接是否成功,确认成功后点击`OK`即可
-   {% asset_img datagrip截图.png %}
+   ![](ArchLinux-安装mssql-server/datagrip截图.png)
    

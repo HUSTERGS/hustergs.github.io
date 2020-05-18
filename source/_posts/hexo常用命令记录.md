@@ -34,6 +34,7 @@ date: 2020-03-29 23:29:05
    ```
    那么在Node.md中引用图片`img_name`即为
    `{% asset_img img_name.png %}`
+   通过使用`hexo-asset-image`插件可以直接在md中使用正常的`![]()`写法，非常方便，并且支持`hexo-abbrlink`
 ## 预览
 1. 本地运行
    `hexo server`

@@ -5,7 +5,9 @@ categories:
   - Programming Language
   - Go
 abbrlink: 98429b70
+date: 2020-05-21 16:36:07
 ---
+
 
 ## Chapter 7
 > interfaces
@@ -114,3 +116,81 @@ type Handler interface {
 }
 func ListenAndServe(address string, h Handler) error
 ```
+
+### The `error` Interface
+基本声明如下
+```go
+type error interface {
+    Error() string
+}
+
+func New(text string) error {return &errorString{test}}
+type errorString struct {text string}
+func(e *errorString) Error() string {return e.text}
+```
+
+### Example: Expression Evaluator
+
+### Type Assertions
+基本形式如下
+```go
+x.(T)
+```
+其中`x`是一个接口类型的表达式,`T`是某一种类型
+1. 如果`T`是某一种具体类型,那么就会尝试将`x`中的`value`部分提取出来,也就是**运行时类型**,实际上就是用来将动态类型提取出来，因为前面说过，一个接口变狼只能够调用接口中规定的方法，而不能调用实际类型的中的方法
+2. 如果`T`也是接口类型，并且`x`满足`T`，
+3. 举例如下
+   第一种
+   ```go
+   var w io.Writer // 接口类型的变量
+   w = os.Stdout
+   f := w.(*os.File) // 成功
+   c := w.(*bytes.Buffer) // 失败
+   ```
+   第二种
+   ```go
+   var w io.Writer
+   w = os.Stdout
+   rw := w.(io.ReadWriter) // 成功
+   w = new(ByteCounter)
+   rw = w.(io.ReadWriter) // 失败
+   ```
+4. 一般情况下如果失败会发生`panic`,但是可以通过在赋值的左边加入一个标示`ok`来避免`panic`
+   ```go
+   if f, ok := w.(*os.File); ok {
+       // ... 使用f
+   }
+   ```
+
+### Discriminating Errors with Type Assertions
+```go
+import (
+    "errors"
+    "syscall"
+)
+var ErrNotExist = errors.New("file does not exist")
+
+func IsNotExist(err error) bool {
+    if pe, ok := err.(*PathError); ok {
+        err = pe.Err
+    }
+    return err == syscall.ENOENT || err == ErrNotExist
+}
+```
+
+### Querying Behaviors with Interface Type Assertions
+### Type Switches
+使用type switch可以非常方便的对某一个未知变量的不同可能类型采取不同操作
+```go
+switch x.(type) {
+    case nil: // ...
+    case int, unit: // ... 
+    case bool: // ...
+    case string: //...
+    default: // ...
+}
+```
+### Example: Token-Based XML Decoding
+### A Few Words of Advice
+1. 不要泛滥的使用接口类型，当一个接口类型被定义的时候，至少有是有两个具体类型能够*satisfy*才行
+2. 不要为了面向对象而面向对象

@@ -74,4 +74,6 @@ public class Main extends Application {
 ![](ArchLinux安装javafx以及scene-builder/scenebuilder_path.png)
 新建一个`.fxml`文件(`右键 -> new -> fxml file`),再右键点击该文件,选择最下方的`Open In SceneBuilder`即可在`SceneBuilder`中打开`fxml`文件进行可视化编辑
 
+在本机运行的时候,如果采用右键点击`fxml`文件进行可视化编辑产生了一些很奇怪的bug,比如窗口无法正常点击等等,建议直接单独打开`SceneBuilder`单独运行
+用于编辑`fxml`文件
 ![](ArchLinux安装javafx以及scene-builder/open_in_scenebuilder.png)

@@ -38,7 +38,7 @@ date: 2020-05-21 16:36:07
    }
    ```
    但与`struct`不同的是，进行`embedding`操作的顺序没有关系，`Reader`在前还是`Writer`并不会对生成的新接口有什么影响
-
+<!-- more -->
 ### Interfaces Satisfaction
 1. `interface`也有类似于Java中的`isA`的关系，即一个具体变量只要实现了相关的接口便可以赋值给对应的接口变量
    ```go

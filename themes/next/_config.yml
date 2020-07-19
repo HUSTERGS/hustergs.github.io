@@ -361,6 +361,24 @@ han: false
 # Duoshuo ShortName
 #duoshuo_shortname:
 
+comments:
+  # Available values: tabs | buttons
+  style: tabs
+  # Choose a comment system to be displayed by default.
+  # Available values: changyan | disqus | disqusjs | gitalk | livere | valine
+  active:
+  # Setting `true` means remembering the comment system selected by the visitor.
+  storage: true
+  # Lazyload all comment systems.
+  lazyload: false
+  # Modify texts or order for any navs, here are some examples.
+  nav:
+    #disqus:
+    #  text: Load Disqus
+    #  order: -1
+    #gitalk:
+    #  order: -2
+
 # Disqus
 disqus:
   enable: false
@@ -376,6 +394,20 @@ changyan:
   appid:
   appkey:
 
+# Gitalk
+# For more information: https://gitalk.github.io, https://github.com/gitalk/gitalk
+gitalk:
+  enable: true
+  github_id: HUSTERGS
+  repo: hustergs.github.io
+  client_id: f4626645f5cf0431c84a # GitHub Application Client ID
+  client_secret: c3c86f82433c73bd9b1994eb1645606eec522ffd # GitHub Application Client Secret
+  admin_user: HUSTERGS # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+  distraction_free_mode: true # Facebook-like distraction free mode
+  # Gitalk's display language depends on user's browser or system environment
+  # If you want everyone visiting your site to see a uniform language, you can set a force language value
+  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
+  language: zh-CN
 
 # Valine.
 # You can get your appid and appkey from https://leancloud.cn

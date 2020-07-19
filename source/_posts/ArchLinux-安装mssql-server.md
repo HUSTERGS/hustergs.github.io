@@ -15,7 +15,9 @@ categories:
    ```sh
    yay -S mssql-server msodbcsql mssql-tools
    ```
+
 ### 进行相关配置,如证书以及密码
+
 1. 选择证书版本以及配置密码
    ```sh
    $ sudo /opt/mssql/bin/mssql-conf setup
@@ -37,7 +39,9 @@ categories:
    ```sh
    sudo systemctl status mssql-server
    ```
+
 ### 链接数据库
+
 1. 命令行操作
    主要使用`sqlcmd`来进行登录
    ```sh
@@ -51,6 +55,7 @@ categories:
    ![](ArchLinux-安装mssql-server/VScode截图.png)
 3. 使用`DataGrip`
    > 可能会提示没有相关驱动,点击下载即可
+   
    添加新数据库,选择`Microsoft SQL Server`
    地址填写`localhost`,端口不用写
    用户名为`sa`

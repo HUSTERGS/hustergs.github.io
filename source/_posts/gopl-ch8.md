@@ -4,7 +4,10 @@ abbrlink: 8fd86e1
 categories:
   - Programming Language
   - Go
+date: 2020-08-05 00:38:19
+tags:
 ---
+
 
 ## Chapter 
 > Goroutines and Channels
@@ -81,7 +84,7 @@ channel又分为`buffered`/`unbuffered`两种，以下分别介绍这两种chann
    ch = make(chan int, 3) // bufferd channel with capacity 3
    ```
 
-    简单来说就是当缓冲区为空的时候，再次尝试接收，接收者会被阻塞，当缓冲区满了，再次尝试发送，发送者会被阻塞，其实很像**信号灯**。
+    简单来说就是当缓冲区为空的时候，再次尝试接收，接收者会被阻塞，当缓冲区满了，再次尝试发送，发送者会被阻塞，其实很像操作系统中学习的**信号灯**。
 2. 对buffered channel 可以使用`len`函数，返回缓冲区中元素的个数，同理可以使用`cap`获得缓冲区的大小
 
 
@@ -92,7 +95,15 @@ channel又分为`buffered`/`unbuffered`两种，以下分别介绍这两种chann
 ```go
 func squarer(out chan<- int, in <-chan int)
 ```
-其中out只能用于输出（向channel输入），in只能作为输入（从channel中获得）
+其中out只能用于输出（向channel输入），in只能作为输入（从channel中获得），参数的形式其实已经揭示了其用法，`out chan <- int`就意味着对于`out`只能使用形如`out <- someValue`的操作
+
+
 
 #### Looping in Parallel
-1. 
+#### Example: Concurrent Web Crawler
+#### Multiplexing with select
+#### Example: Concurrent Directory Traversal
+#### Cancellation
+#### Example: Chat Server
+以上几章的内容偏向于实践，包含大量代码，建议直接查看[原文](https://books.studygolang.com/gopl-zh/ch8/ch8.html)。
+其中Cancellation一节主要讲的是可以利用channel的`close`操作所带来的间接的**广播效果**（所有使用该channel的函数可以通过receive操作来获取知晓该channel被关闭，进而实现某种意义上的**通知**），来实现对所有的gorountine的取消（对应的gorountine内部需要编写对应的相应代码）

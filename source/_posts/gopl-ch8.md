@@ -47,6 +47,9 @@ tags:
    ```
 
 3. 除了退出之外没有其他办法使得一个`gorountine`停止另外一个，当然，依然可以通过`gorountine`之间的交流来*请求*对方停止
+
+<!-- more -->
+
 4. 我们常常使用函数字面量的方式，来启动一个`gorountine`，即`go 函数定义(传入参数)`，而这个过程又常常涉及到闭包，由于函数字面量可能在函数体中引用外部的变量，如`channel`
 ### Example: Concurrent Clock Server
 ### Example: Concurrent Echo Server

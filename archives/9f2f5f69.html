@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Go," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Chapter 3 Basic Date Types   basic types aggregate types arrays structs   reference types pointers slices maps functions channels   interface types  Integers int类型的细分 int8 以及对应的无符号版本uint8 int16 int32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gopl-ch3">
+<meta property="og:url" content="https://hustergs.github.io/archives/9f2f5f69.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Chapter 3 Basic Date Types   basic types aggregate types arrays structs   reference types pointers slices maps functions channels   interface types  Integers int类型的细分 int8 以及对应的无符号版本uint8 int16 int32">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-07T01:59:33.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.778Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/9f2f5f69.html"/>
+
+
+
+
+
+  <title>gopl-ch3 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/9f2f5f69.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">gopl-ch3</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-07T09:59:33+08:00">
+                2020-04-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  990 words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a>Chapter 3</h2><blockquote>
+<p>Basic Date Types</p>
+</blockquote>
+<ol>
+<li>basic types</li>
+<li>aggregate types<ul>
+<li>arrays</li>
+<li>structs</li>
+</ul>
+</li>
+<li>reference types<ul>
+<li>pointers</li>
+<li>slices</li>
+<li>maps</li>
+<li>functions</li>
+<li>channels</li>
+</ul>
+</li>
+<li>interface types</li>
+</ol>
+<h3 id="Integers"><a href="#Integers" class="headerlink" title="Integers"></a>Integers</h3><ol>
+<li><code>int</code>类型的细分<ul>
+<li><code>int8</code> 以及对应的无符号版本<code>uint8</code></li>
+<li><code>int16</code></li>
+<li><code>int32</code></li>
+<li><code>int64</code><br><code>byte</code>是<code>unit8</code>的别名，<code>rune</code>是<code>int32</code>的别名. 虽然一般认为<code>int</code>是32位的，但是<code>int</code>和<code>int32</code>是两种类型，并且需要显式的转换</li>
+</ul>
+</li>
+<li>模运算只能用于整数. 而对于负数来说结果的符号始终与被模数相同<code>-5%3</code>和<code>-5%-3</code>的结果都是<code>-2</code></li>
+<li>除法运算当两个操作数均为整数时结果为整数(小数截断),否则为浮点数</li>
+<li><code>&amp;^</code>运算符(AND NOT)与非</li>
+<li>关于无符号整数。一般<strong>只用在</strong>比特运算或者某些特定场景中，而<strong>不会仅仅因为所表达的数据确实是非负的就使用</strong>，考虑如下例子<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">medals := []<span class="keyword">string</span>&#123;<span class="string">"gold"</span>, <span class="string">"silver"</span>, <span class="string">"bronze"</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i := <span class="built_in">len</span>(medals) - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i-- &#123;</span><br><span class="line">    fmt.Println(medals[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+其中数组的长度确实始终是非负的，但是<code>len()</code>函数依然返回的是有符号整数而不是无符号整数。如果<code>len()</code>函数返回的是无符号整数的话，那么<code>i</code>也将是无符号整数，那么<code>i &gt;= 0</code>将永远为真，当<code>i=0</code>时执行<code>i--</code>将使得<code>i</code>变为<code>int</code>的最大值。<br>总之为了避免种种类似这种错误，避免在不必要的地方使用无符号整数<a id="more"></a>
+
+</li>
+</ol>
+<h3 id="Floating-Point-Numbers"><a href="#Floating-Point-Numbers" class="headerlink" title="Floating-Point Numbers"></a>Floating-Point Numbers</h3><ol>
+<li>关于<code>float32</code>和<code>float64</code>，几乎不使用<code>float32</code>，由于以下原因<ul>
+<li><code>float32</code>一般来说会随着计算不断地积累误差</li>
+<li><code>float32</code>能够计算的最小不出现误差的整数其实也很小<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float32</span> = <span class="number">16777216</span> <span class="comment">// 1 &lt;&lt; 24</span></span><br><span class="line">fmt.Println(f == f+<span class="number">1</span>) <span class="comment">// 为真</span></span><br></pre></td></tr></table></figure>
+<code>float32</code>可以表示大概6位的精确十进制，而<code>float64</code>为15位</li>
+</ul>
+</li>
+<li>与<code>NaN</code>的比较始终返回<code>false</code>，所以不能直接与<code>NaN</code>比较来判断，而需要使用<code>math.IsNaN</code><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nan := math.NaN()</span><br><span class="line">fmt.Prinln(nan == nan, nan &lt; nan, nan &gt; nan) <span class="comment">// 均为false</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Complex-Numbers"><a href="#Complex-Numbers" class="headerlink" title="Complex Numbers"></a>Complex Numbers</h3><h3 id="Booleans"><a href="#Booleans" class="headerlink" title="Booleans"></a>Booleans</h3><ol>
+<li>没有从数值变量到布尔变量的隐式转换(vice versa)，所以需要手动写<code>if</code>来判断<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i := <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> b &#123;</span><br><span class="line">    i = <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h3><ol>
+<li><code>string</code>类型的长度是由<code>byte</code>数来决定的,而不是字符数,<code>string</code>一般以<code>UTF-8</code>进行编码,非<code>ASCII</code>码字符可能会占用多个<code>byte</code>，同样的对<code>string</code>进行取下标操作所取得的也是<code>byte</code></li>
+<li>对<code>string</code>使用<code>slice</code>操作(不知道是不是叫这个，就用Python里的叫法吧)，得到的是一个对应范围的<code>byte</code>所组成的<strong>新的</strong>字符串</li>
+<li>可以使用Python中的省略slice起点和终点的语法</li>
+<li>使用双引号</li>
+<li>Go中的一个字符被称为<code>rune</code> (好像是废话)</li>
+<li>对int使用string强制类型转换并不是将其转化为对应文字的字符串，而是对应值的字符如<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(<span class="keyword">string</span>(<span class="number">65</span>)) <span class="comment">// "A" 而不是"65"</span></span><br></pre></td></tr></table></figure>
+如果需要转化的话，使用<code>strconv</code>包</li>
+<li>使用<code>rune</code>切片来获得以<strong>字符</strong>分割的数据,如<code>r := []rune(s)</code></li>
+<li>使用<code>Buufer.bytes</code>来构建字符串</li>
+<li>常用转换函数<ul>
+<li><code>strconv.Itoa(123)</code></li>
+<li><code>strconv.Atoi(&quot;123&quot;)</code></li>
+<li><code>strconv.ParseInt(&quot;123&quot;, 10, 64)</code> 十进制,最多64bit</li>
+</ul>
+</li>
+</ol>
+<h3 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h3><ol>
+<li>声明一系列const值的时候，会发生值的顺延<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    a = <span class="number">1</span></span><br><span class="line">    b <span class="comment">// 顺延a的值</span></span><br><span class="line">    c = <span class="number">2</span></span><br><span class="line">    d <span class="comment">// 顺延c的值</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>由上述性质产生了常量产生器(<em>Constant Generator</em>) <code>iota</code><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Weekday <span class="keyword">int</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    Sunday Weekday = <span class="literal">iota</span></span><br><span class="line">    Monday</span><br><span class="line">    Tuesday</span><br><span class="line">    Wednesday</span><br><span class="line">    Thursday</span><br><span class="line">    Friday</span><br><span class="line">    Saturday</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+其中<code>Sunday</code>为0,之后的依次顺延<br>并且可以使用更加复杂的表达式,如<code>1 &lt;&lt; (10 * iota)</code>,每次计算的时候也是将<code>iota</code>递增1</li>
+<li><code>Go</code>中的字面常量实际上是一种<strong>无类型常量</strong>(<em>Untyped Contants</em>), 其具有更高的精度(可以认为至少有256位)，并且有远超基本类型所能表示的数值范围和精度.如<code>math.Pi</code>. 当字面常量被赋值给某个基本类型的时候实际上进行了隐式的类型转换，这就要求目标类型能够装得下数据</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go/" rel="tag"># Go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/e8286fff.html" rel="next" title="gopl-ch2">
+                <i class="fa fa-chevron-left"></i> gopl-ch2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/14bcaca.html" rel="prev" title="gopl-ch4">
+                gopl-ch4 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3"><span class="nav-number">1.</span> <span class="nav-text">Chapter 3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Integers"><span class="nav-number">1.1.</span> <span class="nav-text">Integers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Floating-Point-Numbers"><span class="nav-number">1.2.</span> <span class="nav-text">Floating-Point Numbers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Complex-Numbers"><span class="nav-number">1.3.</span> <span class="nav-text">Complex Numbers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Booleans"><span class="nav-number">1.4.</span> <span class="nav-text">Booleans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strings"><span class="nav-number">1.5.</span> <span class="nav-text">Strings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Constants"><span class="nav-number">1.6.</span> <span class="nav-text">Constants</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

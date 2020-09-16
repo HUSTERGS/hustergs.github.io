@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Generic Programming8.2 Defining a Simple Generic Class 本节使用Pair作为例子,代码如下1234567891011public class Pair&lt;T&gt;&amp;#123;    private T first;    private T second;    public Pair() &amp;#123;first &#x3D; null; seco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Java Chapter8">
+<meta property="og:url" content="https://hustergs.github.io/archives/4271d7bf.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Generic Programming8.2 Defining a Simple Generic Class 本节使用Pair作为例子,代码如下1234567891011public class Pair&lt;T&gt;&amp;#123;    private T first;    private T second;    public Pair() &amp;#123;first &#x3D; null; seco">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-06T06:19:10.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.777Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/4271d7bf.html"/>
+
+
+
+
+
+  <title>Core Java Chapter8 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/4271d7bf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Core Java Chapter8</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-06T14:19:10+08:00">
+                2020-04-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.3k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  5 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Generic-Programming"><a href="#Generic-Programming" class="headerlink" title="Generic Programming"></a>Generic Programming</h2><h3 id="8-2-Defining-a-Simple-Generic-Class"><a href="#8-2-Defining-a-Simple-Generic-Class" class="headerlink" title="8.2 Defining a Simple Generic Class"></a>8.2 Defining a Simple Generic Class</h3><ol>
+<li>本节使用<code>Pair</code>作为例子,代码如下<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T second;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">()</span> </span>&#123;first = <span class="keyword">null</span>; second = <span class="keyword">null</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first, T second)</span> </span>&#123;<span class="keyword">this</span>.first = first; <span class="keyword">this</span>.second = second;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> first; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getSecond</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> second; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T newValue )</span> </span>&#123;first = newValue; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(T newValue )</span> </span>&#123;second = newValue;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>泛型类可以定义多个类型变量(常用<code>T</code>, <code>K</code>, <code>V</code>, <code>U</code>, <code>S</code>, <code>E</code>)</li>
+</ol>
+<h3 id="8-3-Generic-Methods"><a href="#8-3-Generic-Methods" class="headerlink" title="8.3 Generic Methods"></a>8.3 Generic Methods</h3><ol>
+<li>泛型方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArrayAlg</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">getMiddle</span><span class="params">(T... a)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a[a.length / <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">String middle = ArrayAlg.&lt;String&gt;getMiddle(<span class="string">"John"</span>, <span class="string">"Q."</span>, <span class="string">"Public"</span>);</span><br><span class="line"><span class="comment">// 或者省去&lt;String&gt;</span></span><br><span class="line">String middle = ArrayAlg.getMiddle(<span class="string">"John"</span>, <span class="string">"Q."</span>, <span class="string">"Public"</span>);</span><br></pre></td></tr></table></figure>
+大部分情况下类型推断都可以正常运作,但当传入的参数不是一致的类型时可能会发生问题,编译器会尝试寻找不同类型的共同父类来解决问题<a id="more"></a>
+
+</li>
+</ol>
+<h3 id="8-4-Bounds-for-Type-Variables"><a href="#8-4-Bounds-for-Type-Variables" class="headerlink" title="8.4 Bounds for Type Variables"></a>8.4 Bounds for Type Variables</h3><ol>
+<li>bounding type(不知道怎么翻译)<br><code>&lt;T extends BoundingType&gt;</code>表示传入的类型T至少为BoundingType的子类,其中BoundType可以是一个类(Class),也可以是一个接口(Interface).并使用<code>&amp;</code>来分隔对某一个类型的多个限制,如<code>&lt;T extends Comparable &amp; Serializable&gt;</code></li>
+</ol>
+<h3 id="8-5-Generic-Code-and-the-Virtual-Machine"><a href="#8-5-Generic-Code-and-the-Virtual-Machine" class="headerlink" title="8.5 Generic Code and the Virtual Machine"></a>8.5 Generic Code and the Virtual Machine</h3><p>本节主要说明泛型背后的秘密</p>
+<ol>
+<li>类型说明符首先被替换为<code>Object</code>,如果有bounding type的话将换为第一个bounding type<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原始</span></span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interval</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span> &amp; <span class="title">Seiralizable</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"> </span>&#123;</span><br><span class="line">     <span class="keyword">private</span> T lower;</span><br><span class="line">     <span class="keyword">private</span> T upper;</span><br><span class="line">     ...</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Interval</span><span class="params">(T first, T second)</span> </span>&#123;...&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 被替换为</span></span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interval</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"> </span>&#123;</span><br><span class="line">     <span class="keyword">private</span> Comparable lower;</span><br><span class="line">     <span class="keyword">private</span> Comparable upper;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Interval</span><span class="params">(Comparable first, Comparable second)</span> </span>&#123;...&#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果将<code>Serializable</code>和<code>Comparable</code>的顺序替换一下,那么所有的<code>T</code>将会被转化为<code>Serializable</code>,必要的时候会进行强制类型转换,而这必然会产生一定的消耗,所以建议将<code>tagging interface</code>(表示没有方法的接口)放到最后<br>每一次访问泛型类或者方法的时候都会自动插入强制类型转换(cast)</p>
+</blockquote>
+</li>
+<li>按照1所说的,泛型并不是生成了一族类或者函数,而只是生成了一个,必要的时候进行强制类型转换,这与C++中<code>template</code>有着本质上的不同</li>
+<li>当泛型类被继承的时候，由于上述所谓<em>erasure</em>的过程，和多态相作用可能会产生一些其他问题<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DateInterval</span> <span class="keyword">extends</span> <span class="title">Pair</span>&lt;<span class="title">LocalDate</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(LocalDate second)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> interval = <span class="keyword">new</span> DateInterval(...);</span><br><span class="line">Pair&lt;LocalDate&gt; pair = interval;</span><br><span class="line">pair.setSecond(aDate);</span><br></pre></td></tr></table></figure>
+由于<code>pair</code>声明类型为<code>Pair</code>,而<code>Pair</code>类型只有一个以<code>Object</code>为参数的<code>setSecond</code>方法,所以会调用<code>Pair</code>中的方法,而不是<code>DateInterval</code>中的方法,函数签名不同,所以不考虑后期绑定.为了解决这个问题,编译器会自动生成桥接方法(<em>bridge method</em>) <code>public void setSecond(Object second) { setSecond((LocalDate) second); }</code>(有点不懂)<h3 id="8-6-Restrictions-and-Limitations"><a href="#8-6-Restrictions-and-Limitations" class="headerlink" title="8.6 Restrictions and Limitations"></a>8.6 Restrictions and Limitations</h3><blockquote>
+<p>实际上可以认为泛型<code>T</code>在运行时完全不可用,只有类型检查等编译时可用操作的才能使用<code>T</code></p>
+</blockquote>
+</li>
+<li>运行时的类型检查只能看到原始类型,而不能看到泛型类型,如<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类型检查</span></span><br><span class="line"><span class="keyword">if</span> (a <span class="keyword">instanceof</span> Pair&lt;String&gt;) <span class="comment">// ERROR, 只能判定是否是Pair而不能加入&lt;String&gt;</span></span><br><span class="line"><span class="comment">// 强制类型转换</span></span><br><span class="line">Pair&lt;String&gt; p = (Pair&lt;String&gt;) a; <span class="comment">// warning -- can only test that a is a Pair</span></span><br><span class="line"><span class="comment">//getClass方法</span></span><br><span class="line">Pair&lt;String&gt; stringPair = ...;</span><br><span class="line">Pair&lt;Double&gt; doublePair = ...;</span><br><span class="line">stringPair.getClass() == doublePair.getClass() <span class="comment">// 相等,都等于Pair.class</span></span><br></pre></td></tr></table></figure></li>
+<li>无法创建泛型类的数组?如new Pair<String>[10];如果非要使用的话请使用<code>ArrayList</code>,唯一的特例是变长参数传递时,允许泛型数组</String></li>
+<li>无法创建泛型的实例如<code>new T()</code></li>
+<li>在泛型类的静态方法中无法使用泛型,由于泛型的确定是随着泛型类的实例化而发生的.所以静态方法使用泛型</li>
+<li>….</li>
+</ol>
+<h3 id="8-7-Inheritance-Rules-for-Generic-Types"><a href="#8-7-Inheritance-Rules-for-Generic-Types" class="headerlink" title="8.7 Inheritance Rules for Generic Types"></a>8.7 Inheritance Rules for Generic Types</h3><ol>
+<li>数组具有协变性, <code>Father[]</code>也是<code>Child[]</code>的父类，但是泛型不具有协变性<code>GenericClass&lt;Father&gt;</code>却不是<code>GenericClass&lt;Child&gt;</code>的父类</li>
+</ol>
+<h3 id="8-8-Wildcard-Types"><a href="#8-8-Wildcard-Types" class="headerlink" title="8.8 Wildcard Types"></a>8.8 Wildcard Types</h3><blockquote>
+<p>这一节似乎都在讨论泛型容器,而不是普遍的泛型</p>
+</blockquote>
+<ol>
+<li><p>子类<br><code>Pair&lt;? extends Employee&gt;</code><br>类型<code>Pair&lt;Manager&gt;</code>是<code>Pair&lt;? extends Employee&gt;</code>的子类(某种意义上的协变性),可以用于函数的复用<br>子类型的泛型限制会导致泛型容器只能够读取而不能写入</p>
+</li>
+<li><p>父类<br><code>Pair&lt;? super Manager&gt;</code>可写不可读(似乎还是可以读,只是只能用<code>Object</code>来接收)</p>
+</li>
+<li><p>无限制<br><code>Pair&lt;?&gt;</code>,返回值只能被复制给<code>Object</code>,并且不能写入<br>注意到这时没有一个具体类型的替代符号(如<code>T</code>),那我们该如何获取具体的类型呢,这时需要另外编写帮助函数,通过另外一个普通泛型函数来获取具体的类型,如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">swapHelper</span><span class="params">(Pair&lt;T&gt; p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T t = p.getFirst();</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(Pair&lt;?&gt; p)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    swapHelper(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其实有点不懂<code>&lt;?&gt;</code>和直接<code>&lt;T&gt;</code>的区别</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="8-9-Reflection-and-Generics"><a href="#8-9-Reflection-and-Generics" class="headerlink" title="8.9 Reflection and Generics"></a>8.9 Reflection and Generics</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/a5c9fab8.html" rel="next" title="Core Java Chapter6">
+                <i class="fa fa-chevron-left"></i> Core Java Chapter6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/e8286fff.html" rel="prev" title="gopl-ch2">
+                gopl-ch2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Programming"><span class="nav-number">1.</span> <span class="nav-text">Generic Programming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-Defining-a-Simple-Generic-Class"><span class="nav-number">1.1.</span> <span class="nav-text">8.2 Defining a Simple Generic Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-Generic-Methods"><span class="nav-number">1.2.</span> <span class="nav-text">8.3 Generic Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-Bounds-for-Type-Variables"><span class="nav-number">1.3.</span> <span class="nav-text">8.4 Bounds for Type Variables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-5-Generic-Code-and-the-Virtual-Machine"><span class="nav-number">1.4.</span> <span class="nav-text">8.5 Generic Code and the Virtual Machine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-6-Restrictions-and-Limitations"><span class="nav-number">1.5.</span> <span class="nav-text">8.6 Restrictions and Limitations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-7-Inheritance-Rules-for-Generic-Types"><span class="nav-number">1.6.</span> <span class="nav-text">8.7 Inheritance Rules for Generic Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-8-Wildcard-Types"><span class="nav-number">1.7.</span> <span class="nav-text">8.8 Wildcard Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-9-Reflection-and-Generics"><span class="nav-number">1.8.</span> <span class="nav-text">8.9 Reflection and Generics</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

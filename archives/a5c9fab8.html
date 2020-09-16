@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Interfaces, Lambda Expressions, and InnerClasses 又来写只给自己看到笔记了.每次读一本书读不完,或者读完了又由于没有实践就都忘记是真的很烦，作为这个系列的第一篇，希望可以开一个好头。主要的计划是将原本一本书一个md文件改为一个章节一个文件，也许会有帮助？   6.1 Interfaces 从Java5以来对于Comparable有了一些改动，提供了另">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Java Chapter6">
+<meta property="og:url" content="https://hustergs.github.io/archives/a5c9fab8.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Interfaces, Lambda Expressions, and InnerClasses 又来写只给自己看到笔记了.每次读一本书读不完,或者读完了又由于没有实践就都忘记是真的很烦，作为这个系列的第一篇，希望可以开一个好头。主要的计划是将原本一本书一个md文件改为一个章节一个文件，也许会有帮助？   6.1 Interfaces 从Java5以来对于Comparable有了一些改动，提供了另">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-30T07:31:22.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.777Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/a5c9fab8.html"/>
+
+
+
+
+
+  <title>Core Java Chapter6 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/a5c9fab8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Core Java Chapter6</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-30T15:31:22+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.7k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  10 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Interfaces-Lambda-Expressions-and-InnerClasses"><a href="#Interfaces-Lambda-Expressions-and-InnerClasses" class="headerlink" title="Interfaces, Lambda Expressions, and InnerClasses"></a>Interfaces, Lambda Expressions, and InnerClasses</h2><blockquote>
+<p>又来写只给自己看到笔记了.每次读一本书读不完,或者读完了又由于没有实践就都忘记是真的很烦，作为这个系列的第一篇，希望可以开一个好头。主要的计划是将原本一本书一个md文件改为一个章节一个文件，也许会有帮助？ </p>
+</blockquote>
+<h3 id="6-1-Interfaces"><a href="#6-1-Interfaces" class="headerlink" title="6.1 Interfaces"></a>6.1 Interfaces</h3><ol>
+<li><p>从Java5以来对于<code>Comparable</code>有了一些改动，提供了另外一个可选的泛型接口接口的<code>compareTo</code>函数由原来的接收一个<code>Object</code>作为参数，变为接收一个泛型<code>T</code>作为参数，在这种情况下可以免去强制类型转换以及类型判定的繁琐操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T other)</span></span>;<span class="comment">// 参数有了类型T</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Employee</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Employee other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Double.compare(salary, other.salary);</span><br><span class="line">        <span class="comment">// 没有cast</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然这也只是可选项，并没有强制要求</p>
+<blockquote>
+<p>对于Comparable，如果比较的是int，double等可能发生溢出的类型的时候(相减的时候)，需要使用对应的包装类(boxed class)的<code>compare</code>方法来避免溢出。</p>
+</blockquote>
+<blockquote>
+<p>同时理论上，对于大部分的类来说，当<code>equals</code>方法返回<code>true</code>的时候，<code>compareTo</code>方法也应该返回0，两者在这种情况下应该保持一致性，其中一个特例为<code>BigDecimal</code>，由于<code>equals</code>判定的时候考虑了精度</p>
+</blockquote>
+<blockquote>
+<p>理论上Comparable应该实现反向对称性(antisymmetry)，即<code>X.compareTo(Y) = - Y.compareTo(X)</code>，而继承有时候会破坏这一点(如果使用泛型的<code>Comparable</code>接口的话)</p>
+</blockquote>
+<a id="more"></a>
+</li>
+<li><p><code>interface</code>所有的方法自动设置为<code>public abstract</code>所以没有必要加上访问修饰符(Java 9似乎可以定义<code>private</code>方法，静态或者类方法，没有深入了解)。同时在实现(<code>implement</code>)一个接口的时候，所有的对应的方法都必须为<code>public</code>，与接口对应</p>
+</li>
+<li><p><code>interface</code>可以定义方法以及常量(<code>public static final</code>)，但是<strong>不能</strong>定义成员(instance field)。同时Java8以后为接口内编写函数体提供了可能</p>
+</li>
+<li><p><code>interface</code>可以被<code>extends</code>。与继承不同，一个类可以实现多个接口(implement multiple interfaces)，这也是接口与抽象类最大的不同(之一？)。不知道多个接口如果有同样的函数会发生什么。</p>
+</li>
+<li><p><code>interface</code>中可以加入<code>static</code>方法，但是不会继承到实现这个接口的类中。换句话就是接口的static方法只能通过接口名进行调用</p>
+</li>
+<li><p>通过使用<code>default</code>关键字可以给接口所定义的函数加上函数体，函数体中可以调用其他的函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> size() == <span class="number">0</span>;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题：实现一个抽象类的时候一定要实现它所定义的所有方法吗？</p>
+<p>并不是，分情况讨论，抽象类实现接口可以不实现所有的方法，同时由<code>default</code>修饰的方法也可以不实现(会自动继承)，其他情况似乎都要实现(大概)<br><code>default</code>的另外一个作用就是提供可维护性，原来写的代码不会因为接口更新之后添加了非<code>default</code>的方法而无法编译</p>
+</li>
+<li><p>当<code>dafault</code>函数之间出现冲突或者与父类的函数发生冲突的时候,两条原则</p>
+<ul>
+<li>父类强于接口</li>
+<li>接口之间发生冲突必须<code>Override</code>,事实上,即使两个接口之间一个通过<code>default</code>提供了实现,而另一个仅仅只是进行了生命也会发生冲突</li>
+</ul>
+</li>
+<li><p>有一些类的比较函数我们无法改变,如<code>String</code>,这时就需要使用<code>Comparator</code>，比较的时候实例化一个<code>Comparator</code>并调用<code>compare</code>方法即可，也可以传入<code>sort</code>函数来自定义比较方法(其实有点奇怪<code>compare</code>为什么不设计成静态方法)，当然也可以使用<code>lambda</code>函数传入<code>sort</code></p>
+</li>
+<li><p>一旦为一个类制定了相应的clone策略,那么他的所有子类都必须制定相应的策略,否则有可能出现成员是一个可变对象(<em>mutable</em>)而导致错误的情况(深拷贝).所以有些人建议尽可能少的使用clone,事实上只要不到5%的Java类实现了Cloneable接口.</p>
+</li>
+<li><p>在Java1.4之前 clone方法只能返回Object对象,但是现在我们可以自定义返回类型从而和类相符合</p>
+</li>
+</ol>
+<h3 id="6-2-Lambda-Expressions"><a href="#6-2-Lambda-Expressions" class="headerlink" title="6.2 Lambda Expressions"></a>6.2 Lambda Expressions</h3><ol>
+<li><p>例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 省略了类型</span></span><br><span class="line">Comparator&lt;String&gt; comp = (first, second) -&gt; first.length() - second.length(); </span><br><span class="line"><span class="comment">// 允许函数在某些情况下返回值而其他情况不返回</span></span><br><span class="line">(<span class="keyword">int</span> x) -&gt; &#123;<span class="keyword">if</span> (x &gt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于接口中的抽象函数和非抽象函数</p>
+</li>
+<li><p>在Java中lambda表达式只能作为interface(functional interface)的替代,甚至都不能赋值给一个<code>Object</code>对象(由于<code>Object</code>不是一个<code>functional interface</code>),只能赋值给functional interface</p>
+</li>
+<li><p>函数引用(function reference)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = <span class="keyword">new</span> Timer(<span class="number">1000</span>, event-&gt;System.out.println(event));</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">var</span> timer = <span class="keyword">new</span> Timer(<span class="number">1000</span>, System.out::println);</span><br></pre></td></tr></table></figure>
+<p>其中<code>System.out::println</code>即为函数引用,函数引用在使用的时候实际上会被编译器转化为对应的interface,并重写(Override)其中<strong>唯一</strong>的抽象方法(abstract method).可能出现函数本身有重载的情况,由于在使用函数引用的时候并没给出函数签名,而只是给出了函数名. 如此处的<code>println</code>方法有10个重载方法.此时编译器会根据其要转换的interface中抽象方法的签名来选择合适的函数.(上述例子会选择println(Object))</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Runnable task = System.out::println;</span><br><span class="line"><span class="comment">// 其中Runnable接口中有唯一的方法void run(),所以选中的是println()方法</span></span><br><span class="line">task.run(); <span class="comment">// 相当于System.out.println();</span></span><br><span class="line"><span class="comment">// 其他的例子</span></span><br><span class="line">list.removeIf(Objects::isNull);</span><br><span class="line"><span class="comment">// 等价于 list.removeIf(e -&gt; e == null);</span></span><br></pre></td></tr></table></figure></li>
+<li><p>对于构造函数的引用是<code>ClassName::new</code>,对于构造函数的引用可以解决Java本身存在的一些缺陷,如没有泛型数组.<code>new T[n]</code>会被自动变为<code>new Object[n]</code>.使用构造函数的引用可以在某种程度上解决这个问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object[] people = stream.toArray();<span class="comment">// 不满足要求</span></span><br><span class="line">Person[] people = stream.toArray(Person[]:<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p><code>lambda</code>表达式由三个部分组成</p>
+<ul>
+<li>参数列表</li>
+<li>函数体</li>
+<li><strong>自由变量</strong>(free variable)</li>
+</ul>
+<p>自由变量即为lambda表达式可以捕获的外界的变量.Java对其有很严格的要求,只能是<code>effectively final</code>(An effetively final variable is a variable that is never assigned a new value after it has been initialized)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">repeat</span><span class="params">(String text, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; count; i++) &#123;</span><br><span class="line">      ActionListener listener = event -&gt; &#123;</span><br><span class="line">         System.out.println(i + <span class="string">": "</span> + text);</span><br><span class="line">         <span class="comment">// 出错,由于引用了i, 但是引用text是可以的</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>lambda</code>表达式同样有名称冲突的问题.作为lambda表达式参数的名字不能与<code>lambda</code>表达式所在的代码块含有的其他变量同名</p>
+</li>
+<li><p><code>this</code>似乎可以由6来解释,如果在<code>lambda</code>表达式中使用<code>this</code>变量的话,指的也是环境中的<code>this</code></p>
+</li>
+<li><p>使用<code>@FunctionalInterface</code>是一个好主意</p>
+</li>
+<li><p><code>Comparators</code>的一些其他的静态方法.</p>
+<ul>
+<li><code>comparing</code>可以用来自定义用于比较的<code>key</code>,比如将人(Person)根据名字来比较,此时要求用于比较的<code>key</code>本身是可以比较的(也即实现了<code>Comparable</code>接口)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(people, Comparator.comparing(Person::getName));</span><br><span class="line"><span class="comment">// 参数可以是函数引用也可以是lambda表达式</span></span><br><span class="line">Arrays.sort(people, Comparator.comparing(Person::getName).thenComparing(Person::getFirstName)); <span class="comment">// 甚至可以链式制定下一级的比较对象</span></span><br></pre></td></tr></table></figure></li>
+<li>基本类型没有实现<code>Comparable</code>(甚至都不是类),所以<code>Comparator</code>有其他的针对基本类型的包装<code>comparing</code>函数<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(people, Comparator.comparingInt(p -&gt; p.getName().length()));</span><br></pre></td></tr></table></figure>
+<h3 id="6-3-Inner-Classes"><a href="#6-3-Inner-Classes" class="headerlink" title="6.3 Inner Classes"></a>6.3 Inner Classes</h3></li>
+</ul>
+</li>
+<li><p>为什么需要内部类(<code>Inner Classes</code>)</p>
+<ul>
+<li>可以向其他的类隐藏内部类的存在</li>
+<li>内部类可以访问包含者的数据,甚至是private的数据</li>
+</ul>
+</li>
+<li><p>本节使用以下例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TalkingClock</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> interval;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">boolean</span> beep;</span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">TalkingClock</span><span class="params">(<span class="keyword">int</span> interval, <span class="keyword">boolean</span> beep)</span> </span>&#123;...&#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimePrinter</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span></span><br><span class="line"><span class="class">   // <span class="title">an</span> <span class="title">inner</span> <span class="title">class</span></span></span><br><span class="line"><span class="class">   </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"At the tone, the time is "</span></span><br><span class="line">            + Instant.ofEpochMilli(event.getWhen()));</span><br><span class="line">         <span class="keyword">if</span> (beep) Toolkit.getDefaultToolkit().beep();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到内部类<code>TimerPrinter</code>访问了外部类中的<code>beep</code>成员,并且为<code>private</code>,同时我们可将内部类定义为<code>private</code>,这样的话就只有外部类可以创建并访问内部类,一般来说一个类都只能是<code>public</code>或者包访问权限,内部类是个例外</p>
+</li>
+<li><p>内部类访问外部类的方法<br>内部类访问外部类的正确姿势应该是如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   ...</span><br><span class="line">   <span class="keyword">if</span> (TalkingClock.<span class="keyword">this</span>.beep) Toolkit.getDefautlToolkit().beep();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也即通过<code>OuterClass.this</code>来访问</p>
+</li>
+<li><p>外部类创建内部类<br>在外部类之中,创建内部类使用如下语法<code>outerObject.new InnerClass(construction parameters)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActionListener listener = <span class="keyword">this</span>.<span class="keyword">new</span> TimrPrinter(); <span class="comment">// this.可以去掉</span></span><br></pre></td></tr></table></figure>
+<p>而当内部类被声明为<code>public</code>,并且从外部访问时(指外部类的外部),就需要明确指出<code>outerObject</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jabberer = <span class="keyword">new</span> TalkingClock(<span class="number">1000</span>, <span class="keyword">true</span>);</span><br><span class="line">TalkingClock.TimePrinter listener = jabberer.<span class="keyword">new</span> TimePrinter();</span><br></pre></td></tr></table></figure>
+<p>内部类的<strong>静态成员</strong>必须为final,并用常量初始化,同时内部类<strong>不能有静态方法</strong><br>同时需要认识到内部类是在范围内产生影响,对于JVM来说根本不会意识到内部类的存在,编译器在编译阶段会将内部类转化为普通的类. 同时会通过一些方法来使得这个类能够访问外部类的私有属性,总之就是让其具有更高的访问权限.也正是由于这个原因,理论上是有办法通过内部类来破除外部类的访问限制的,但是仅仅从代码层面无法做到,需要对<code>.class</code>文件进行修改,所以一般不考虑</p>
+</li>
+<li><p>本地内部类(<code>Local Inner Classes</code>)<br>就是在类方法中定义的内部类,这种内部类没有访问权限控制,他们只能够在所属的方法中被访问,但是同时,它不仅能够访问外部类,而且可以访问该方法中的局部变量(只能够是<code>effectively final</code>)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">start</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="class"><span class="keyword">class</span> <span class="title">TimePrinter</span> <span class="keyword">implements</span> <span class="title">ActionListener</span></span></span><br><span class="line"><span class="class">   </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"At the tone, the time is "</span></span><br><span class="line">            + Instant.ofEpochMilli(event.getWhen()));</span><br><span class="line">         <span class="keyword">if</span> (beep) Toolkit.getDefaultToolkit().beep();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">var</span> listener = <span class="keyword">new</span> TimePrinter();</span><br><span class="line">   <span class="keyword">var</span> timer = <span class="keyword">new</span> Timer(interval, listener);</span><br><span class="line">   timer.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上在1秒之后,局部变量<code>beep</code>已经不存在了,所以在内部类中访问的<code>beep</code>实际上是对原有的<code>beep</code>进行了复制(是只有基本类型是这样还是类也是这样呢?)</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/49eba02e.html" rel="next" title="hexo常用指令以及tips">
+                <i class="fa fa-chevron-left"></i> hexo常用指令以及tips
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/4271d7bf.html" rel="prev" title="Core Java Chapter8">
+                Core Java Chapter8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Interfaces-Lambda-Expressions-and-InnerClasses"><span class="nav-number">1.</span> <span class="nav-text">Interfaces, Lambda Expressions, and InnerClasses</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-Interfaces"><span class="nav-number">1.1.</span> <span class="nav-text">6.1 Interfaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-Lambda-Expressions"><span class="nav-number">1.2.</span> <span class="nav-text">6.2 Lambda Expressions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-Inner-Classes"><span class="nav-number">1.3.</span> <span class="nav-text">6.3 Inner Classes</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

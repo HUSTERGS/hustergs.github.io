@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HUST," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章基本知识 十进制小数转二进制 &#x3D;&gt; 求二进制取m位小数的时候，求出m+1位，然后对最低位进行0舍1入处理 P8  将符号位和数值一起编码 &#x3D;&gt; 机器码 &#x3D;&gt; 原码、反码、补码 P10 原码 简单的符号位和数值的组合，问题在于有两个0 反码 如果是负数，数值位取反 补码 负数，数值位取反之后在最低位加一 &#x3D;&gt; 小数也是一样  十进制数的二进制编码(BCD) &#x3D;&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数电复习笔记">
+<meta property="og:url" content="https://hustergs.github.io/archives/beb9abc0.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="第一章基本知识 十进制小数转二进制 &#x3D;&gt; 求二进制取m位小数的时候，求出m+1位，然后对最低位进行0舍1入处理 P8  将符号位和数值一起编码 &#x3D;&gt; 机器码 &#x3D;&gt; 原码、反码、补码 P10 原码 简单的符号位和数值的组合，问题在于有两个0 反码 如果是负数，数值位取反 补码 负数，数值位取反之后在最低位加一 &#x3D;&gt; 小数也是一样  十进制数的二进制编码(BCD) &#x3D;&gt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hustergs.github.io/archives/beb9abc0/1557836214688.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/%E6%95%B0%E7%94%B5%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/1557836214688.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/beb9abc0/1557836233745.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/beb9abc0/1557836258673.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/%E6%95%B0%E7%94%B5%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/1557836233745.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/%E6%95%B0%E7%94%B5%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/1557836258673.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A+(B%20%5Ccdot%20C)%20=%20(A%20+%20B)%20%5Ccdot(A+C)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20(B+C)%20=%20A%5Ccdot%20B+A%5Ccdot%20C">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Coverline%7BA%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20+%20%5Coverline%7BA%7D%20=%201%20">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20%5Coverline%7BA%7D%20=%200">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20+%20A%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20A%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20+%20A%20%5Ccdot%20B%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20(A%20+%20B)%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20+%20%5Coverline%7BA%7D%20%5Ccdot%20B%20=%20A%20+%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20(%5Coverline%7BA%7D%20+%20B)%20=%20A%20%5Ccdot%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20B%20+%20A%20%5Ccdot%20%5Coverline%7BB%7D%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?(A+B)%20%5Ccdot%20(A%20+%20%5Coverline%7BB%7D)%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20B+%20%5Coverline%7BA%7D%20%5Ccdot%20C%20+%20B%20%5Ccdot%20C%20=%20A%20%5Ccdot%20B%20+%20%5Coverline%7BA%7D%20%5Ccdot%20C">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?(A%20+%20B)%20%5Ccdot%20(%5Coverline%7BA%7D%20+%20C)%5Ccdot(B+C)%20=%20(A%20+B)%5Ccdot%20(%5Coverline%7BA%7D%20+C)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20G%20===%3E%20F">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BAB%7D%20%5Ccdot%201%7D%20=%20%5Coverline%7B%5Coverline%7BAB%7D%7D%20=%20A%20%5Ccdot%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BA%20%5Ccdot%201%7D%20%5Ccdot%20%5Coverline%7BB%20%5Ccdot%201%7D%7D%20=%20%5Coverline%7B%5Coverline%7BA%7D%20%5Ccdot%20%5Coverline%7BB%7D%7D%20=%20A%20+%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7BA%20%5Ccdot%201%7D%20=%20%5Coverline%7BA%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BA%20+%200%7D%20+%20%5Coverline%7BB%20+%200%7D%7D%20=%20%5Coverline%7B%5Coverline%7BA%7D%20+%20%5Coverline%7BB%7D%7D%20=%20A%20%5Ccdot%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BA%20+%20B%7D%20+%200%7D%20=%20%5Coverline%7B%5Coverline%7BA%20+%20B%7D%7D%20=%20A%20+%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7BA%20+%200%7D%20=%20%5Coverline%7BA%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20A%20%5Coplus%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F%20=%20A%20%5Codot%20B">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%20%5Coplus%20B%20=%20%5Coverline%7BA%20%5Codot%20B%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Coverline%7Bm_i%7D%20=%20M_i">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X%20=%20X%20%5Ccdot%20(Y%20+%20%5Coverline%7BY%7D)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X%20=%20(X%20+%20%5Coverline%7BY%7D)(X%20+%20Y)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A%5Coverline%7BB%7D%20+%20B%5Coverline%7BC%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?m_5">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?M_7">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5CSigma%20m_i">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cprod%20M_i">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?2%5En">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?AB%20+%20A%5Coverline%7BB%7D%20=%20A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cbigoplus">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Cbigodot">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?A">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Coverline%7BA%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?t_%7Bpd%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%5Coverline%7BX%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X+%5Coverline%7BX%7D">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X%20%5Ccdot%20%5Coverline%7BX%7D">
+<meta property="article:published_time" content="2019-05-22T15:44:04.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.781Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="HUST">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hustergs.github.io/archives/beb9abc0/1557836214688.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/beb9abc0.html"/>
+
+
+
+
+
+  <title>数电复习笔记 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/beb9abc0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">数电复习笔记</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T23:44:04+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Review/" itemprop="url" rel="index">
+                    <span itemprop="name">Review</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HUST/" itemprop="url" rel="index">
+                    <span itemprop="name">HUST</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  3.3k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
+<li><p>十进制小数转二进制 =&gt; 求二进制取m位小数的时候，求出m+1位，然后对最低位进行0舍1入处理 P8</p>
+</li>
+<li><p>将符号位和数值一起编码 =&gt; 机器码 =&gt; 原码、反码、补码 P10</p>
+<p>原码 简单的符号位和数值的组合，问题在于有两个0</p>
+<p>反码 如果是负数，数值位取反</p>
+<p>补码 负数，数值位取反之后在最低位加一 =&gt; 小数也是一样</p>
+</li>
+<li><p>十进制数的二进制编码(BCD) =&gt; 8421、2421、余三 P13</p>
+<p>8421 =&gt; 简单的去掉大于等于10的值，在转化的时候要注意固定是4位对应十进制的一位</p>
+<p>2421 =&gt; 权值依次为 2、4、2、1 所以不具备单值性，不能出现<strong>0101~1010</strong>但是好处在于它是<strong>对9的自补代码</strong>所以可以很方便的将减法转化为加法。同时也可以利用这个特性来记忆，即0～4与8421码相同，5～9通过取反得到，注意是对9取反，不是对10</p>
+<p>余3码 =&gt; 为了结合8421以及2421的特性，通过将8421码加3得到。是一种<strong>无权码</strong>，也是<strong>对9的自补代码</strong>，但是需要进行修正 两个余3码的10进制数相加的时候，<strong>如果有进位，结果加3,没有进位，结果减3</strong>，将余3码转化为十进制，可以先减去3,即0011,然后就变为了正常的二进制数 =&gt;     </p>
+<blockquote>
+<p> 不是很懂这个地方所说的<strong>结果</strong>是指的什么</p>
+</blockquote>
+<p>注意以上的三种编码在转化为10进制的时候，都是每4位对应一个十进制位</p>
+</li>
+</ol>
+<a id="more"></a>
+
+
+<ol start="4">
+<li><p>格雷码 特点：<strong>任意两个相邻的数，他们的格雷码只有一位不同</strong> =&gt; 为了解决二进制数加一或者减一的时候由于有多个位发生变化，不同的位之间的变化速度可能不一致，因而产生的中间状态可能导致错误。比如<code>01</code>加1变为<code>10</code>，两位都发生了变化。 P15<br> <img src="/archives/beb9abc0/1557836214688.png" alt></p>
+<!-- <img src="数电复习笔记/1557836214688.png" width="70%"></img> -->
+
+<p> <img src="/archives/beb9abc0/1557836233745.png" alt><br> <img src="/archives/beb9abc0/1557836258673.png" alt></p>
+</li>
+</ol>
+<!-- <img src="数电复习笔记/1557836233745.png" width="70%"></img>
+
+<img src="数电复习笔记/1557836258673.png" width="70%"></img> -->
+
+<blockquote>
+<p>真正传输的时候用的是格雷码吗？还是说只是作为一种检测的方法？</p>
+</blockquote>
+<ol>
+<li><p>奇偶校验码 P15</p>
+<p>包括信息位和校验位，奇/偶校验分别表示加上校验位之后就会<strong>使代码中的1的数目为奇/偶</strong>，或者说，如果信息位中的1的个数是偶数，那么奇校验的校验位就是1，反之亦然。检测是否出错的时候，是检测包括校验位在内的1的个数是否是先前约定好的校验方法的位数。只能发现<strong>单错</strong>，不能发现双错，并且不能纠错，但是非常容易实现</p>
+<blockquote>
+<p>格雷码可以纠错吗？</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><h2 id="逻辑代数基础"><a href="#逻辑代数基础" class="headerlink" title="逻辑代数基础"></a>逻辑代数基础</h2><ol>
+<li><p>比较重要的几个公式 P19<br>公理：</p>
+<p>分配率 <img src="http://latex.codecogs.com/gif.latex?A+(B%20%5Ccdot%20C)%20=%20(A%20+%20B)%20%5Ccdot(A+C)" alt></p>
+<p>​      <img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20(B+C)%20=%20A%5Ccdot%20B+A%5Ccdot%20C" alt></p>
+<p>在化简的时候很有用，尤其是第一个公式反着用</p>
+<p>互补率</p>
+<p>存在<strong>唯一的</strong><img src="http://latex.codecogs.com/gif.latex?%5Coverline%7BA%7D" alt>使得 <img src="http://latex.codecogs.com/gif.latex?A%20+%20%5Coverline%7BA%7D%20=%201%20" alt> <img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20%5Coverline%7BA%7D%20=%200" alt></p>
+<p>其实很少用到，但是在一些很刁钻的证明的时候会用到这里的<strong>唯一性</strong></p>
+</li>
+<li><p>两个逻辑函数相等，即对于所有可能的变量的输入，两个函数的真值都相同 P22</p>
+<ul>
+<li>枚举</li>
+<li>化简</li>
+</ul>
+</li>
+<li><p>描述逻辑函数 =&gt; 逻辑表达式、真值表、卡诺图 P23</p>
+<p>逻辑表达式 字面意思</p>
+<p>真值表 字面意思 一般为了不发生遗漏，按照二进制数递增的顺序写</p>
+<p>卡诺图 这一节没有讲，所以以后再说</p>
+</li>
+<li><p>逻辑代数的基本定理 P24</p>
+<p>这里有很多的公式都比较重要</p>
+<p>幂等性 很好记，不经常用 </p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20+%20A%20=%20A" alt> </p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20A%20=%20A" alt></p>
+<p>定理3 很好用 经常用 </p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20+%20A%20%5Ccdot%20B%20=%20A" alt> </p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20(A%20+%20B)%20=%20A" alt></p>
+<p>定理4 很好用 经常用 </p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20+%20%5Coverline%7BA%7D%20%5Ccdot%20B%20=%20A%20+%20B" alt></p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20(%5Coverline%7BA%7D%20+%20B)%20=%20A%20%5Ccdot%20B" alt></p>
+<p>定理7 第二个可能会用到，第一个很显然 </p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20B%20+%20A%20%5Ccdot%20%5Coverline%7BB%7D%20=%20A" alt> </p>
+<p><img src="http://latex.codecogs.com/gif.latex?(A+B)%20%5Ccdot%20(A%20+%20%5Coverline%7BB%7D)%20=%20A" alt></p>
+<p>定理8 有可能会用到第一个，如果真的遇到第二个那也没办法</p>
+<p><img src="http://latex.codecogs.com/gif.latex?A%20%5Ccdot%20B+%20%5Coverline%7BA%7D%20%5Ccdot%20C%20+%20B%20%5Ccdot%20C%20=%20A%20%5Ccdot%20B%20+%20%5Coverline%7BA%7D%20%5Ccdot%20C" alt></p>
+<p><img src="http://latex.codecogs.com/gif.latex?(A%20+%20B)%20%5Ccdot%20(%5Coverline%7BA%7D%20+%20C)%5Ccdot(B+C)%20=%20(A%20+B)%5Ccdot%20(%5Coverline%7BA%7D%20+C)" alt></p>
+</li>
+</ol>
+<ol start="5">
+<li><p>重要规则 P25</p>
+<p>带入规则 字面意思</p>
+<p>反演规则 比较重要 经常用到 需要注意的地方就是转化的时候要保持原来式子的计算顺序</p>
+<p>对偶规则 实际上好像用到的不是很多  <img src="http://latex.codecogs.com/gif.latex?F%20=%20G%20===%3E%20F'%20=%20G'" alt> 可以使定理、公式的证明减少一半</p>
+</li>
+<li><p>由于异或、与或等等门的性能更高，所以常常将某一个逻辑式子转化为<strong>与非</strong>、<strong>或非</strong>逻辑，基本原理就是与非和或非可以表示基本的与、或、非逻辑。 P27</p>
+<p>与非：</p>
+<p>与 <img src="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BAB%7D%20%5Ccdot%201%7D%20=%20%5Coverline%7B%5Coverline%7BAB%7D%7D%20=%20A%20%5Ccdot%20B" alt></p>
+<p>或 <img src="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BA%20%5Ccdot%201%7D%20%5Ccdot%20%5Coverline%7BB%20%5Ccdot%201%7D%7D%20=%20%5Coverline%7B%5Coverline%7BA%7D%20%5Ccdot%20%5Coverline%7BB%7D%7D%20=%20A%20+%20B" alt></p>
+<p>非 <img src="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7BA%20%5Ccdot%201%7D%20=%20%5Coverline%7BA%7D" alt></p>
+<p>需要记住的基本上是第三个式子，其他的都可以根据第三个推出来</p>
+</li>
+</ol>
+<p>   或非：</p>
+<p>   与 <img src="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BA%20+%200%7D%20+%20%5Coverline%7BB%20+%200%7D%7D%20=%20%5Coverline%7B%5Coverline%7BA%7D%20+%20%5Coverline%7BB%7D%7D%20=%20A%20%5Ccdot%20B" alt></p>
+<p>   或 <img src="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7B%5Coverline%7BA%20+%20B%7D%20+%200%7D%20=%20%5Coverline%7B%5Coverline%7BA%20+%20B%7D%7D%20=%20A%20+%20B" alt></p>
+<p>   非 <img src="http://latex.codecogs.com/gif.latex?F%20=%20%5Coverline%7BA%20+%200%7D%20=%20%5Coverline%7BA%7D" alt></p>
+<p>   也是要记住第三个</p>
+<p>   与或非逻辑：</p>
+<p>   实际上很少用到，并且不划算，所以就不说了</p>
+<p>   异或逻辑和同或：</p>
+<p>   异或：</p>
+<p>   异或逻辑原本是两个变量的逻辑关系，但是实际上可以用于多个变量，但是意义就变得不是那么清晰了</p>
+<p>   <img src="http://latex.codecogs.com/gif.latex?F%20=%20A%20%5Coplus%20B" alt> 表示当A、B不同的时候F才为1，因此称为异或</p>
+<blockquote>
+<p><strong>注意</strong>:这个性质对于多个变量的异或是不成立的，也就是说三个变量的异或并不是说当三个变量相同的时候F就是0,其他时候就是1。</p>
+</blockquote>
+<p>   多个变量异或的时候，如果有奇数个变量的值是1,那么输出就是1,否则为0</p>
+<p>   同或：</p>
+<p>   <img src="http://latex.codecogs.com/gif.latex?F%20=%20A%20%5Codot%20B" alt> A B相同的时候输出1，其余时候输出0，其他特性跟异或差不多，就不赘述了</p>
+<p>   多个变量异或的时候，如果有奇数个变量的值是0,那么输出就是0,否则为1</p>
+<p>   异或和同或在两个变量的时候具有非的关系，即</p>
+<p>   <img src="http://latex.codecogs.com/gif.latex?A%20%5Coplus%20B%20=%20%5Coverline%7BA%20%5Codot%20B%7D" alt> 但是注意，这个性质只能用于两个变量的时候。也是因为这个性质，所以我么一般不会使用同或，大部分都是使用异或(我猜的)</p>
+<blockquote>
+<p>实际上多变量的时候，异或和同或也是有一定关系的，即如果变量的个数是偶数，那么异或和同或就相反，如果变量的个数是奇数，那么异或和同或就相同，但是实际上用到的比较少(没见过)</p>
+</blockquote>
+<ol start="7">
+<li><p>逻辑表达式的 基本形式 标准形式 以及其相互转换 P29</p>
+<p>基本形式 “与或”、“或与”</p>
+</li>
+</ol>
+<p>   标准形式 “标准与或”、“标准或与” =&gt; 建立在<strong>最大项</strong>、<strong>最小项</strong>的基础之上</p>
+<p>   注意最小项的原变量、反变量和最大项的相反，前者是用1来表示原变量，0来表示反变量，后者相反</p>
+<p>   两者之间存在以下关系</p>
+<p>   <img src="http://latex.codecogs.com/gif.latex?%5Coverline%7Bm_i%7D%20=%20M_i" alt></p>
+<p>   如何将基本形式转化为标准形式？</p>
+<ul>
+<li><p>利用 <img src="http://latex.codecogs.com/gif.latex?X%20=%20X%20%5Ccdot%20(Y%20+%20%5Coverline%7BY%7D)" alt> 以及 <img src="http://latex.codecogs.com/gif.latex?X%20=%20(X%20+%20%5Coverline%7BY%7D)(X%20+%20Y)" alt> 得到标准与或和标准或与</p>
+</li>
+<li><p>利用真值表 真值表的<code>1</code>即代表最小项，<code>0</code>代表最大项，如<img src="http://latex.codecogs.com/gif.latex?A%5Coverline%7BB%7D%20+%20B%5Coverline%7BC%7D" alt>)在分别取101的时候是1,所以包含有<img src="http://latex.codecogs.com/gif.latex?m_5" alt>),在分别取111的时候是0,所以包含<img src="http://latex.codecogs.com/gif.latex?M_7" alt>，注意这个时候的最大项和最小项的取法都是一样的，取值是多少就是多少，不是相反的关系</p>
+<blockquote>
+<p>同时我们也可以很容易的得到，<img src="http://latex.codecogs.com/gif.latex?%5CSigma%20m_i" alt>)和<img src="http://latex.codecogs.com/gif.latex?%5Cprod%20M_i" alt>是互补的 换句话说，如果得到了一个，可以很容易的得到另外一个，在求标准或与的时候，可以先对整个式子求反，然后求出他的标准与或，然后再求反就可以得到标准或与(其实挺麻烦的，当我没说)</p>
+</blockquote>
+</li>
+</ul>
+<ol start="8">
+<li><p>逻辑函数化简 P34</p>
+<p>重点在与或表达式的化简</p>
+<p>玄学化简：</p>
+<p>基本上就是用之前提到的重要公理以及重要公式来化简，再加一个配项法</p>
+<p>难度其实不是很大，注意在化简或与表达式的时候可以使用两次对偶的办法，就是先求对偶，然后得到最简与或，然后再对偶一次，注意，<strong>对偶只是改变或和与，并不取反</strong></p>
+</li>
+</ol>
+<p>   卡诺图化简：</p>
+<p>   根据真值将不同的变量组合写在一张表上，注意写的时候要保证相邻的两项之间只有一个位不同，即<code>01</code>之后是<code>11</code>不是<code>10</code>。如果变量数超过了5个，那么也不强求，一般不会遇到这种情况</p>
+<p>   卡诺图的特点：</p>
+<ol>
+<li><p>n个变量的卡诺图由<img src="http://latex.codecogs.com/gif.latex?2%5En" alt>个小方格组成，每个小方格代表一个最小项</p>
+</li>
+<li><p>相邻、相对、<strong>相重</strong>位置上的小方格代表的最小项就是相邻最小项 =&gt; 相对是指边界情况，相重是变量数超过5个的情况，一般不会遇到，遇到就完蛋</p>
+<p>卡诺图的原理就是相邻的最小项可以通过<img src="http://latex.codecogs.com/gif.latex?AB%20+%20A%5Coverline%7BB%7D%20=%20A" alt>合并</p>
+<p>如何画卡诺圈？</p>
+<p>画多了就知道了</p>
+<p>如果求的过程之中遇到了或与表达式，一般都是取一次反，让其变为与或，或者针对卡诺图上的<code>0</code>来化简之后在取反</p>
+<p>卡诺图受变量个数的影响非常之大，一般来说只能处理1~4变量的情况</p>
+</li>
+</ol>
+<h1 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h1><h2 id="组合逻辑电路"><a href="#组合逻辑电路" class="headerlink" title="组合逻辑电路"></a>组合逻辑电路</h2><ol>
+<li><p>组合逻辑电路就是单纯的逻辑器件的连接，非常直观、直接，其中<strong>信号是单向传播的，不存在任何反馈电路</strong> P97</p>
+</li>
+<li><p>根据逻辑电路图写出输出函数表达式，没什么好说的，根据题目需要来决定是否要化简 P98</p>
+</li>
+<li><p>组合逻辑电路设计  P100</p>
+<p>基本过程：</p>
+<ul>
+<li>真值表法<ul>
+<li>根据题目要求，假设变量，写出真值表</li>
+<li>画出卡诺图</li>
+<li>得到最简表达式 =&gt; 电路</li>
+<li>有时候还需要根据题目限制用的门的类型进行转换</li>
+</ul>
+</li>
+<li>玄学设计法<ul>
+<li>对设计要求的<strong>分析、理解</strong>，直接写出逻辑表达式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>可能遇到的问题 P104</p>
+<ul>
+<li>包含无关项的组合逻辑电路设计，有时候有一些输入根本不会出现，或者他的结果我们不在乎，我们就可以尽量<strong>利用</strong>这种情况，在卡诺图中用<code>d</code>来表示，根据需要将其转化为<code>1</code>或者<code>0</code>，使表达式得到进一步的化简</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>多输出的函数的组合逻辑设计</p>
+<p>有时候电路有多个输出，但是如果直接用卡诺图<strong>分别</strong>得到各个输出的最简表达式，很有可能得到的电路<strong>并不一定</strong>是最简单的，有时候多个函数之间的一些门的公用可以使电路进一步化简，实际上就是让多个卡诺图之间有相同的圈，公用一些门 但是实际上也可以说是玄学吧</p>
+<blockquote>
+<p>注意，在遇到波浪型的真值表的时候，要注意是<img src="http://latex.codecogs.com/gif.latex?%5Cbigoplus" alt>)或者<img src="http://latex.codecogs.com/gif.latex?%5Cbigodot" alt>逻辑。直接画圈基本不可能</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>没有反变量提供的组合逻辑电路设计</p>
+<p>基本上电路设计都只会提供正变量，不会同时提供<img src="http://latex.codecogs.com/gif.latex?A" alt>)和<img src="http://latex.codecogs.com/gif.latex?%5Coverline%7BA%7D" alt>作为输入，一般来说需要用到反变量的时候就直接取反就好了，但是实际上是有一点不划算的。所以经常将其转化为<strong>与或</strong>或者<strong>或与</strong>门来进一步化简</p>
+<blockquote>
+<p>但是感觉似乎并没有什么系统的办法？</p>
+</blockquote>
+</li>
+<li><p>尽量使用异或门，对设计对象的编码不同可能会极大的影响最终式子的复杂程度，但是书上似乎也没有提供什么有效的方法</p>
+</li>
+</ul>
+<ol start="5">
+<li><p>险象的产生 P112</p>
+<p>如果把一个电路门的状态翻转的时间记为<img src="http://latex.codecogs.com/gif.latex?t_%7Bpd%7D" alt>那么很容易就会发现一个电路有<strong>可能</strong>由于经过的门的数量不同而导致出现一些中间的<strong>错误状态</strong>，如果运气够好，中间的状态和预期状态一样就是<strong>非临界竞争</strong>，如果不一样就是<strong>临界竞争</strong>。</p>
+<p>如果错误的脉冲是<code>0</code>或者说是负脉冲，就被称为”0”型险象，反之亦然</p>
+</li>
+</ol>
+<ol start="6">
+<li><p>险象的判断 P113</p>
+<p>如果某个变量<img src="http://latex.codecogs.com/gif.latex?X" alt>)同时以原变量<img src="http://latex.codecogs.com/gif.latex?X" alt>)和反变量<img src="http://latex.codecogs.com/gif.latex?%5Coverline%7BX%7D" alt>)的形式出现在函数表达式之中，并且在一定条件下函数表达式可以化简为<img src="http://latex.codecogs.com/gif.latex?X+%5Coverline%7BX%7D" alt>)或者<img src="http://latex.codecogs.com/gif.latex?X%20%5Ccdot%20%5Coverline%7BX%7D" alt>的形式的话，就有可能发生险象。如果是前者，可能发生的就是”0”型险象，后者就是“1”型险象</p>
+<blockquote>
+<p>注意判断的时候不能先化简函数表达式</p>
+</blockquote>
+<ol>
+<li><p>通过带入其他变量的不同的值来得到</p>
+</li>
+<li><p>卡诺图，如果两个圈相切，那么相切的部分就会产生险象</p>
+<blockquote>
+<p>注意这个地方画的圈就是单纯把原来的表达式画到卡诺图里面，没有化简的步骤，原来是什么就是什么</p>
+</blockquote>
+</li>
+</ol>
+<p>似乎这种判断方法只能判断<strong>有可能</strong>会发生什么险象，并不能准确判断是否发生，如果真的要判断的话，似乎要用到实际的电路图，然后画那种时间图</p>
+</li>
+<li><p>险象的消除</p>
+<ol>
+<li>增加冗余项</li>
+<li>增加惯性延时环节</li>
+<li>选通法</li>
+</ol>
+</li>
+</ol>
+<h1 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h1><h2 id="集成门电路与触发器"><a href="#集成门电路与触发器" class="headerlink" title="集成门电路与触发器"></a>集成门电路与触发器</h2><p>​       不写了,复习不完要挂科了qaq</p>
+<p>真的要挂科了….</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HUST/" rel="tag"># HUST</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/14be7f64.html" rel="next" title="Core Java">
+                <i class="fa fa-chevron-left"></i> Core Java
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/3068b676.html" rel="prev" title="我可能学的是假英语">
+                我可能学的是假英语 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章"><span class="nav-number">1.</span> <span class="nav-text">第一章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.1.</span> <span class="nav-text">基本知识</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章"><span class="nav-number">2.</span> <span class="nav-text">第二章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑代数基础"><span class="nav-number">2.1.</span> <span class="nav-text">逻辑代数基础</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章"><span class="nav-number">3.</span> <span class="nav-text">第四章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#组合逻辑电路"><span class="nav-number">3.1.</span> <span class="nav-text">组合逻辑电路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章"><span class="nav-number">4.</span> <span class="nav-text">第三章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成门电路与触发器"><span class="nav-number">4.1.</span> <span class="nav-text">集成门电路与触发器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

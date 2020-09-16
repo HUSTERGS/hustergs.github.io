@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python多个conda环境的 Jupyter lab 配置12345678910conda activate envName&#x2F;&#x2F; 切换到对应的环境pip install ipykernel&#x2F;&#x2F; 安装 ipykernelpython -m ipykernel install --user --name  envName --display-name &quot;whatever you like&quot;&#x2F;&#x2F; e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="问题解决方法记录">
+<meta property="og:url" content="https://hustergs.github.io/archives/d4f342f.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Python多个conda环境的 Jupyter lab 配置12345678910conda activate envName&#x2F;&#x2F; 切换到对应的环境pip install ipykernel&#x2F;&#x2F; 安装 ipykernelpython -m ipykernel install --user --name  envName --display-name &quot;whatever you like&quot;&#x2F;&#x2F; e">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hustergs.github.io/archives/d4f342f/hust_wireless_auto.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/d4f342f/pycharm_conda.png">
+<meta property="article:published_time" content="2019-09-08T17:12:43.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.787Z">
+<meta property="article:author" content="Samuel-G">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hustergs.github.io/archives/d4f342f/hust_wireless_auto.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/d4f342f.html"/>
+
+
+
+
+
+  <title>问题解决方法记录 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/d4f342f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">问题解决方法记录</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-09T01:12:43+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.1k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  9 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h3 id="多个conda环境的-Jupyter-lab-配置"><a href="#多个conda环境的-Jupyter-lab-配置" class="headerlink" title="多个conda环境的 Jupyter lab 配置"></a>多个conda环境的 Jupyter lab 配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">conda activate envName</span><br><span class="line">// 切换到对应的环境</span><br><span class="line"></span><br><span class="line">pip install ipykernel</span><br><span class="line">// 安装 ipykernel</span><br><span class="line"></span><br><span class="line">python -m ipykernel install --user --name  envName --display-name "whatever you like"</span><br><span class="line">// envName 是你的环境名字，不能更改</span><br><span class="line">// 后面的字符串是你在jupyter 之中想要显示的环境的名字，可以根据情况更改</span><br><span class="line">如果出现某些原因导致之前的conda环境不存在了，可以在~/.local/jupyter/kernel中删除原来的kernel</span><br></pre></td></tr></table></figure>
+
+<h3 id="conda-基本操作"><a href="#conda-基本操作" class="headerlink" title="conda 基本操作"></a>conda 基本操作</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conda create -n name python=version # version为3.6 / 2.7等版本号</span><br><span class="line"></span><br><span class="line">conda update --all # 更新所有包</span><br><span class="line"></span><br><span class="line">conda config --set changeps1 False # 取消在prompt中显示当前环境</span><br></pre></td></tr></table></figure>
+
+<h3 id="多环境pip安装包"><a href="#多环境pip安装包" class="headerlink" title="多环境pip安装包"></a>多环境pip安装包</h3><p>直接到想要安装包的环境的<code>/bin</code>下,运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./python pip install packagename</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+
+<h3 id="暂时切换默认Python为-usr-bin-python而不是-anconda3-bin-python"><a href="#暂时切换默认Python为-usr-bin-python而不是-anconda3-bin-python" class="headerlink" title="暂时切换默认Python为/usr/bin/python而不是~/anconda3/bin/python"></a>暂时切换默认Python为<code>/usr/bin/python</code>而不是<code>~/anconda3/bin/python</code></h3><p>注释掉<code>.zshrc</code>(<code>.bashrc</code>)中<code>conda init部分</code></p>
+<p>或者将<code>export PATH=&quot;/home/user/anaconda3/bin:$PATH&quot;</code>改为<code>export PATH=&quot;$PATH:/home/user/anaconda3/bin&quot;</code>(好像没用？)</p>
+<p>使得系统默认的<code>Python</code>先被找到</p>
+<p><a href="https://stackoverflow.com/questions/24664435/use-default-python-rather-than-anaconda-installation-when-called-from-the-termin" target="_blank" rel="noopener">参考</a></p>
+<h3 id="pip换源"><a href="#pip换源" class="headerlink" title="pip换源"></a>pip换源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 临时切换</span></span><br><span class="line">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久切换</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> edit ~/.pip/pip.conf (create one <span class="keyword">if</span> not exist)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加为</span></span><br><span class="line"> [global]</span><br><span class="line"> index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="ArchLinux"><a href="#ArchLinux" class="headerlink" title="ArchLinux"></a>ArchLinux</h1><h2 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h2><h3 id="搜狗拼音占用过高CPU"><a href="#搜狗拼音占用过高CPU" class="headerlink" title="搜狗拼音占用过高CPU"></a>搜狗拼音占用过高CPU</h3><p><code>fcitx -r</code></p>
+<h3 id="垃圾文件无法删除"><a href="#垃圾文件无法删除" class="headerlink" title="垃圾文件无法删除"></a>垃圾文件无法删除</h3><p>直接进入到trash对应的实际目录<code>~/.local/share/Trash</code>中进行删除即可(注意大小写)</p>
+<h3 id="Deepin-wine"><a href="#Deepin-wine" class="headerlink" title="Deepin-wine"></a>Deepin-wine</h3><p>设置特定软件<code>DPI</code>等等</p>
+<p><code>WINEPREFIX=~/.deepinwine/Deepin-TIM deepin-wine winecfg</code></p>
+<p><code>prefix</code>换成特定的软件位置</p>
+<h3 id="解压出现中文乱码"><a href="#解压出现中文乱码" class="headerlink" title="解压出现中文乱码"></a>解压出现中文乱码</h3><p>使用<code>unar</code>即可</p>
+<h3 id="HUST-WIRELESS-AUTO"><a href="#HUST-WIRELESS-AUTO" class="headerlink" title="HUST_WIRELESS_AUTO"></a>HUST_WIRELESS_AUTO</h3><p>修改<code>/etc/NetworkManager/system-connections/</code>中对应的WiFi名称，在<code>security</code>添加<code>auth-alg=open</code><br><img src="/archives/d4f342f/hust_wireless_auto.png" alt></p>
+<!-- ![1569496651448](问题解决方法记录/hust_wireless_auto.png) -->
+
+
+
+<p><a href="'https://askubuntu.com/questions/279762/how-to-connect-to-wpa2-peap-mschapv2-enterprise-wifi-networks-that-dont-use-a-c'">参考</a></p>
+<h3 id="安装WPS之后mime混乱"><a href="#安装WPS之后mime混乱" class="headerlink" title="安装WPS之后mime混乱"></a>安装WPS之后mime混乱</h3><p>删除<code>mime</code>文件，更新<code>mime</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/share/mime/packages/wps* # 删除所有wps的.xml文件 </span><br><span class="line">sudo update-mime-database /usr/share/mime # 更新mime</span><br></pre></td></tr></table></figure>
+
+<h3 id="Word文档粘贴图片乱跑"><a href="#Word文档粘贴图片乱跑" class="headerlink" title="Word文档粘贴图片乱跑"></a>Word文档粘贴图片乱跑</h3><p>全文改为单倍行距</p>
+<h3 id="Java-版本管理"><a href="#Java-版本管理" class="headerlink" title="Java 版本管理"></a>Java 版本管理</h3><p>使用<code>archlinux-java</code>命令进行管理</p>
+<h3 id="VirtualBox两个虚拟机Ip相同"><a href="#VirtualBox两个虚拟机Ip相同" class="headerlink" title="VirtualBox两个虚拟机Ip相同"></a>VirtualBox两个虚拟机Ip相同</h3><blockquote>
+<p>主要是在大数据导论课程中需要在虚拟机中运行<code>spark</code>所以就需要两个<code>slave</code>，并且要求ip不同</p>
+</blockquote>
+<p>在命令行中输入以下</p>
+<p><code>VBoxManage modifyvm &quot;SparkSlave1&quot; --natnet1 &quot;10.14.126.33&quot;</code></p>
+<p><code>VBoxManage modifyvm &quot;SparkSlave2&quot; --natnet1 &quot;10.14.126.34&quot;</code></p>
+<p>其中<code>natnet1</code>的参数为所要设置的ip地址</p>
+<h3 id="Albert-Calculator插件无法使用"><a href="#Albert-Calculator插件无法使用" class="headerlink" title="Albert Calculator插件无法使用"></a>Albert Calculator插件无法使用</h3><p>安装<code>muparser</code>之后重新安装<code>albert</code></p>
+<blockquote>
+<p>顺便推荐一波<code>Albert</code></p>
+</blockquote>
+<h3 id="LInux-下matlab语言设置"><a href="#LInux-下matlab语言设置" class="headerlink" title="LInux 下matlab语言设置"></a>LInux 下matlab语言设置</h3><p>由于<code>matlab</code>在Linux下是通过<code>LANG</code>环境变量来决定语言的，而不像其他操作系统中直接通过<code>preference</code>提供了设置的选项，所以只需要在启动的时候<code>export</code>相应的环境变量值即可，如</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export LANG=en_US.UTF-8; &#123;MATLAB&#125;/bin/matlab</span><br><span class="line"><span class="meta">#</span><span class="bash"> 中文为zh_CN.UTF-8</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装-Conda后无法安装pycharm"><a href="#安装-Conda后无法安装pycharm" class="headerlink" title="安装 Conda后无法安装pycharm"></a>安装 Conda后无法安装pycharm</h3><p><code>makepkg</code>的时候出现</p>
+<p><img src="/archives/d4f342f/pycharm_conda.png" alt></p>
+<!-- ![](问题解决方法记录/pycharm_conda.png) -->
+
+<p>由于<code>PKGBUILD</code>文件中写的是<code>python3</code>，默认使用的<code>conda</code>中的<code>python3</code></p>
+<p>将<code>build()</code> 中的 <code>/usr/bin/python3 helpers/pydev/setup_cython.py build_ext --build-temp build --build-lib .</code>的<code>python3</code>改为<code>/usr/bin/python3</code>即可</p>
+<blockquote>
+<p>后来发现可能是<code>conda</code>安装之后修改了<code>PATH</code>导致首选链接库变成了<code>conda</code>的，更简单的解决方法就是将<code>.zshrc</code>中<code>conda</code>初始化的部分注释掉，重启shell，然后再安装<code>pycharm</code></p>
+</blockquote>
+<h3 id="调教-Nemo"><a href="#调教-Nemo" class="headerlink" title="调教 Nemo"></a>调教 Nemo</h3><ul>
+<li><p>安装<code>nemo-preview</code>, <code>nemo-fileroller</code>插件，提供预览和 解/压缩 的功能</p>
+</li>
+<li><p>通过在<code>~/.local/share/nemo/actions</code> 编写 <code>.nemo_action</code>文件来扩充右键菜单</p>
+<p><code>code.nemo_action</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Nemo Action]</span><br><span class="line">Name&#x3D;Open in Code</span><br><span class="line">Comment&#x3D;open current path in visual studio code</span><br><span class="line">Exec&#x3D;code %P</span><br><span class="line">Selection&#x3D;None</span><br><span class="line">Extensions&#x3D;any;</span><br><span class="line">Icon-Name&#x3D;notebook</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p>  <code>code_folder.nemo_action</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Nemo Action]</span><br><span class="line">Name&#x3D;Open in Code</span><br><span class="line">Comment&#x3D;open selected folder in visual studio code</span><br><span class="line">Exec&#x3D;code %F</span><br><span class="line">Selection&#x3D;1</span><br><span class="line">Extensions&#x3D;any;</span><br><span class="line">Icon-Name&#x3D;notebook</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>注意</strong>:<code>Icon-Name</code> 可以在安装的各种<code>Icon-theme</code>所在文件夹(我的在<code>/usr/share/icons/Numix/scalable/actions</code>)中找到<code>action</code>文件夹，使用其中的图标(去掉拓展名)</p>
+<p>  而在<code>~/.local/share/nemo/actions</code>，点击出现的提示<code>More Info</code> 会打开<code>.nemo_action</code>文件的基本编写文档</p>
+<h3 id="添加开机自启动任务"><a href="#添加开机自启动任务" class="headerlink" title="添加开机自启动任务"></a>添加开机自启动任务</h3><p>在<code>/etc/systemd/system</code>中添加<code>rc-local.service</code>内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;&#x2F;etc&#x2F;rc.local Compatibility</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;oneshot</span><br><span class="line">ExecStart&#x3D;&#x2F;etc&#x2F;rc.local</span><br><span class="line">TimeoutSec&#x3D;0</span><br><span class="line">StandardInput&#x3D;tty</span><br><span class="line">RemainAfterExit&#x3D;yes</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>然后编写<code>/etc/rc.local</code>， 记得要加上<code>#!/bin/bash</code>否则会出现format错误导致无法执行，似乎也要添加执行权限<code>chmod u+x /etc/rc.local</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">your commands</span><br></pre></td></tr></table></figure>
+
+<p>然后在系统服务中添加rc-local.service</p>
+<blockquote>
+<p>这一项原本是为了解决 pcspkr模块所带来的beep的声音，但是使用了各种方法都不行，最后用这种办法解决了，就是在<code>/etc/rc.local</code>中添加<code>sudo rmmod pcspkr</code>语句，开机执行</p>
+</blockquote>
+<p>一般的想要自启动软件可以简单的将<code>/usr/share/applications/autostart_application.desktop</code>复制到<code>~/.config/autostart</code>文件夹即可,有时候使用软件提供的开机自启动选项并不好使</p>
+<h3 id="Wallpaper"><a href="#Wallpaper" class="headerlink" title="Wallpaper"></a>Wallpaper</h3><p>默认的用户添加的wallpaper需要放在<code>.cinnamon/background</code></p>
+<blockquote>
+<p>好像没有什么卵用</p>
+</blockquote>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>添加完字体之后<code>fc-cache -fv</code>刷新字体缓存(或者使用<code>fc-cache -rv</code> 强制刷新)</p>
+<h3 id="解决终端无法正常显示表情-gitmoji"><a href="#解决终端无法正常显示表情-gitmoji" class="headerlink" title="解决终端无法正常显示表情(gitmoji)"></a>解决终端无法正常显示表情(gitmoji)</h3><p>在<a href="'https://www.google.com/get/noto/'">google-noto-font</a> 下载<code>Noto Color Emoji</code>安装即可</p>
+<h3 id="解决Typora中的emoji表情为黑白"><a href="#解决Typora中的emoji表情为黑白" class="headerlink" title="解决Typora中的emoji表情为黑白"></a>解决Typora中的emoji表情为黑白</h3><p>安装<code>EmojiOne</code>字体</p>
+<p><code>yay -S ttf-emojione</code></p>
+<p>修改typora默认字体<code>~/.config/Typora/conf/conf.user.json</code></p>
+<p>将<code>standard</code>字体改为<code>EmojiOne</code></p>
+<p>重启Typora，即可正常显示彩色表情</p>
+<blockquote>
+<p>注意不要把四个(<code>standard</code>, <code>serif</code>, <code>sanSerif</code>, ‘monospace’)全部改了，似乎某一更改之后会导致源码模式下左侧的行数也变为表情。</p>
+</blockquote>
+<p>上述方法失败，由于aur中移除了<code>ttf-emojione</code></p>
+<p>安装<code>ttf-joypixels</code>之后将字体更改为<code>Noto Color Emoji</code>即可</p>
+<h3 id="Manjaro-deepin中文乱码"><a href="#Manjaro-deepin中文乱码" class="headerlink" title="Manjaro-deepin中文乱码"></a>Manjaro-deepin中文乱码</h3><p>安装字体<code>sudo pacman -S wqy-microhei</code></p>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p><code>glxinfo -B</code></p>
+<p>获得3D hardware信息,可以查看当前使用的显卡等等</p>
+<p>安装<code>inxi</code>来获得所有硬件信息</p>
+<p><code>xrandr --listproviders</code></p>
+<p>check the list of attached graphic drivers:</p>
+<p><code>glxinfo | grep &quot;OpenGL renderer&quot;</code></p>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h3 id="解决git-add等命令的中文乱码"><a href="#解决git-add等命令的中文乱码" class="headerlink" title="解决git add等命令的中文乱码"></a>解决<code>git add</code>等命令的中文乱码</h3><p>终端输入 <code>git config --global core.quotepath false</code> </p>
+<p>原理:</p>
+<blockquote>
+<p>Commands that output paths (e.g. <em>ls-files</em>, <em>diff</em>), will quote “unusual” characters in the pathname by enclosing the pathname in double-quotes and escaping those characters with backslashes in the same way C escapes control characters (e.g. <code>\t</code> for TAB, <code>\n</code> for LF, <code>\\</code> for backslash) or bytes with values larger than 0x80 (e.g. octal <code>\302\265</code> for “micro” in UTF-8). If this variable is set to false, bytes higher than 0x80 are not considered “unusual” any more. Double-quotes, backslash and control characters are always escaped regardless of the setting of this variable. A simple space character is not considered “unusual”. Many commands can output pathnames completely verbatim using the <code>-z</code>option. The default value is true.</p>
+</blockquote>
+<blockquote>
+<p> 摘自<a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-corequotePath" target="_blank" rel="noopener">git-scm</a></p>
+</blockquote>
+<h3 id="解决-gitignore文件修改后git继续跟踪更改"><a href="#解决-gitignore文件修改后git继续跟踪更改" class="headerlink" title="解决.gitignore文件修改后git继续跟踪更改"></a>解决<code>.gitignore</code>文件修改后git继续跟踪更改</h3><p>如果项目一开始的时候就没有<code>.gitignore</code>文件的话,那么一旦git对文件进行跟踪,再添加到<code>.gitinore</code>就没有效果了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached &lt;path to file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果是文件夹的话加上<code>-r</code>参数</p>
+<p>可以使用<code>git check-ignore</code>来检查<code>.gitignore</code>文件的编写是否正确</p>
+<h3 id="解决git-clone速度慢"><a href="#解决git-clone速度慢" class="headerlink" title="解决git clone速度慢"></a>解决<code>git clone</code>速度慢</h3><ol>
+<li><p>挂代理</p>
+<p><code>git config --global http(s).proxy xxxxx</code></p>
+</li>
+<li><p>我也不知道叫什么,但是的确有效</p>
+<p><code>git config --global http.postBuffer 524288000</code></p>
+</li>
+</ol>
+<blockquote>
+<p>用<code>git config --global -l</code>查看当前<code>git</code>配置</p>
+</blockquote>
+<h3 id="fork之后想要更新"><a href="#fork之后想要更新" class="headerlink" title="fork之后想要更新"></a>fork之后想要更新</h3><p><a href="https://digitaldrummerj.me/git-syncing-fork-with-original-repo/" target="_blank" rel="noopener">参考</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://github.com/[Original Owner Username]/[Original Repository].git</span><br><span class="line">git fetch upstream</span><br><span class="line">git checkout master</span><br><span class="line">git merge upstream/master</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="解决git-clone-需要输入密码"><a href="#解决git-clone-需要输入密码" class="headerlink" title="解决git clone 需要输入密码"></a>解决git clone 需要输入密码</h3><p>似乎是因为最近的更新，如果是已经克隆的仓库，请在<code>.git/config</code>中，将<code>url</code>一项，由<code>http</code>改为<code>ssh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;WEMP&#x2F;project-slideshow.git </span><br><span class="line">到</span><br><span class="line">git@github.com:WEMP&#x2F;project-slideshow.git</span><br></pre></td></tr></table></figure>
+
+<h1 id="Sublime"><a href="#Sublime" class="headerlink" title="Sublime"></a>Sublime</h1><h3 id="安装Package-Control-解决中文乱码问题"><a href="#安装Package-Control-解决中文乱码问题" class="headerlink" title="安装Package  Control,解决中文乱码问题"></a>安装Package  Control,解决中文乱码问题</h3><p><a href="https://packagecontrol.io/installation" target="_blank" rel="noopener">Package Control</a></p>
+<ol>
+<li>输入命令安装</li>
+<li>下载后放到指定的位置</li>
+</ol>
+<p><code>Ctrl + Shift + P</code> 打开命令窗口</p>
+<p>输入<code>install</code>, 选择<code>Package Control: Install Package</code></p>
+<p>输入<code>ConvertToUTF8</code></p>
+<blockquote>
+<p>安装后可能打开文件的时候会提示你要安装一个叫做<code>codecs33</code>的包,安装就好了,然后可能第一次安装包管理器的时候,更新特别慢 ==&gt; Preferences: Package Control sublime Settings - User ==&gt; 添加一行”channels”字段：</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"channels":</span><br><span class="line">[</span><br><span class="line">	<span class="string">"https://raw.githubusercontent.com/wilon/sublime/master/download/channel_v3.json"</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Qt"><a href="#Qt" class="headerlink" title="Qt"></a>Qt</h1><h3 id="解决GTK桌面下Qt程序一些细节无法正常显示的问题"><a href="#解决GTK桌面下Qt程序一些细节无法正常显示的问题" class="headerlink" title="解决GTK桌面下Qt程序一些细节无法正常显示的问题"></a>解决GTK桌面下Qt程序一些细节无法正常显示的问题</h3><p>对于<code>qt4</code></p>
+<p><code>/usr/bin/qtconfig-qt4</code> 选择<code>GTK+</code></p>
+<p>对于<code>qt5</code></p>
+<p>在<code>/etc/environment</code>中添加 <code>QT_QPA_PLATFORMTHEME=gtk2</code></p>
+<h2 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h2><h3 id="nvm-install-慢"><a href="#nvm-install-慢" class="headerlink" title="nvm install 慢"></a>nvm install 慢</h3><p><code>export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node</code></p>
+<h3 id="安装electron慢"><a href="#安装electron慢" class="headerlink" title="安装electron慢"></a>安装electron慢</h3><p><code>export ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/</code></p>
+<h2 id="VSCode"><a href="#VSCode" class="headerlink" title="VSCode"></a>VSCode</h2><h3 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h3><h4 id="更新插件失败"><a href="#更新插件失败" class="headerlink" title="更新插件失败"></a>更新插件失败</h4><p><a href="https://segmentfault.com/a/1190000022479562" target="_blank" rel="noopener">参考</a></p>
+<ol>
+<li>根据<a href="https://goproxy.cn/" target="_blank" rel="noopener">此代理的说明</a>进行配置</li>
+<li>vscode的设置中找到<code>Go: Use Go Proxy To Check For Tool Updates</code>，勾选</li>
+<li>按下F1，输入<code>Go: Install\Update tools</code>，全选，确认，手动更新</li>
+<li>可能需要重启一遍vscode</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/4b301912.html" rel="next" title="Python Standard">
+                <i class="fa fa-chevron-left"></i> Python Standard
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/ff05b5bf.html" rel="prev" title="第一篇博客">
+                第一篇博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python"><span class="nav-number">1.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多个conda环境的-Jupyter-lab-配置"><span class="nav-number">1.0.1.</span> <span class="nav-text">多个conda环境的 Jupyter lab 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conda-基本操作"><span class="nav-number">1.0.2.</span> <span class="nav-text">conda 基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多环境pip安装包"><span class="nav-number">1.0.3.</span> <span class="nav-text">多环境pip安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂时切换默认Python为-usr-bin-python而不是-anconda3-bin-python"><span class="nav-number">1.0.4.</span> <span class="nav-text">暂时切换默认Python为&#x2F;usr&#x2F;bin&#x2F;python而不是~&#x2F;anconda3&#x2F;bin&#x2F;python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip换源"><span class="nav-number">1.0.5.</span> <span class="nav-text">pip换源</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArchLinux"><span class="nav-number">2.</span> <span class="nav-text">ArchLinux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统"><span class="nav-number">2.1.</span> <span class="nav-text">系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜狗拼音占用过高CPU"><span class="nav-number">2.1.1.</span> <span class="nav-text">搜狗拼音占用过高CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾文件无法删除"><span class="nav-number">2.1.2.</span> <span class="nav-text">垃圾文件无法删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepin-wine"><span class="nav-number">2.1.3.</span> <span class="nav-text">Deepin-wine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解压出现中文乱码"><span class="nav-number">2.1.4.</span> <span class="nav-text">解压出现中文乱码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HUST-WIRELESS-AUTO"><span class="nav-number">2.1.5.</span> <span class="nav-text">HUST_WIRELESS_AUTO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装WPS之后mime混乱"><span class="nav-number">2.1.6.</span> <span class="nav-text">安装WPS之后mime混乱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word文档粘贴图片乱跑"><span class="nav-number">2.1.7.</span> <span class="nav-text">Word文档粘贴图片乱跑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-版本管理"><span class="nav-number">2.1.8.</span> <span class="nav-text">Java 版本管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VirtualBox两个虚拟机Ip相同"><span class="nav-number">2.1.9.</span> <span class="nav-text">VirtualBox两个虚拟机Ip相同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Albert-Calculator插件无法使用"><span class="nav-number">2.1.10.</span> <span class="nav-text">Albert Calculator插件无法使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LInux-下matlab语言设置"><span class="nav-number">2.1.11.</span> <span class="nav-text">LInux 下matlab语言设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Conda后无法安装pycharm"><span class="nav-number">2.1.12.</span> <span class="nav-text">安装 Conda后无法安装pycharm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调教-Nemo"><span class="nav-number">2.1.13.</span> <span class="nav-text">调教 Nemo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加开机自启动任务"><span class="nav-number">2.1.14.</span> <span class="nav-text">添加开机自启动任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wallpaper"><span class="nav-number">2.1.15.</span> <span class="nav-text">Wallpaper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字体"><span class="nav-number">2.2.</span> <span class="nav-text">字体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决终端无法正常显示表情-gitmoji"><span class="nav-number">2.2.1.</span> <span class="nav-text">解决终端无法正常显示表情(gitmoji)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决Typora中的emoji表情为黑白"><span class="nav-number">2.2.2.</span> <span class="nav-text">解决Typora中的emoji表情为黑白</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Manjaro-deepin中文乱码"><span class="nav-number">2.2.3.</span> <span class="nav-text">Manjaro-deepin中文乱码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件"><span class="nav-number">2.3.</span> <span class="nav-text">硬件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">3.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git-add等命令的中文乱码"><span class="nav-number">3.0.1.</span> <span class="nav-text">解决git add等命令的中文乱码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决-gitignore文件修改后git继续跟踪更改"><span class="nav-number">3.0.2.</span> <span class="nav-text">解决.gitignore文件修改后git继续跟踪更改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git-clone速度慢"><span class="nav-number">3.0.3.</span> <span class="nav-text">解决git clone速度慢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork之后想要更新"><span class="nav-number">3.0.4.</span> <span class="nav-text">fork之后想要更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决git-clone-需要输入密码"><span class="nav-number">3.0.5.</span> <span class="nav-text">解决git clone 需要输入密码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sublime"><span class="nav-number">4.</span> <span class="nav-text">Sublime</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Package-Control-解决中文乱码问题"><span class="nav-number">4.0.1.</span> <span class="nav-text">安装Package  Control,解决中文乱码问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Qt"><span class="nav-number">5.</span> <span class="nav-text">Qt</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决GTK桌面下Qt程序一些细节无法正常显示的问题"><span class="nav-number">5.0.1.</span> <span class="nav-text">解决GTK桌面下Qt程序一些细节无法正常显示的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm"><span class="nav-number">5.1.</span> <span class="nav-text">npm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nvm-install-慢"><span class="nav-number">5.1.1.</span> <span class="nav-text">nvm install 慢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装electron慢"><span class="nav-number">5.1.2.</span> <span class="nav-text">安装electron慢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VSCode"><span class="nav-number">5.2.</span> <span class="nav-text">VSCode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Go"><span class="nav-number">5.2.1.</span> <span class="nav-text">Go</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更新插件失败"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">更新插件失败</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Go," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Chapter 7 interfaces  Interfaces as ContractsInterface Types io包中的一些interface1234567package iotype Reader interface &amp;#123;    Read(p []byte) (n int, err error)&amp;#125;type Closer interface &amp;#123;    Clo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gopl-ch7">
+<meta property="og:url" content="https://hustergs.github.io/archives/98429b70.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Chapter 7 interfaces  Interfaces as ContractsInterface Types io包中的一些interface1234567package iotype Reader interface &amp;#123;    Read(p []byte) (n int, err error)&amp;#125;type Closer interface &amp;#123;    Clo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-21T08:36:07.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.779Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/98429b70.html"/>
+
+
+
+
+
+  <title>gopl-ch7 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/98429b70.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">gopl-ch7</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-21T16:36:07+08:00">
+                2020-05-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.5k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  5 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Chapter-7"><a href="#Chapter-7" class="headerlink" title="Chapter 7"></a>Chapter 7</h2><blockquote>
+<p>interfaces</p>
+</blockquote>
+<h3 id="Interfaces-as-Contracts"><a href="#Interfaces-as-Contracts" class="headerlink" title="Interfaces as Contracts"></a>Interfaces as Contracts</h3><h3 id="Interface-Types"><a href="#Interface-Types" class="headerlink" title="Interface Types"></a>Interface Types</h3><ol>
+<li><code>io</code>包中的一些<code>interface</code><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io</span><br><span class="line"><span class="keyword">type</span> Reader <span class="keyword">interface</span> &#123;</span><br><span class="line">    Read(p []<span class="keyword">byte</span>) (n <span class="keyword">int</span>, err error)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Closer <span class="keyword">interface</span> &#123;</span><br><span class="line">    Close() error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>与结构体一样，<code>interface</code>也可以进行<code>embedding</code>操作，从而简化<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ReadWriter <span class="keyword">interface</span> &#123;</span><br><span class="line">    Reader</span><br><span class="line">    Writer</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ReadWriteCloser <span class="keyword">interface</span> &#123;</span><br><span class="line">    Reader</span><br><span class="line">    Writer</span><br><span class="line">    Closer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+但与<code>struct</code>不同的是，进行<code>embedding</code>操作的顺序没有关系，<code>Reader</code>在前还是<code>Writer</code>并不会对生成的新接口有什么影响<a id="more"></a>
+<h3 id="Interfaces-Satisfaction"><a href="#Interfaces-Satisfaction" class="headerlink" title="Interfaces Satisfaction"></a>Interfaces Satisfaction</h3></li>
+<li><code>interface</code>也有类似于Java中的<code>isA</code>的关系，即一个具体变量只要实现了相关的接口便可以赋值给对应的接口变量<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w io.Writer</span><br><span class="line">w = os.Stdout</span><br><span class="line">w = <span class="built_in">new</span>(bytes.Buffer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rwc io.ReadWriteCloser</span><br><span class="line">rwc = os.Stdout</span><br><span class="line">rwc = <span class="built_in">new</span>(bytes.Buffer) <span class="comment">// 报错，*bytes.Buffer并没有Close method</span></span><br></pre></td></tr></table></figure>
+等号的右边甚至也可以是接口<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w = rwc</span><br><span class="line">rwc = w <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure></li>
+<li><code>interface</code>不存在Java中的动态绑定的性质<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w io.Writer</span><br><span class="line">w = os.Stdout</span><br><span class="line">w.Write([]<span class="keyword">byte</span>(<span class="string">"hello"</span>)) <span class="comment">// ok</span></span><br><span class="line">w.Close() <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+其中<code>w</code>对应的接口<code>io.Write</code>只有<code>Write</code>方法，<strong>即使实际类型<code>os.Stdout</code>有<code>Close</code>方法也无法进行调用</strong>，也即接口变量值能够调用其对应的接口方法</li>
+<li>空接口<br>要想将一个值赋值给一个接口类型的变量，那么只需要该值实现了接口中定义的方法即可，所以，空的接口对传入的值没有任何要求，也即可以<strong>接收任何类型的值</strong><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> any <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">any = <span class="literal">true</span></span><br><span class="line">any = <span class="number">12.34</span></span><br><span class="line">any = <span class="string">"hello"</span></span><br><span class="line">any = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;<span class="string">"one"</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure></li>
+<li>此处需要理解一下最开始提到的<em>satisfied implicitly</em><br>由于上述所说的，只要一个值的类型实现了一个接口所要求的方法，便可以将该值赋值给接口变量，如<code>rwc</code>可以赋值给<code>rw</code>，但是在一般的面向对象的语言中，一个类所实现的接口是<em>写死的</em>，就算实现了对应的方法，但是却没有明确写出<code>implement</code>某一个新的接口的话，依然无法将其值赋值给新的接口变量，这一点在使用第三方的包的时候尤为有用，因为无法对第三方的包中的类所实现的方法进行任意的修改，但是在go中就不存在这个问题，你可以任意的定义新的接口使得第三方的值可以进行赋值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">I2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">implements</span> <span class="title">I2</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">I2 i = <span class="keyword">new</span> A(); <span class="comment">// 没问题</span></span><br><span class="line">I1 i = <span class="keyword">new</span> A(); <span class="comment">// 编译出错，由于A并没有显式的implements I1，即使他实现了I1中所需的方法</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Parsing-Flags-with-flag-Value"><a href="#Parsing-Flags-with-flag-Value" class="headerlink" title="Parsing Flags with flag.Value"></a>Parsing Flags with <code>flag.Value</code></h3><h3 id="Interface-Values"><a href="#Interface-Values" class="headerlink" title="Interface Values"></a>Interface Values</h3><ol>
+<li><code>interface</code>的实际构成可以理解为两个部分<ul>
+<li><code>type</code></li>
+<li><code>value</code><br>其中，<code>type</code>指的是复制给接口变量的值的类型，如上述的<code>*bytes.Buffer</code>,而<code>value</code>则是指的具体的值，需要注意的是，当我恩声明一个新的interface变量但不进行赋值的时候，这个变量的<code>type</code>以及<code>value</code>都会被初始化为<code>nil</code>，但是也有可能出现<code>type</code>不为<code>nil</code>但是<code>value</code>为<code>nil</code>的情况，只需要赋值的时候，等号右边的变量为<code>nil</code>即可，这时的接口变量并不等于<code>nil</code>，换言之，将一个值为<code>nil</code>的变量赋值给接口变量并不会使接口变为<code>nil</code><blockquote>
+<p>感觉根本原因在于在go中的<code>nil</code>依然是有类型的?</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><code>interface</code><em>有可能<em>是可比的(</em>Comparable</em>)，比较两个<code>interface</code>实际上是比较<code>interface</code>的<code>value</code>，但是<code>value</code>本身却不一定可比。这与go中的一般的值不同，大多数的值类型是否可比是确定的，如基本类型是可比的，而<code>map</code>，<code>slice</code>是不可比的，但是由于interface是个究极缝合怪，可以承载不同的值，就导致其本身不一定可比，如果强行比较会发生<code>panic</code></li>
+</ol>
+<h3 id="Sorting-with-sort-Interface"><a href="#Sorting-with-sort-Interface" class="headerlink" title="Sorting with sort.Interface"></a>Sorting with <code>sort.Interface</code></h3><ol>
+<li>为想要排序的类型实现三个方法即可<ul>
+<li><code>Less</code></li>
+<li><code>Len</code></li>
+<li><code>Swap</code><br>可以说自由度很高了，最佳实践是为每一种排序方式定义一个包装类型，分别定义这三个方法</li>
+</ul>
+</li>
+</ol>
+<h3 id="The-http-Handler-Interface"><a href="#The-http-Handler-Interface" class="headerlink" title="The http.Handler Interface"></a>The <code>http.Handler</code> Interface</h3><p>基本声明如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> http</span><br><span class="line"><span class="keyword">type</span> Handler <span class="keyword">interface</span> &#123;</span><br><span class="line">    ServerHTTP(w ResponseWriter, r *Request)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ListenAndServe</span><span class="params">(address <span class="keyword">string</span>, h Handler)</span> <span class="title">error</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="The-error-Interface"><a href="#The-error-Interface" class="headerlink" title="The error Interface"></a>The <code>error</code> Interface</h3><p>基本声明如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(text <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;<span class="keyword">return</span> &amp;errorString&#123;test&#125;&#125;</span><br><span class="line"><span class="keyword">type</span> errorString <span class="keyword">struct</span> &#123;text <span class="keyword">string</span>&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(e *errorString)</span> <span class="title">Error</span><span class="params">()</span> <span class="title">string</span></span> &#123;<span class="keyword">return</span> e.text&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Example-Expression-Evaluator"><a href="#Example-Expression-Evaluator" class="headerlink" title="Example: Expression Evaluator"></a>Example: Expression Evaluator</h3><h3 id="Type-Assertions"><a href="#Type-Assertions" class="headerlink" title="Type Assertions"></a>Type Assertions</h3><p>基本形式如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.(T)</span><br></pre></td></tr></table></figure>
+<p>其中<code>x</code>是一个接口类型的表达式,<code>T</code>是某一种类型</p>
+<ol>
+<li>如果<code>T</code>是某一种具体类型,那么就会尝试将<code>x</code>中的<code>value</code>部分提取出来,也就是<strong>运行时类型</strong>,实际上就是用来将动态类型提取出来，因为前面说过，一个接口变狼只能够调用接口中规定的方法，而不能调用实际类型的中的方法</li>
+<li>如果<code>T</code>也是接口类型，并且<code>x</code>满足<code>T</code>，</li>
+<li>举例如下<br>第一种<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w io.Writer <span class="comment">// 接口类型的变量</span></span><br><span class="line">w = os.Stdout</span><br><span class="line">f := w.(*os.File) <span class="comment">// 成功</span></span><br><span class="line">c := w.(*bytes.Buffer) <span class="comment">// 失败</span></span><br></pre></td></tr></table></figure>
+第二种<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w io.Writer</span><br><span class="line">w = os.Stdout</span><br><span class="line">rw := w.(io.ReadWriter) <span class="comment">// 成功</span></span><br><span class="line">w = <span class="built_in">new</span>(ByteCounter)</span><br><span class="line">rw = w.(io.ReadWriter) <span class="comment">// 失败</span></span><br></pre></td></tr></table></figure></li>
+<li>一般情况下如果失败会发生<code>panic</code>,但是可以通过在赋值的左边加入一个标示<code>ok</code>来避免<code>panic</code><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> f, ok := w.(*os.File); ok &#123;</span><br><span class="line">    <span class="comment">// ... 使用f</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Discriminating-Errors-with-Type-Assertions"><a href="#Discriminating-Errors-with-Type-Assertions" class="headerlink" title="Discriminating Errors with Type Assertions"></a>Discriminating Errors with Type Assertions</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"errors"</span></span><br><span class="line">    <span class="string">"syscall"</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">var</span> ErrNotExist = errors.New(<span class="string">"file does not exist"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IsNotExist</span><span class="params">(err error)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> pe, ok := err.(*PathError); ok &#123;</span><br><span class="line">        err = pe.Err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> err == syscall.ENOENT || err == ErrNotExist</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Querying-Behaviors-with-Interface-Type-Assertions"><a href="#Querying-Behaviors-with-Interface-Type-Assertions" class="headerlink" title="Querying Behaviors with Interface Type Assertions"></a>Querying Behaviors with Interface Type Assertions</h3><h3 id="Type-Switches"><a href="#Type-Switches" class="headerlink" title="Type Switches"></a>Type Switches</h3><p>使用type switch可以非常方便的对某一个未知变量的不同可能类型采取不同操作</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> x.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">nil</span>: <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">int</span>, unit: <span class="comment">// ... </span></span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">bool</span>: <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">string</span>: <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">default</span>: <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Example-Token-Based-XML-Decoding"><a href="#Example-Token-Based-XML-Decoding" class="headerlink" title="Example: Token-Based XML Decoding"></a>Example: Token-Based XML Decoding</h3><h3 id="A-Few-Words-of-Advice"><a href="#A-Few-Words-of-Advice" class="headerlink" title="A Few Words of Advice"></a>A Few Words of Advice</h3><ol>
+<li>不要泛滥的使用接口类型，当一个接口类型被定义的时候，至少有是有两个具体类型能够<em>satisfy</em>才行</li>
+<li>不要为了面向对象而面向对象</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go/" rel="tag"># Go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/ec23118f.html" rel="next" title="Archlinux设置鼠标宏(按键映射)">
+                <i class="fa fa-chevron-left"></i> Archlinux设置鼠标宏(按键映射)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/15987740.html" rel="prev" title="python-cookbook-ch1">
+                python-cookbook-ch1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-7"><span class="nav-number">1.</span> <span class="nav-text">Chapter 7</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Interfaces-as-Contracts"><span class="nav-number">1.1.</span> <span class="nav-text">Interfaces as Contracts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-Types"><span class="nav-number">1.2.</span> <span class="nav-text">Interface Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interfaces-Satisfaction"><span class="nav-number">1.3.</span> <span class="nav-text">Interfaces Satisfaction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parsing-Flags-with-flag-Value"><span class="nav-number">1.4.</span> <span class="nav-text">Parsing Flags with flag.Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-Values"><span class="nav-number">1.5.</span> <span class="nav-text">Interface Values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorting-with-sort-Interface"><span class="nav-number">1.6.</span> <span class="nav-text">Sorting with sort.Interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-http-Handler-Interface"><span class="nav-number">1.7.</span> <span class="nav-text">The http.Handler Interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-error-Interface"><span class="nav-number">1.8.</span> <span class="nav-text">The error Interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-Expression-Evaluator"><span class="nav-number">1.9.</span> <span class="nav-text">Example: Expression Evaluator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Type-Assertions"><span class="nav-number">1.10.</span> <span class="nav-text">Type Assertions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discriminating-Errors-with-Type-Assertions"><span class="nav-number">1.11.</span> <span class="nav-text">Discriminating Errors with Type Assertions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Querying-Behaviors-with-Interface-Type-Assertions"><span class="nav-number">1.12.</span> <span class="nav-text">Querying Behaviors with Interface Type Assertions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Type-Switches"><span class="nav-number">1.13.</span> <span class="nav-text">Type Switches</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-Token-Based-XML-Decoding"><span class="nav-number">1.14.</span> <span class="nav-text">Example: Token-Based XML Decoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Few-Words-of-Advice"><span class="nav-number">1.15.</span> <span class="nav-text">A Few Words of Advice</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

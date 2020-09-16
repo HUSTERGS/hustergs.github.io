@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言从刚入大学起便陆陆续续尝试了各种Linux发行版本，最常见的当然是Ubuntu，以及这篇文章中所介绍的Arch(系)。最开始的尝试可以说只是小打小闹，虽然是以双系统的方式安装的，但是实际启动的次数屈指可数。在经历了一次Windows更新更炸之后，我便决定以尝试以Linux作为主力系统。从去年开始到现在满打满算差不多一年半的时间，我基本没有开启过Windows系统，只有在寻找以前的文件以及运行某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Archlinux&#x2F;Manjaro下的软件包推荐">
+<meta property="og:url" content="https://hustergs.github.io/archives/a0eb940d.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="前言从刚入大学起便陆陆续续尝试了各种Linux发行版本，最常见的当然是Ubuntu，以及这篇文章中所介绍的Arch(系)。最开始的尝试可以说只是小打小闹，虽然是以双系统的方式安装的，但是实际启动的次数屈指可数。在经历了一次Windows更新更炸之后，我便决定以尝试以Linux作为主力系统。从去年开始到现在满打满算差不多一年半的时间，我基本没有开启过Windows系统，只有在寻找以前的文件以及运行某">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hustergs.github.io/archives/a0eb940d/zsh%E9%85%8D%E7%BD%AE.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/a0eb940d/%E6%97%A0%E9%81%93%E8%AF%8D%E5%85%B8.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/a0eb940d/gitmoji.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/a0eb940d/albert.png">
+<meta property="article:published_time" content="2020-08-05T09:08:03.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.770Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hustergs.github.io/archives/a0eb940d/zsh%E9%85%8D%E7%BD%AE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/a0eb940d.html"/>
+
+
+
+
+
+  <title>Archlinux/Manjaro下的软件包推荐 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/a0eb940d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Archlinux/Manjaro下的软件包推荐</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-05T17:08:03+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.8k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  6 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>从刚入大学起便陆陆续续尝试了各种Linux发行版本，最常见的当然是Ubuntu，以及这篇文章中所介绍的Arch(系)。最开始的尝试可以说只是小打小闹，虽然是以双系统的方式安装的，但是实际启动的次数屈指可数。在经历了一次Windows更新更炸之后，我便决定以尝试以Linux作为主力系统。从去年开始到现在满打满算差不多一年半的时间，我基本没有开启过Windows系统，只有在寻找以前的文件以及运行某些软件（如<code>pandownload</code>）时才会开启打开Windows或者开启Windows虚拟机。日常的学习以及代码编写基本没有不适感。所以个人感觉还是比较有说服力的。中途经历了一次从纯Arch转到Manjaro-Deepin的过程，由于本人的大多数代码文件都在github上保存，所以迁移起来也很很顺利，而deepin-dde也给了我很大的惊喜（虽然最近更新的V20个人不是很喜欢）。由于本人使用的manjaro-deepin在manjaro的官网已经没有了下载途径（其他地方似乎也找不到），并且官方也宣布近期不会进行适配，但总的来说，本文所推荐的软件对于Arch系乃至于所有的Linux发行版本应该都是适用的。</p>
+<blockquote>
+<p>文中不会包含一些过于基础的软件包，如npm, git等。既然都来Linux，相信这些基本的工具应该不需要多说（并且有时系统会自带这些软件包，尤其是<code>Manjaro</code>发行版本）</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="终端相关"><a href="#终端相关" class="headerlink" title="终端相关"></a>终端相关</h2><h3 id="yay包管理器"><a href="#yay包管理器" class="headerlink" title="yay包管理器"></a>yay包管理器</h3><p><a href="https://github.com/Jguer/yay" target="_blank" rel="noopener">仓库链接</a><br><code>pacman</code>无法从<code>AUR</code>安装，而<code>yaourt</code>不再维护，所以我们使用<code>yay</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S yay</span><br></pre></td></tr></table></figure>
+<p>即可安装，之后软件的安装均使用<code>yay</code>进行，基本都是一键安装<br>需要更新系统软件包时也非常简单<br>输入</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay</span><br></pre></td></tr></table></figure>
+<p>即可</p>
+<h3 id="zsh-amp-oh-my-zsh"><a href="#zsh-amp-oh-my-zsh" class="headerlink" title="zsh &amp; oh-my-zsh"></a>zsh &amp; oh-my-zsh</h3><p><a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">仓库链接</a></p>
+<blockquote>
+<p>印象中安装<code>oh-my-zsh</code>的过程会自动安装<code>zsh</code>，如果没有自动安装可以通过<code>yay -S zsh</code>来安装</p>
+</blockquote>
+<p><strong>via curl</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p><strong>via wget</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>更多配置请访问上述代码仓库</p>
+<p>同时建议安装zsh的插件<code>zsh-syntax-highlighting</code>以及<code>autojump</code>。前者可以通过<code>yay -S zsh-syntax-highlighting</code>来安装，后者的<a href="https://github.com/wting/autojump" target="_blank" rel="noopener">仓库</a>，也可以通过<code>yay -S autojump</code>来安装，需要在<code>~/.zshrc</code>中更改对应<code>plugin</code>字段，如下图所示</p>
+<p><img src="/archives/a0eb940d/zsh%E9%85%8D%E7%BD%AE.png" alt="zsh中的plugin配置"></p>
+<blockquote>
+<p>个人使用的主题为<code>spaceship</code>(<a href="https://github.com/denysdovhan/spaceship-prompt" target="_blank" rel="noopener">官方仓库</a>)，有12k star，应该还是比较受欢迎的</p>
+</blockquote>
+<h3 id="无道词典"><a href="#无道词典" class="headerlink" title="无道词典"></a>无道词典</h3><p><a href="https://github.com/ChestnutHeng/Wudao-dict" target="_blank" rel="noopener">仓库链接</a></p>
+<blockquote>
+<p>无道词典，是一个简洁优雅的有道词典命令行版本。支持英汉互查的功能，包含释义、词组、例句等有助于学习的内容。</p>
+</blockquote>
+<p>这个工具算是早期折腾的时候使用的工具，也只是开始的时候使用比较频繁，但是还是推荐一下，具体安装方法可以参见上述官方仓库<br>运行截图如下:<br><img src="/archives/a0eb940d/%E6%97%A0%E9%81%93%E8%AF%8D%E5%85%B8.png" alt="无道词典运行截图"></p>
+<h3 id="gitmoji"><a href="#gitmoji" class="headerlink" title="gitmoji"></a>gitmoji</h3><p><a href="https://github.com/carloscuesta/gitmoji" target="_blank" rel="noopener">仓库链接</a><br>用于在git中执行commit操作的时候加入表情，个人使用比较频繁，但是本质上来说没有什么用，只是一个比较fancy的东西</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g gitmoji-cli</span><br></pre></td></tr></table></figure>
+<p>即可安装<br>运行时如下图所示<br><img src="/archives/a0eb940d/gitmoji.png" alt="gitmoji"></p>
+<h2 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h2><p>主要针对ss/ssr/v2ray<br>主要使用的是<code>electron-ssr</code>以及<code>Qv2ray</code>。其中<code>electron-ssr</code>已经不再维护，但是可以正常工作。可以通过AUR安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S electron-ssr</span><br></pre></td></tr></table></figure>
+<p>而Qv2ray的仓库<a href="https://github.com/Qv2ray/Qv2ray" target="_blank" rel="noopener">如下</a>。</p>
+<blockquote>
+<p>使用 Qt 框架的跨平台 V2Ray 客户端。支持 Windows, Linux, macOS。插件系统支持 <strong>SSR / Trojan / Trojan-Go / NaiveProxy</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S Qv2ray</span><br></pre></td></tr></table></figure>
+
+<h2 id="编程相关"><a href="#编程相关" class="headerlink" title="编程相关"></a>编程相关</h2><h3 id="jetbrains全家桶"><a href="#jetbrains全家桶" class="headerlink" title="jetbrains全家桶"></a>jetbrains全家桶</h3><p>如果有教育邮箱并<a href="https://sales.jetbrains.com/hc/zh-cn/articles/207154369-%E5%AD%A6%E7%94%9F%E6%8E%88%E6%9D%83%E7%94%B3%E8%AF%B7%E6%96%B9%E5%BC%8F" target="_blank" rel="noopener">申请了对应证书</a>可以使用professional/ultimate版本，否则只能使用community版本。这些软件基本上是对应语言的最佳IDE</p>
+<ul>
+<li><p><code>Clion</code> C/C++</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S clion</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>PyCharm</code> python</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S pycharm-community-edition</span><br></pre></td></tr></table></figure>
+<p>如果有教育邮箱并申请了相关的证书</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S pycharm-professional</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>GoLand</code> golang</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S goland</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>IntelliJ</code> Java</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S intellij-idea-community-edition</span><br></pre></td></tr></table></figure>
+<p>或是专业版</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S intellij-idea-ultimate-edition</span><br></pre></td></tr></table></figure></li>
+<li><p><code>DataGrip</code> database</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S datagrip</span><br></pre></td></tr></table></figure></li>
+<li><p><code>WebStorm</code> frontend</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S WebStorm</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="安卓开发"><a href="#安卓开发" class="headerlink" title="安卓开发"></a>安卓开发</h3><p><code>android-studio</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S android-studio</span><br></pre></td></tr></table></figure>
+
+<h3 id="VsCode"><a href="#VsCode" class="headerlink" title="VsCode"></a>VsCode</h3><p>不必多说，万能编辑器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S visual-studio-code-bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="Markdown-LaTex"><a href="#Markdown-LaTex" class="headerlink" title="Markdown/LaTex"></a>Markdown/LaTex</h3><p>Markdown一般来说使用<code>Typora</code>或是<code>VsCode</code>(需要安装对应插件)，而Latex确实没有找到很喜欢的编辑器，所以就用<code>VsCode</code>配合<code>LaTex WorkShop</code>插件，体验还是不错的。其中<code>LaTex</code>还需要安装额外的软件包，一般来说安装<code>texlive-most</code>以及<code>texlive-lang</code>就足够了(<code>yay -S texlive-lang texlive-most</code>)。更多关于在arch上配置<code>LaTex</code>的细节可以参考<a href="https://wiki.archlinux.org/index.php/TeX_Live" target="_blank" rel="noopener">wiki</a></p>
+<h3 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h3><p>python环境管理工具</p>
+<h2 id="日常工具"><a href="#日常工具" class="headerlink" title="日常工具"></a>日常工具</h2><h3 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h3><p>虽然没有office三件套，但是我们有WPS！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S wps-office</span><br></pre></td></tr></table></figure>
+<p>即可安装，包括文档，PowerPoint，表格以及pdf，基本可以满足平常的需求</p>
+<h3 id="Motrix"><a href="#Motrix" class="headerlink" title="Motrix"></a>Motrix</h3><p><a href="https://github.com/agalwood/Motrix" target="_blank" rel="noopener">仓库链接</a></p>
+<blockquote>
+<p>Motrix 是一款全能的下载工具，支持下载 HTTP、FTP、BT、磁力链等资源。</p>
+</blockquote>
+<p>下载工具，强烈推荐！！！好看又好用，通过chrome下载很慢的文件使用<code>Motrix</code>下载基本可以提速5到10倍，甚至更高(基于<code>aria2</code>，磁力链接体验不佳)，非常离谱。用就完事了！</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S motrix</span><br></pre></td></tr></table></figure>
+
+<h3 id="百度网盘"><a href="#百度网盘" class="headerlink" title="百度网盘"></a>百度网盘</h3><p>百度网盘官方支持，虽然失去了<code>pandownload</code>，但是至少官方的能用(自我安慰)。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S baidunetdisk-bin</span><br></pre></td></tr></table></figure>
+<p>个人使用的时候出现了无法登录的问题，尝试了<strong>使用手机号登录</strong>，以及<code>rm ~/baidunetdisk</code>之后均无效，只有通过命令行启动的才能正常登录。但是好在使用频率不搞，也就没有继续钻下去，勉强能用</p>
+<h3 id="TIM-QQ"><a href="#TIM-QQ" class="headerlink" title="TIM/QQ"></a>TIM/QQ</h3><p>虽然腾讯官方推出了 <a href="https://im.qq.com/linuxqq/index.html" target="_blank" rel="noopener">QQ for Linux</a>，但其实用性实在是不敢恭维。所以还是继续使用基于wine的解决方案。这里使用的是<code>deepin.com.qq.office</code>也即TIM</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S deepin.com.qq.office</span><br></pre></td></tr></table></figure>
+
+<h3 id="Albert-Launcher"><a href="#Albert-Launcher" class="headerlink" title="Albert Launcher"></a>Albert Launcher</h3><p><a href="https://github.com/albertlauncher/albert" target="_blank" rel="noopener">仓库链接</a></p>
+<blockquote>
+<p>本人体验了多款类似功能的软件，如<code>cerebro</code>、<code>synapse</code>，最终还是选择了<code>albert</code><br>提供类似于Mac上的Spotlight的体验（当然肯定比不上）<br>实际运行如下:<br><img src="/archives/a0eb940d/albert.png" alt="albert"><br>可以提供</p>
+</blockquote>
+<ul>
+<li>文件检索</li>
+<li>程序启动</li>
+<li>算式计算</li>
+</ul>
+<p>等功能</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S albert</span><br></pre></td></tr></table></figure>
+<h3 id="网易云音乐"><a href="#网易云音乐" class="headerlink" title="网易云音乐"></a>网易云音乐</h3><p>不必多说</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S netease-cloud-music</span><br></pre></td></tr></table></figure>
+
+<h3 id="Telegram"><a href="#Telegram" class="headerlink" title="Telegram"></a>Telegram</h3><p>同样是通过yay安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S telegram-desktop</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要配置一下代理</p>
+</blockquote>
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p>首选VirtualBox</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S virtualbox virtualbox-ext-oracle virtualbox-guest-iso</span><br></pre></td></tr></table></figure>
+<p>有时候会遇到必须使用Windows的情况，所以可以安装一个Windows虚拟机以便不时之需。</p>
+<h3 id="截图工具"><a href="#截图工具" class="headerlink" title="截图工具"></a>截图工具</h3><p>一般deepin自带的截图工具就够用了。非deepin用户可以尝试<a href="https://github.com/lupoDharkael/flameshot" target="_blank" rel="noopener">flameshot</a>。之前在纯Arch下体验很好。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S flameshot-git</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装-使用遇到问题如何解决？"><a href="#安装-使用遇到问题如何解决？" class="headerlink" title="安装/使用遇到问题如何解决？"></a>安装/使用遇到问题如何解决？</h1><p>一般来说有以下几种方式(不分先后)</p>
+<ul>
+<li>Google</li>
+<li>查看对应aur页面，可能会有相关讨论</li>
+<li>查看对应仓库issue页面，如果是在找不到解决方法可以提issue</li>
+<li>查看对应arch wiki页面（如果有的话）</li>
+</ul>
+<p>也可以尝试在我的<a href="https://hustergs.github.io/archives/d4f342f.html">另一篇博客</a>中找找看，也许会有惊喜。<br>当然也欢迎在本文下方留言。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/8fd86e1.html" rel="next" title="gopl-ch8">
+                <i class="fa fa-chevron-left"></i> gopl-ch8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/2d475dc9.html" rel="prev" title="C-C专家编程 Ch1">
+                C-C专家编程 Ch1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端相关"><span class="nav-number">2.1.</span> <span class="nav-text">终端相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yay包管理器"><span class="nav-number">2.1.1.</span> <span class="nav-text">yay包管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-amp-oh-my-zsh"><span class="nav-number">2.1.2.</span> <span class="nav-text">zsh &amp; oh-my-zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无道词典"><span class="nav-number">2.1.3.</span> <span class="nav-text">无道词典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gitmoji"><span class="nav-number">2.1.4.</span> <span class="nav-text">gitmoji</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#科学上网"><span class="nav-number">2.2.</span> <span class="nav-text">科学上网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程相关"><span class="nav-number">2.3.</span> <span class="nav-text">编程相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jetbrains全家桶"><span class="nav-number">2.3.1.</span> <span class="nav-text">jetbrains全家桶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安卓开发"><span class="nav-number">2.3.2.</span> <span class="nav-text">安卓开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VsCode"><span class="nav-number">2.3.3.</span> <span class="nav-text">VsCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markdown-LaTex"><span class="nav-number">2.3.4.</span> <span class="nav-text">Markdown&#x2F;LaTex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Anaconda"><span class="nav-number">2.3.5.</span> <span class="nav-text">Anaconda</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日常工具"><span class="nav-number">2.4.</span> <span class="nav-text">日常工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WPS"><span class="nav-number">2.4.1.</span> <span class="nav-text">WPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Motrix"><span class="nav-number">2.4.2.</span> <span class="nav-text">Motrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度网盘"><span class="nav-number">2.4.3.</span> <span class="nav-text">百度网盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIM-QQ"><span class="nav-number">2.4.4.</span> <span class="nav-text">TIM&#x2F;QQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Albert-Launcher"><span class="nav-number">2.4.5.</span> <span class="nav-text">Albert Launcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网易云音乐"><span class="nav-number">2.4.6.</span> <span class="nav-text">网易云音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Telegram"><span class="nav-number">2.4.7.</span> <span class="nav-text">Telegram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟机"><span class="nav-number">2.4.8.</span> <span class="nav-text">虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截图工具"><span class="nav-number">2.4.9.</span> <span class="nav-text">截图工具</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-使用遇到问题如何解决？"><span class="nav-number">3.</span> <span class="nav-text">安装&#x2F;使用遇到问题如何解决？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

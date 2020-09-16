@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python StandardPython 入门 字符串乘法 13 * &#39;123&#39; &#x3D; &#39;123123123&#39;  三引号用于换行字符串 12345print(&quot;&quot;&quot;\Usage: thingy [OPTIONS]     -h                        Display this usage message     -H hostname               Hostna">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Standard">
+<meta property="og:url" content="https://hustergs.github.io/archives/4b301912.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Python StandardPython 入门 字符串乘法 13 * &#39;123&#39; &#x3D; &#39;123123123&#39;  三引号用于换行字符串 12345print(&quot;&quot;&quot;\Usage: thingy [OPTIONS]     -h                        Display this usage message     -H hostname               Hostna">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hustergs.github.io/home/gs/.config/Typora/typora-user-images/1564809743482.png">
+<meta property="article:published_time" content="2019-08-10T16:06:08.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.778Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hustergs.github.io/home/gs/.config/Typora/typora-user-images/1564809743482.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/4b301912.html"/>
+
+
+
+
+
+  <title>Python Standard | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/4b301912.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Python Standard</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-11T00:06:08+08:00">
+                2019-08-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.6k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  10 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Python-Standard"><a href="#Python-Standard" class="headerlink" title="Python Standard"></a>Python Standard</h1><h2 id="Python-入门"><a href="#Python-入门" class="headerlink" title="Python 入门"></a>Python 入门</h2><ol>
+<li><p>字符串乘法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span> * <span class="string">'123'</span> = <span class="string">'123123123'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>三引号用于换行字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"""\</span></span><br><span class="line"><span class="string">Usage: thingy [OPTIONS]</span></span><br><span class="line"><span class="string">     -h                        Display this usage message</span></span><br><span class="line"><span class="string">     -H hostname               Hostname to connect to</span></span><br><span class="line"><span class="string">"""</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>_</code>在交互模式下表示最后打印的值</p>
+</li>
+<li><p>数组切片为<strong><em>浅拷贝</em></strong></p>
+</li>
+<li><p><code>print</code>使用<code>end</code>参数来定义结束符</p>
+</li>
+<li><p>方便的使用切片来遍历,而不是直接使用原数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> w <span class="keyword">in</span> words[:]:</span><br><span class="line">	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局变量和外层函数的变量不能在函数内部被直接赋值, 除非使用<code>global</code>等关键字</p>
+</li>
+</ol>
+<a id="more"></a>
+
+
+<ol start="8">
+<li><p>默认值是在 <em>定义过程</em> 中在函数定义处计算的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(arg=i)</span>:</span></span><br><span class="line">    print(arg)</span><br><span class="line"></span><br><span class="line">i = <span class="number">6</span></span><br><span class="line">f()</span><br></pre></td></tr></table></figure>
+
+<p>打印的是<code>5</code></p>
+<p>默认值只会执行一次。这条规则在默认值为可变对象（列表、字典以及大多数类实例）时很重要。比如，下面的函数会存储在后续调用中传递给它的参数:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(a, L=[])</span>:</span></span><br><span class="line">    L.append(a)</span><br><span class="line">    <span class="keyword">return</span> L</span><br><span class="line"></span><br><span class="line">print(f(<span class="number">1</span>))</span><br><span class="line">print(f(<span class="number">2</span>))</span><br><span class="line">print(f(<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+
+<p>这将打印出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure></li>
+<li><p>使用<code>*</code>和<code>**</code>来解包元组和字典</p>
+</li>
+<li><p>使用函数标注来标注类型信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">somefunc</span><span class="params">(a : str, b : int)</span> -&gt; str:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Yes'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将列表作为堆栈使用问题不大，由于列表本身就是在尾部的操作很方便，但是如果将其作为队列使用就会很慢，尤其是对于列表开头的元素，这种情况下使用<code>collections.deque</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line">queue = deque([<span class="string">"Eric"</span>, <span class="string">"John"</span>, <span class="string">"Michael"</span>])</span><br><span class="line">queue.append(<span class="string">"Terry"</span>)           <span class="comment"># Terry arrives</span></span><br><span class="line">queue.append(<span class="string">"Graham"</span>)          <span class="comment"># Graham arrives</span></span><br><span class="line">queue.popleft()                 <span class="comment"># The first to arrive now leaves</span></span><br><span class="line"><span class="comment"># 'Eric'</span></span><br><span class="line">queue.popleft()                 <span class="comment"># The second to arrive now leaves</span></span><br><span class="line"><span class="comment"># 'John'</span></span><br><span class="line">queue                           <span class="comment"># Remaining queue in order of arrival</span></span><br><span class="line"><span class="comment"># deque(['Michael', 'Terry', 'Graham'])</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>del</code>可以用于根据索引来清除列表中的某一个元素而不是根据值，也可以用于移除切片或者清空整个列表（由于切片是浅拷贝）</p>
+</li>
+<li><p>要创建一个空集合只能用<code>set()</code>而不能用<code>{}</code>，后者是创建一个空字典</p>
+</li>
+<li><p>当同时在多个序列中循环的时候使用<code>zip()</code>来将其内部的元素一一匹配</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">questions = [<span class="string">'name'</span>, <span class="string">'quest'</span>, <span class="string">'favorite color'</span>]</span><br><span class="line">answers = [<span class="string">'lancelot'</span>, <span class="string">'the holy grail'</span>, <span class="string">'blue'</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> q, a <span class="keyword">in</span> zip(questions, answers):</span><br><span class="line">	print(q, a)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较操作可以传递？？？</p>
+<p><code>-3 &lt; -2 &lt; -1</code>可以正常运行</p>
+</li>
+</ol>
+<ol start="16">
+<li><p>要使用 格式字字符串字面值 ，请在字符串的开始引号或三引号之前加上一个 <code>f</code> 或 <code>F</code> 。在此字符串中，你可以在 <code>{</code> 和 <code>}</code> 字符之间写可以引用的变量或字面值的 Python 表达式。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">year = <span class="number">2016</span></span><br><span class="line">event = <span class="string">'Referendum'</span></span><br><span class="line"><span class="string">f'Result of the <span class="subst">&#123;year&#125;</span> <span class="subst">&#123;event&#125;</span>'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不懂为什么</p>
+<p><img src="/home/gs/.config/Typora/typora-user-images/1564809743482.png" alt="1564809743482"></p>
+</li>
+<li><p>类中的私有变量实际山并不存在，而总是以下划线<code>_</code>开头约定为私有变量，或者</p>
+<p>由于存在对于类私有成员的有效使用场景（例如避免名称与子类所定义的名称相冲突），因此存在对此种机制的有限支持，称为 <em>名称改写</em>。 任何形式为 <code>__spam</code> 的标识符（至少带有两个前缀下划线，至多一个后缀下划线）的文本将被替换为 <code>_classname__spam</code>，其中 <code>classname</code> 为去除了前缀下划线的当前类名称。 这种改写不考虑标识符的句法位置，只要它出现在类定义内部就会进行。</p>
+<p>名称改写有助于让子类重载方法而不破坏类内方法调用</p>
+</li>
+<li><p>生成器表达式，类似于生成列表和生成set，只是变为了简单的括号，相比等效的列表推导式更加<strong>节省内存</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(i*i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于日常文件和目录管理任务， <code>shutil</code> 模块提供了更易于使用的更高级别的接口:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line">shutil.copyfile(<span class="string">'data.db'</span>, <span class="string">'archive.db'</span>)</span><br><span class="line">shutil.move(<span class="string">'/build/executables'</span>, <span class="string">'installdir'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>glob</code> 模块提供了一个在目录中使用通配符搜索创建文件列表的函数:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> glob</span><br><span class="line">glob.glob(<span class="string">'*.py'</span>)</span><br><span class="line"><span class="comment"># ['primes.py', 'random.py', 'quote.py']</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>终止脚本的最直接的方法是<code>sys.exit()</code></p>
+</li>
+<li><p><code>ramdom</code>提供了进行随机选择的工具</p>
+<p><code>random.sample(range(100), 10)   # sampling without replacement</code></p>
+</li>
+<li><p>常见的数据存档和压缩格式由模块直接支持，包括：<code>zlib</code>, <code>gzip</code>, <code>bz2</code>, <code>lzma</code>, <code>zipfile</code> 和 <code>tarfile</code>。</p>
+</li>
+<li><p>性能测量</p>
+<p>一些Python用户对了解同一问题的不同方法的相对性能产生了浓厚的兴趣。 Python提供了一种可以立即回答这些问题的测量工具。</p>
+<p>例如，元组封包和拆包功能相比传统的交换参数可能更具吸引力。timeit 模块可以快速演示在运行效率方面一定的优势:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line">Timer(<span class="string">'t=a; a=b; b=t'</span>, <span class="string">'a=1; b=2'</span>).timeit()</span><br><span class="line"><span class="comment"># 0.57535828626024577</span></span><br><span class="line">Timer(<span class="string">'a,b = b,a'</span>, <span class="string">'a=1; b=2'</span>).timeit()</span><br><span class="line"><span class="comment"># 0.54962537085770791</span></span><br></pre></td></tr></table></figure>
+
+<p>与 <code>timeit</code> 的精细粒度级别相反， <code>profile</code> 和 <code>pstats</code> 模块提供了用于在较大的代码块中识别时间关键部分的工具。</p>
+</li>
+<li><p>尽管这些工具非常强大，但微小的设计错误却可以导致一些难以复现的问题。因此，实现多任务协作的首选方法是将对资源的所有请求集中到一个线程中，然后使用 queue 模块向该线程供应来自其他线程的请求。应用程序使用 Queue 对象进行线程间通信和协调，更易于设计，更易读，更可靠。</p>
+</li>
+<li><p><code>logging</code> 模块提供功能齐全且灵活的日志记录系统。在最简单的情况下，日志消息被发送到文件或 <code>sys.stderr</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.debug(<span class="string">'Debugging information'</span>)</span><br><span class="line">logging.info(<span class="string">'Informational message'</span>)</span><br><span class="line">logging.warning(<span class="string">'Warning:config file %s not found'</span>, <span class="string">'server.conf'</span>)</span><br><span class="line">logging.error(<span class="string">'Error occurred'</span>)</span><br><span class="line">logging.critical(<span class="string">'Critical error -- shutting down'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNING:root:Warning:config file server.conf not found</span><br><span class="line">ERROR:root:Error occurred</span><br><span class="line">CRITICAL:root:Critical error -- shutting down</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Python 会自动进行内存管理（对大多数对象进行引用计数并使用 garbage collection 来清除循环引用）。 当某个对象的最后一个引用被移除后不久就会释放其所占用的内存。</p>
+<p>此方式对大多数应用来说都适用，但偶尔也必须在对象持续被其他对象所使用时跟踪它们。 不幸的是，跟踪它们将创建一个会令其永久化的引用。 weakref 模块提供的工具可以不必创建引用就能跟踪对象。 当对象不再需要时，它将自动从一个弱引用表中被移除，并为弱引用对象触发一个回调。 <strong>典型应用包括对创建开销较大的对象进行缓存</strong></p>
+</li>
+<li><p><code>array</code> 模块提供了一种 <code>array()</code> 对象，它类似于列表，<strong>但只能存储类型一致的数据且存储密集更高</strong>.</p>
+</li>
+<li><p><code>deciaml</code>模块提供了运算所需要的足够精度</p>
+</li>
+</ol>
+<h2 id="安装和使用Python"><a href="#安装和使用Python" class="headerlink" title="安装和使用Python"></a>安装和使用Python</h2><p>无</p>
+<h2 id="Python语言参考"><a href="#Python语言参考" class="headerlink" title="Python语言参考"></a>Python语言参考</h2><h3 id="3-数据模型"><a href="#3-数据模型" class="headerlink" title="3. 数据模型"></a>3. 数据模型</h3><ul>
+<li>每个对象都有各自的编号、类型和值。一个对象被创建后，它的 <em>编号</em> 就绝不会改变</li>
+<li><code>is</code> 运算符可以比较两个对象的编号是否相同；<code>id()</code> 函数能返回一个代表其编号的整型数。</li>
+<li>CPython 中，<code>id(x)</code> 就是存放 <code>x</code> 的内存的地址。</li>
+<li>类型会影响对象行为的几乎所有方面。甚至对象编号的重要性也在某种程度上受到影响: 对于不可变类型，会得出新值的运算实际上会返回对相同类型和取值的任一现有对象的引用，而对于可变类型来说这是不允许的。例如在 <code>a = 1; b = 1</code> 之后，<code>a</code> 和 <code>b</code> 可能会也可能不会指向同一个值为一的对象，这取决于具体实现，但是在 <code>c = []; d = []</code> 之后，<code>c</code> 和 <code>d</code> 保证会指向两个不同、单独的新建空列表。(请注意 <code>c = d = []</code> 则是将同一个对象赋值给 <code>c</code> 和 <code>d</code>。)</li>
+</ul>
+<h2 id="Python-标准库"><a href="#Python-标准库" class="headerlink" title="Python 标准库"></a>Python 标准库</h2><h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><ul>
+<li><p><code>all()</code>, <code>any()</code> 参数为可迭代对象, <code>与</code>, <code>或</code></p>
+</li>
+<li><p><code>chr()</code>返回 Unicode 码位为整数 i 的字符的字符串格式。</p>
+</li>
+<li><p><code>divmod(a, b)</code> 它将两个（非复数）数字作为实参，并在执行整数除法时返回一对商和余数。</p>
+</li>
+<li><p><code>enumerate</code>(<em>iterable</em>, <em>start=0</em>) </p>
+</li>
+<li><p><code>globals</code>()返回表示当前全局符号表的字典。这总是当前模块的字典（在函数或方法中，不是调用它的模块，而是定义它的模块）。</p>
+</li>
+<li><p><code>bin()</code>, <code>hex()</code>, <code>oct()</code>将整数转化为不同进制的字符串</p>
+</li>
+<li><p><code>map</code>(<em>function</em>, <em>iterable</em>, <em>…</em>)返回一个将 <em>function</em> 应用于 <em>iterable</em> 中每一项并输出其结果的迭代器。</p>
+</li>
+<li><p><code>ord</code>(<em>c</em>)对表示单个 Unicode 字符的字符串，返回代表它 Unicode 码点的整数。例如 <code>ord(&#39;a&#39;)</code> 返回整数 <code>97</code>， <code>ord(&#39;€&#39;)</code> （欧元符号）返回 <code>8364</code> 。这是 <a href="https://docs.python.org/zh-cn/3.7/library/functions.html#chr" target="_blank" rel="noopener"><code>chr()</code></a> 的逆函数。</p>
+</li>
+<li><p><code>sorted</code>(<em>iterable</em>, <em>, *key=None</em>, <em>reverse=False</em>)</p>
+</li>
+<li><p><code>zip</code>(<em>*iterables</em>)返回一个元组的迭代器，其中的第 <em>i</em> 个元组包含来自每个参数序列或可迭代对象的第 <em>i</em> 个元素。 当所输入可迭代对象中最短的一个被耗尽时，迭代器将停止迭代。 当只有一个可迭代对象参数时，它将返回一个单元组的迭代器。 不带参数时，它将返回一个空迭代器。</p>
+<p>zip() 与 * 运算符相结合可以用来拆解一个列表:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">y = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line">zipped = zip(x, y)</span><br><span class="line">list(zipped)</span><br><span class="line"><span class="comment"># [(1, 4), (2, 5), (3, 6)]</span></span><br><span class="line">x2, y2 = zip(*zip(x, y))</span><br><span class="line">x == list(x2) <span class="keyword">and</span> y == list(y2)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h3><ul>
+<li><p><code>x % y</code></p>
+</li>
+<li><p><code>x // y</code></p>
+</li>
+<li><p>比较运算可以任意串连；例如，<code>x &lt; y &lt;= z</code> 等价于 <code>x &lt; y and y &lt;= z</code>，前者的不同之处在于 <em>y</em> 只被求值一次（但在两种情况下当 <code>x &lt; y</code> 结果为假值时 <em>z</em> 都不会被求值）。</p>
+</li>
+<li><p><code>float.as_integer_ratio()</code>返回一对整数，其比率正好等于原浮点数并且分母为正数。 </p>
+</li>
+<li><p><code>float.is_integer()</code> 如果 float 实例可用有限位整数表示则返回 <code>True</code>，否则返回 <code>False</code></p>
+</li>
+<li><p><code>str.``count</code>(<em>sub</em>[, <em>start</em>[, <em>end</em>]])</p>
+<p>反回子字符串 <em>sub</em> 在 [<em>start</em>, <em>end*] 范围内非重叠出现的次数。 可选参数 *start</em> 与 <em>end</em> 会被解读为切片表示法。</p>
+</li>
+<li><p><code>str.``find</code>(<em>sub</em>[, <em>start</em>[, <em>end</em>]])</p>
+<p>返回子字符串 <em>sub</em> 在 <code>s[start:end]</code> 切片内被找到的最小索引。 可选参数 <em>start</em> 与 <em>end</em> 会被解读为切片表示法。 如果 <em>sub</em> 未被找到则返回 <code>-1</code>。</p>
+</li>
+<li><p><code>str.``index</code>(<em>sub</em>[, <em>start</em>[, <em>end</em>]])</p>
+<p>类似于 find()，但在找不到子类时会引发 ValueError。</p>
+</li>
+<li><p>字典 <code>setdefault</code>(<em>key</em>[, <em>default</em>])</p>
+<p>如果字典存在键 key ，返回它的值。如果不存在，插入值为 default 的键 key ，并返回 default 。 default 默认为 None。</p>
+</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/3068b676.html" rel="next" title="我可能学的是假英语">
+                <i class="fa fa-chevron-left"></i> 我可能学的是假英语
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/d4f342f.html" rel="prev" title="问题解决方法记录">
+                问题解决方法记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-Standard"><span class="nav-number">1.</span> <span class="nav-text">Python Standard</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-入门"><span class="nav-number">1.1.</span> <span class="nav-text">Python 入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和使用Python"><span class="nav-number">1.2.</span> <span class="nav-text">安装和使用Python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python语言参考"><span class="nav-number">1.3.</span> <span class="nav-text">Python语言参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数据模型"><span class="nav-number">1.3.1.</span> <span class="nav-text">3. 数据模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-标准库"><span class="nav-number">1.4.</span> <span class="nav-text">Python 标准库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内置函数"><span class="nav-number">1.4.1.</span> <span class="nav-text">内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置类型"><span class="nav-number">1.4.2.</span> <span class="nav-text">内置类型</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

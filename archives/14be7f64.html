@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Core JavaChapter 3Fundamental Programming Structures in Java use javac filename.java to compile java files and use java filename to run it. First step will generate a filename.class file.  keyword pub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Java">
+<meta property="og:url" content="https://hustergs.github.io/archives/14be7f64.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Core JavaChapter 3Fundamental Programming Structures in Java use javac filename.java to compile java files and use java filename to run it. First step will generate a filename.class file.  keyword pub">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-16T06:15:57.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.777Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/14be7f64.html"/>
+
+
+
+
+
+  <title>Core Java | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/14be7f64.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Core Java</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-16T14:15:57+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  10 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Core-Java"><a href="#Core-Java" class="headerlink" title="Core Java"></a>Core Java</h1><h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a>Chapter 3</h2><h3 id="Fundamental-Programming-Structures-in-Java"><a href="#Fundamental-Programming-Structures-in-Java" class="headerlink" title="Fundamental Programming Structures in Java"></a><strong><em>Fundamental Programming Structures in Java</em></strong></h3><ol>
+<li><p>use <code>javac filename.java</code> to compile java files and use <code>java filename</code> to run it. First step will generate a <code>filename.class</code> file.</p>
+</li>
+<li><p>keyword <code>public</code> is a <code>modifier</code> which controls the level of access</p>
+</li>
+<li><p>everything in Java program lives inside a class.</p>
+</li>
+<li><p>the length of java class is essentially <strong><em>unlimited</em></strong></p>
+</li>
+<li><p>the filename must be the same as the classname defined in the <code>.class</code> file</p>
+</li>
+<li><p>the <code>main method</code> must be decleared <code>public</code>. or more specificly like this </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassNmae</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        program statements</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To terminate the program with a different exit code, use <code>System.exit</code> method</p>
+</li>
+</ol>
+<a id="more"></a>
+
+
+<ol start="8">
+<li><p>Java is a strongly typed language. this meas that every variable must have a decleared type. there are eight primitive types in Java.</p>
+<ul>
+<li><p>Integer Types    </p>
+<ul>
+<li>int </li>
+<li>short </li>
+<li>long</li>
+<li>byte</li>
+</ul>
+<blockquote>
+<p>You can write long integer, Hexadecima, Octal and binary number with <code>-L</code>, <code>0x-</code>, <code>0-</code> and <code>0b-</code></p>
+</blockquote>
+</li>
+<li><p>Floating-Point Types</p>
+<ul>
+<li>float</li>
+<li>double</li>
+</ul>
+<blockquote>
+<ol>
+<li>the limitrf precision of <code>float</code> is simply not sufficient for many situantions. Use <code>float</code> values <strong><em>only</em></strong> when you work with a library that requires them, or when you need to store a very large number of them </li>
+<li>use <code>Double.isNaN()</code> instead of compare with <code>Double.NaN</code> to test whether <code>x</code> is <code>NaN</code></li>
+<li>use <code>BigDecimal</code> class, if you need precise numerical computations without roundoff errors like <code>2.0 - 1.1 == 0.8999999</code></li>
+</ol>
+</blockquote>
+</li>
+<li><p>char</p>
+</li>
+</ul>
+<blockquote>
+<p>unicode escape sequences are processed before the code is parsed. so <code>public static void main(String\u0058\u005D args)</code> is perfectly legal</p>
+</blockquote>
+<ul>
+<li><p>boolean</p>
+<blockquote>
+<p>different from C/C++. expressions like <code>x = 0</code> can not be used in Java as a condition because you can not convert between <code>integers</code> and <code>boolean</code> values</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>the letter and digit you can use in a variable name is much more wider than other languages especally C/C++</p>
+</li>
+<li><p>use <code>final</code> to denote a constant, <code>final double PI = 3.14</code>. <code>final</code> indicates that you can assign to the variable once, and then its value is set once and for all. And use <code>static final</code> to create a <code>class constants</code> which is available to multiple methods inside a single class. </p>
+<blockquote>
+<p><code>const</code> is a reserved keyword, but not currently used for angthing</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Constants</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> CM_PER_INCH = <span class="number">2.54</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="11">
+<li><p>Occasionally need Mathmatical Functions and Constants</p>
+<ul>
+<li><code>Math.sqrt()</code></li>
+<li><code>Math.pow(x,a)</code></li>
+<li><code>Math.florrMod()</code></li>
+<li><code>Math.sin()</code></li>
+<li><code>Math.exp()</code></li>
+<li><code>Math.log()</code></li>
+<li><code>Math.log10()</code></li>
+<li><code>Math.PI</code></li>
+<li><code>Math.E</code></li>
+</ul>
+</li>
+<li><pre><code class="java"><span class="keyword">double</span> x = <span class="number">9.997</span>;
+<span class="keyword">int</span> nx = (<span class="keyword">int</span>) x; <span class="comment">//x = 9</span>
+
+<span class="keyword">int</span> nx2 = (<span class="keyword">int</span>) Math.round(x); <span class="comment">// x = 10</span>
+&lt;!--￼<span class="number">2</span>--&gt;</code></pre>
+</li>
+<li><ul>
+<li><p><code>string.substring(startPosition, endPosition)</code></p>
+</li>
+<li><p><code>string3 = string1 + string2</code></p>
+</li>
+<li><p><code>stringnum = string + num</code></p>
+</li>
+<li><p><code>String.join()</code></p>
+</li>
+<li><p><code>string.equals(t)</code></p>
+</li>
+<li><p><code>string.equalsIngnoreCase(t)</code></p>
+<blockquote>
+<p>java strings behave like pointers, do not use <code>==</code> to test whether two strings are equal</p>
+</blockquote>
+</li>
+<li><p>use <code>string.charAt(int index)</code> instead of <code>[]</code></p>
+</li>
+</ul>
+</li>
+<li><p><code>Strings</code> Are Immutable</p>
+</li>
+<li><p>Building Strings</p>
+<blockquote>
+<p>It will be inefficient to use string concatenation for this purpose  ( <code>+</code> ). Every time you concatenate strings, a new string object is constructed which consums time and wastes memory. Using the <code>StringBuilder</code> class to avoid this problem</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">builder.append(ch);</span><br><span class="line">builder.append(string);</span><br><span class="line"><span class="comment">// when done</span></span><br><span class="line">String completedString = builder.toString();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Reading Input</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System.in is not quite as simple as System.out</span></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">// Scanner is part of java.util</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">input</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">"What is   your name? "</span>);</span><br><span class="line">        String name = in.nextLine();</span><br><span class="line">        <span class="comment">// Here we use the nextLine method, because the input might contain spaces</span></span><br><span class="line">        <span class="comment">// To read a single word, call</span></span><br><span class="line">        <span class="comment">// String firstName = in.next();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// To read a integer, call</span></span><br><span class="line">        <span class="comment">// int age = in.nextInt();</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>There is no <code>goto</code> in Java, while there is a “labeled” version of <code>break</code> that you can use to break out of a nested loop. There is also a labeled version of <code>continue</code></p>
+</li>
+<li><p>You can not redefine a variable inside a nested block hoping the inner definition will shadows the outer one. Java would rather not compile </p>
+</li>
+<li><p>A <code>case</code> label can be</p>
+<ul>
+<li>a constant expression of type <code>char</code>, <code>bytr</code>, <code>short</code>, or <code>int</code></li>
+<li>An enumerated constant</li>
+<li>Starting with Java SE 7, a string literal</li>
+</ul>
+</li>
+<li><p>Unlike C++, Java has no programmable operator overloading</p>
+</li>
+<li><p>Array</p>
+</li>
+</ol>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> [] a;</span><br><span class="line"><span class="comment">// initialize a array</span></span><br><span class="line"><span class="comment">// array type is specified by `[]`</span></span><br><span class="line"><span class="keyword">int</span> [] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>]</span><br><span class="line"><span class="comment">// use the `new` operator to create the array </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The array length need not be a constant:</span></span><br><span class="line"><span class="keyword">new</span> <span class="keyword">int</span>[n]</span><br><span class="line"></span><br><span class="line"><span class="comment">// And there are actually two way to define a array</span></span><br><span class="line"><span class="comment">//1. </span></span><br><span class="line"><span class="keyword">int</span> [] a;</span><br><span class="line"><span class="comment">//or </span></span><br><span class="line"><span class="keyword">int</span> a[];</span><br><span class="line"><span class="comment">// But most Java programmer prefer the former style, because it neatly separates the type int [] from the variable name</span></span><br></pre></td></tr></table></figure></code></pre><p> When you create an array of numbers, all elements are initialized with zero. Arrays of <code>boolean</code> are initialized with <code>false</code>. Array of objects are initialized with the special value <code>null</code></p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] names = <span class="keyword">new</span> String[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// all the strings are null</span></span><br></pre></td></tr></table></figure>
+
+index out of range will cause a `array index of bounds` exception.</code></pre><ol start="23">
+<li><p>the <strong><em>enhanced</em></strong> <code>for</code> loop</p>
+<p><code>for (variable : collection) statement</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> element : a)</span><br><span class="line">    System.out.println(element)</span><br></pre></td></tr></table></figure>
+</li>
+<li><pre><code class="java"><span class="keyword">int</span>[] smallPrimes = {<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>}
+<span class="comment">// anonymous array</span>
+<span class="keyword">new</span> <span class="keyword">int</span>[] {<span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">37</span>}
+<span class="comment">// 字面量似乎除了初始化之外，好像不能在其他地方使用</span>
+<span class="comment">// 如果想使用字面量只能使用上面那种方式</span>
+
+&lt;!--￼<span class="number">8</span>--&gt;</code></pre>
+</li>
+<li><p>使用<code>Arrays.copyOf(source, length)</code> 来生成一个数组的拷贝，如果length超过了<code>source</code>的长度，多出来的位置填充 <code>0</code> / <code>false</code></p>
+</li>
+<li><p>和C/C++不同，Java中Main 函数的参数之中并不包括程序的名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java Message -h  world</span><br><span class="line">&#x2F;&#x2F; args[0] 是 &quot;-h&quot; 而不是 Message</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Array.sort(target)</code> sort target</p>
+</li>
+<li><p>多维数组</p>
+</li>
+<li><p>不规则数组，C++好像不支持？</p>
+</li>
+</ol>
+<h2 id="Chapter-4"><a href="#Chapter-4" class="headerlink" title="Chapter 4"></a>Chapter 4</h2><h3 id="Object-and-Classes"><a href="#Object-and-Classes" class="headerlink" title="Object and Classes"></a><strong><em>Object and Classes</em></strong></h3><ol>
+<li><p>You can only have one public class in a source file, but you can have any number of nonpublic classes</p>
+</li>
+<li><p>There is an important difference between constructors and other methods. A constructor can only be called in conjunction with the new operator. You can’t apply a constructor to an existing object to reset the instance fields. For example,4.3 Defining Your Own Classes</p>
+<p><code>james.Employee(&quot;James Bond&quot;, 250000, 1950, 1, 1)</code> // ERROR<br>is a compile-time error.</p>
+</li>
+<li><p>keep the following in mind</p>
+<ul>
+<li>A constructor has the same name as the class.</li>
+<li>A class can have more than one constructor.</li>
+<li>A constructor can take zero, one, or more parameters.</li>
+<li>A constructor has no return value.</li>
+<li>A constructor is always called with the new operator.</li>
+</ul>
+</li>
+<li><p>如果你要在对象的方法中返回一个可以改变的对象，比如<code>Date</code>类型的员工的入职时间，应该先将其 <code>clone</code> 一遍，否则将会破坏对象的包装(<code>encapsulation</code>)</p>
+<p>As a rule of thumb, always use clone whenever you need to return a copy of a mutable field.</p>
+</li>
+<li><p>一个对象的方法可以访问所有该类型的<code>private</code> 类型的属性，不管是不是对象本身。C++也可以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">quals</span><span class="params">(Employee other)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> name.equals(other.name); <span class="comment">// 可以访问 other 对象的 private 属性 name</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Final Instance Fields 这种类型的属性必须要在构造函数中被初始化，一旦初始化便不再能更改</p>
+</li>
+<li><p>Static Fields and Methods</p>
+<p>If you define a field as static , then there is only one such field per class. In contrast, each object has its own copy of all instance fields.</p>
+<p>静态方法/字段 不依赖于具体的实例对象，它是 <code>class</code> 固有属性</p>
+</li>
+<li><p>Static Constant 比如 <code>Math.PI</code></p>
+<blockquote>
+<p>NOTE: If you look at the System class, you will notice a method <code>setOut</code> that sets System.out to a different stream. You may wonder how that method can change the value of a final variable. However, the <code>setOut</code> method is a native method, not implemented in the Java programming language. Native methods can bypass the access control mechanisms of the Java language. This is a very unusual workaround that you should not emulate in your programs.</p>
+</blockquote>
+</li>
+<li><p>使用类来调用静态方法而不是使用对象，虽然后者确实行得通</p>
+</li>
+<li><p>工厂函数被声明为静态</p>
+</li>
+<li><p>函数重载</p>
+<p> Java允许你重载所有函数，不仅仅是构造函数，但是需要注意的是，函数的返回值并不作为函数签名的一部分，所以你不能写两个名字和参数都相同但是返回值不同的函数</p>
+</li>
+<li><p>如果你没有指定任何构造函数，那么就会使用默认值初始化对象，但是一旦你指定了构造函数但是在调用的时候又没有传入应有的参数，就会报错</p>
+</li>
+<li><p>Java 中可以直接为对象的字段指定初始值，C++不行，同时Java也支持在指定初始值的时候不使用常量，可以使用函数调用等等</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> nextId;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id = assignId();</span><br><span class="line">	. . .</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">assignId</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> r = nextId;</span><br><span class="line">		nextId++;</span><br><span class="line">		<span class="keyword">return</span> r;</span><br><span class="line">	&#125;</span><br><span class="line">	. . .</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果一个构造函数的 <strong><em>第一个语句</em></strong> 是<code>this(...)</code>的形式的话，那么该构造函数就会调用对象中的另外一个构造函数，这在编写很多相似的构造函数的时候很有用</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">double</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// calls Employee(String, double)</span></span><br><span class="line">	<span class="keyword">this</span>(<span class="string">"Employee #"</span> + nextId, s);</span><br><span class="line">	nextId++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化一个对象的数据段有3种方法</p>
+<ul>
+<li><p>在构造函数之中设置值</p>
+</li>
+<li><p>在数据段声明的时候赋值</p>
+</li>
+<li><p><strong><em>使用 <code>initialization block</code></em></strong> (不是很常见)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> nextId;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> salary;</span><br><span class="line">	<span class="comment">// object initialization block</span></span><br><span class="line">	&#123;</span><br><span class="line">		id = nextId;</span><br><span class="line">		nextId++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">double</span> s)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		name = n;</span><br><span class="line">		salary = s;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		name = <span class="string">""</span>;</span><br><span class="line">		salary = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	. . .</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不论哪一个构造函数被使用进而生成一个对象，<code>initialization block</code> 总是先执行，然后再执行构造函数(按照在对象中出现的顺序)</p>
+</li>
+</ul>
+</li>
+<li><p>使用<code>finalize</code>来达到类似于C++之中的析构函数</p>
+</li>
+<li><p>使用<code>import static</code> 来导入静态方法而不只是类本身</p>
+</li>
+<li><p>使用<code>package</code> 来打包一个类</p>
+</li>
+</ol>
+<h2 id="Chapter-5"><a href="#Chapter-5" class="headerlink" title="Chapter 5"></a>Chapter 5</h2><h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a><strong><em>Inheritance</em></strong></h3><ol>
+<li><p>使用 <code>extends</code> 关键字来继承一个类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	added methods and fields</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/6787f816.html" rel="next" title="Linux命令行与shell脚本编程大全">
+                <i class="fa fa-chevron-left"></i> Linux命令行与shell脚本编程大全
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/beb9abc0.html" rel="prev" title="数电复习笔记">
+                数电复习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-Java"><span class="nav-number">1.</span> <span class="nav-text">Core Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-3"><span class="nav-number">1.1.</span> <span class="nav-text">Chapter 3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fundamental-Programming-Structures-in-Java"><span class="nav-number">1.1.1.</span> <span class="nav-text">Fundamental Programming Structures in Java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-4"><span class="nav-number">1.2.</span> <span class="nav-text">Chapter 4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-and-Classes"><span class="nav-number">1.2.1.</span> <span class="nav-text">Object and Classes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-5"><span class="nav-number">1.3.</span> <span class="nav-text">Chapter 5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Inheritance"><span class="nav-number">1.3.1.</span> <span class="nav-text">Inheritance</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

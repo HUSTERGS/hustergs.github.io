@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+<meta name="baidu-site-verification" content="54i6SXLyTF" />
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Chapter Goroutines and Channels  Goroutines 第一个gorountine为main  使用go关键字，例子如下 12345678910111213141516171819202122232425262728package main import (     &quot;fmt&quot;     &quot;time&quot; ) func main() &amp;#123;     go spinn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gopl-ch8">
+<meta property="og:url" content="https://hustergs.github.io/archives/8fd86e1.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="Chapter Goroutines and Channels  Goroutines 第一个gorountine为main  使用go关键字，例子如下 12345678910111213141516171819202122232425262728package main import (     &quot;fmt&quot;     &quot;time&quot; ) func main() &amp;#123;     go spinn">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-04T16:38:19.000Z">
+<meta property="article:modified_time" content="2020-09-16T02:10:36.779Z">
+<meta property="article:author" content="Samuel-G">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":7},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hustergs.github.io/archives/8fd86e1.html"/>
+
+
+
+
+
+  <title>gopl-ch8 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Samuel's Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/8fd86e1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">gopl-ch8</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-05T00:38:19+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+                2020-09-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.1k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  4 mins
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Chapter"><a href="#Chapter" class="headerlink" title="Chapter"></a>Chapter</h2><blockquote>
+<p>Goroutines and Channels</p>
+</blockquote>
+<h3 id="Goroutines"><a href="#Goroutines" class="headerlink" title="Goroutines"></a>Goroutines</h3><ol>
+<li><p>第一个<code>gorountine</code>为<code>main</code></p>
+</li>
+<li><p>使用<code>go</code>关键字，例子如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"> <span class="keyword">import</span> (</span><br><span class="line">     <span class="string">"fmt"</span></span><br><span class="line">     <span class="string">"time"</span></span><br><span class="line"> )</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">     <span class="keyword">go</span> spinner(<span class="number">100</span> * time.Millisecond)</span><br><span class="line">     <span class="keyword">const</span> n = <span class="number">45</span></span><br><span class="line">     fibN := fib(n)</span><br><span class="line">     fmt.Printf(<span class="string">"\rFibonacci(%d) = %d\n"</span>, n, fibN)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">spinner</span><span class="params">(delay time.Duration)</span></span> &#123;</span><br><span class="line">     <span class="keyword">for</span> &#123;</span><br><span class="line">         <span class="keyword">for</span> _, r := <span class="keyword">range</span> <span class="string">`-\|/`</span> &#123;</span><br><span class="line">             fmt.Printf(<span class="string">"\r%c"</span>, r)</span><br><span class="line">             time.Sleep(delay)</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">fib</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">     <span class="keyword">if</span> x &lt; <span class="number">2</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> x</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> fib(x<span class="number">-1</span>) + fib(x<span class="number">-2</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了退出之外没有其他办法使得一个<code>gorountine</code>停止另外一个，当然，依然可以通过<code>gorountine</code>之间的交流来<em>请求</em>对方停止</p>
+</li>
+</ol>
+<a id="more"></a>
+
+<ol start="4">
+<li>我们常常使用函数字面量的方式，来启动一个<code>gorountine</code>，即<code>go 函数定义(传入参数)</code>，而这个过程又常常涉及到闭包，由于函数字面量可能在函数体中引用外部的变量，如<code>channel</code><h3 id="Example-Concurrent-Clock-Server"><a href="#Example-Concurrent-Clock-Server" class="headerlink" title="Example: Concurrent Clock Server"></a>Example: Concurrent Clock Server</h3><h3 id="Example-Concurrent-Echo-Server"><a href="#Example-Concurrent-Echo-Server" class="headerlink" title="Example: Concurrent Echo Server"></a>Example: Concurrent Echo Server</h3></li>
+</ol>
+<h3 id="Channels"><a href="#Channels" class="headerlink" title="Channels"></a>Channels</h3><ol>
+<li><p>创建一个<code>channel</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">// 创建了一个名为ch的channel，其中传递的数据类型为int</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>channel</code>的基本操作</p>
+<ul>
+<li>Send:<br><code>ch &lt;- x</code> ，将x的值传入<code>ch</code></li>
+<li>Receive<br><code>x = &lt;-ch</code>, 从<code>ch</code>接收值并赋给变量<code>x</code>,也可以不设置接收对象，应该等同于<code>_ = &lt;-ch</code>，即抛弃接收的值<blockquote>
+<p>作为函数返回值的时候不需要声明临时变量，<code>return &lt;- ch</code>即可</p>
+</blockquote>
+</li>
+<li>Close<br><code>close(ch)</code>将会关闭一个channel，对一个已经关闭的channel进行<ul>
+<li><code>Send</code>操作将会产生<code>panic</code></li>
+<li><code>Receive</code>操作将会获取可能已经传入的值，如果没有则获得的为对应类型的零值，(比如发送方在send之后立即关闭，此时可能接收方还没有收到，但channel已经被关闭，那么接收方依然可以对这个channel执行receive操作，直到没有值可以取出，可以理解为邮箱？)。在<code>Receive</code>操作中可以选择接收两个值，<code>x, ok = &lt;-ch</code>其中第二个值 <code>ok</code>就可以用来表征是否已经取出了所有的值。当然由于这种需求非常普遍，所以go提供了<code>range</code>操作符，可以直接用来遍历通过channel传递的数据，在结束后自动跳出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>channel又分为<code>buffered</code>/<code>unbuffered</code>两种，以下分别介绍这两种channel</p>
+<h4 id="Unbuffered-Channels"><a href="#Unbuffered-Channels" class="headerlink" title="Unbuffered Channels"></a>Unbuffered Channels</h4><ol>
+<li><p>简单来说就是同步的，针对某一次发送，接收方没有确认接收的话，发送方将会被阻塞，对接收方也是一样，当尝试接收的时候，接收反进程将会一直等待到收到数据为止。</p>
+</li>
+<li><p>其中go<strong>确保</strong>接收方的接收操作早于发送方被唤醒</p>
+</li>
+<li><p>一般来说我们使用channel是为了传递信息，但<code>unbuffered channel</code>自身的同步特性使得我们可以以一种类似于同步锁的方式来使用channel，此时传递的数据其实不包含任何信息，数据类型常常选择一些简单的类型，如<code>int</code></p>
+</li>
+</ol>
+<h4 id="Buffered-Channels"><a href="#Buffered-Channels" class="headerlink" title="Buffered Channels"></a>Buffered Channels</h4><ol>
+<li><p>基本形式</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ch = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">// unbuffered channel</span></span><br><span class="line">ch = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">0</span>) <span class="comment">// unbufferd channel</span></span><br><span class="line">ch = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">3</span>) <span class="comment">// bufferd channel with capacity 3</span></span><br></pre></td></tr></table></figure>
+
+<p> 简单来说就是当缓冲区为空的时候，再次尝试接收，接收者会被阻塞，当缓冲区满了，再次尝试发送，发送者会被阻塞，其实很像操作系统中学习的<strong>信号灯</strong>。</p>
+</li>
+<li><p>对buffered channel 可以使用<code>len</code>函数，返回缓冲区中元素的个数，同理可以使用<code>cap</code>获得缓冲区的大小</p>
+</li>
+</ol>
+<h4 id="Unidirectional-Channel-Types"><a href="#Unidirectional-Channel-Types" class="headerlink" title="Unidirectional Channel Types"></a>Unidirectional Channel Types</h4><p>单项的channel。当函数接收channel作为参数的时候，往往同一个channel参数只会使用接收/发送操作，也即在该函数中，channel是<strong>单向</strong>的。<br>用法如下:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">squarer</span><span class="params">(out <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>, in &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>其中out只能用于输出（向channel输入），in只能作为输入（从channel中获得），参数的形式其实已经揭示了其用法，<code>out chan &lt;- int</code>就意味着对于<code>out</code>只能使用形如<code>out &lt;- someValue</code>的操作</p>
+<h4 id="Looping-in-Parallel"><a href="#Looping-in-Parallel" class="headerlink" title="Looping in Parallel"></a>Looping in Parallel</h4><h4 id="Example-Concurrent-Web-Crawler"><a href="#Example-Concurrent-Web-Crawler" class="headerlink" title="Example: Concurrent Web Crawler"></a>Example: Concurrent Web Crawler</h4><h4 id="Multiplexing-with-select"><a href="#Multiplexing-with-select" class="headerlink" title="Multiplexing with select"></a>Multiplexing with select</h4><h4 id="Example-Concurrent-Directory-Traversal"><a href="#Example-Concurrent-Directory-Traversal" class="headerlink" title="Example: Concurrent Directory Traversal"></a>Example: Concurrent Directory Traversal</h4><h4 id="Cancellation"><a href="#Cancellation" class="headerlink" title="Cancellation"></a>Cancellation</h4><h4 id="Example-Chat-Server"><a href="#Example-Chat-Server" class="headerlink" title="Example: Chat Server"></a>Example: Chat Server</h4><p>以上几章的内容偏向于实践，包含大量代码，建议直接查看<a href="https://books.studygolang.com/gopl-zh/ch8/ch8.html" target="_blank" rel="noopener">原文</a>。<br>其中Cancellation一节主要讲的是可以利用channel的<code>close</code>操作所带来的间接的<strong>广播效果</strong>（所有使用该channel的函数可以通过receive操作来获取知晓该channel被关闭，进而实现某种意义上的<strong>通知</strong>），来实现对所有的gorountine的取消（对应的gorountine内部需要编写对应的相应代码）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/65f283cf.html" rel="next" title="python-cookbook-ch4">
+                <i class="fa fa-chevron-left"></i> python-cookbook-ch4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/archives/a0eb940d.html" rel="prev" title="Archlinux/Manjaro下的软件包推荐">
+                Archlinux/Manjaro下的软件包推荐 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="gitalk-container"></div>
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/%E5%A4%B4%E5%83%8F.jpg"
+                alt="Samuel-G" />
+            
+              <p class="site-author-name" itemprop="name">Samuel-G</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/HUSTERGS" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:songge.huster@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.hustunique.com/" title="UniqueStudio" target="_blank">UniqueStudio</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://alexfan.cn/" title="AlexFan" target="_blank">AlexFan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.aaron-xin.tech/" title="一口闰心" target="_blank">一口闰心</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.bolun.xyz/" title="Bolun" target="_blank">Bolun</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter"><span class="nav-number">1.</span> <span class="nav-text">Chapter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goroutines"><span class="nav-number">1.1.</span> <span class="nav-text">Goroutines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-Concurrent-Clock-Server"><span class="nav-number">1.2.</span> <span class="nav-text">Example: Concurrent Clock Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-Concurrent-Echo-Server"><span class="nav-number">1.3.</span> <span class="nav-text">Example: Concurrent Echo Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channels"><span class="nav-number">1.4.</span> <span class="nav-text">Channels</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Unbuffered-Channels"><span class="nav-number">1.4.1.</span> <span class="nav-text">Unbuffered Channels</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffered-Channels"><span class="nav-number">1.4.2.</span> <span class="nav-text">Buffered Channels</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unidirectional-Channel-Types"><span class="nav-number">1.4.3.</span> <span class="nav-text">Unidirectional Channel Types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Looping-in-Parallel"><span class="nav-number">1.4.4.</span> <span class="nav-text">Looping in Parallel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-Concurrent-Web-Crawler"><span class="nav-number">1.4.5.</span> <span class="nav-text">Example: Concurrent Web Crawler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multiplexing-with-select"><span class="nav-number">1.4.6.</span> <span class="nav-text">Multiplexing with select</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-Concurrent-Directory-Traversal"><span class="nav-number">1.4.7.</span> <span class="nav-text">Example: Concurrent Directory Traversal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cancellation"><span class="nav-number">1.4.8.</span> <span class="nav-text">Cancellation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-Chat-Server"><span class="nav-number">1.4.9.</span> <span class="nav-text">Example: Chat Server</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!-- END LOCAL -->
+
+    
+      <script type="text/javascript">
+      function renderGitalk(){
+        var gitalk = new Gitalk({
+            owner: '',
+            repo: '',
+            clientID: 'f4626645f5cf0431c84a',
+            clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+            admin: '',
+            
+            });
+        gitalk.render('gitalk-container');
+      }
+      renderGitalk();
+      </script>
+    
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="SQL,Linux," />
+  <meta name="keywords" content="C," />
 
 
 
@@ -87,25 +87,18 @@
 
 
 
-<meta name="description" content="如何在ArchLinux中安装mssql-server 主要参考youtue视频  依次安装mssql-server, msodbcsql, mssql-tools   若使用yay作为包管理器则输入以下命令即可   1yay -S mssql-server msodbcsql mssql-tools 进行相关配置,如证书以及密码 选择证书版本以及配置密码1$ sudo &#x2F;opt&#x2F;mssql&#x2F;bi">
+<meta name="description" content="一般来说只要看到malloc(strlen(str))基本都是错误的，正确的应该是malloc(strlen(str)+1)，由于需要为\0符号留出空间  NUL与NULL，前者为\0，后者表示什么也不指向（空指针）  多行字符串会发生自动拼接 123printf(&quot;First line &quot;     &quot;Second line &quot;     &quot;Third line&quot;); 将会打印First line">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ArchLinux 安装mssql-server">
-<meta property="og:url" content="https://hustergs.github.io/archives/ea202796.html">
+<meta property="og:title" content="C-C专家编程 Ch2">
+<meta property="og:url" content="https://hustergs.github.io/archives/b44e0c73.html">
 <meta property="og:site_name" content="Samuel&#39;s Blogs">
-<meta property="og:description" content="如何在ArchLinux中安装mssql-server 主要参考youtue视频  依次安装mssql-server, msodbcsql, mssql-tools   若使用yay作为包管理器则输入以下命令即可   1yay -S mssql-server msodbcsql mssql-tools 进行相关配置,如证书以及密码 选择证书版本以及配置密码1$ sudo &#x2F;opt&#x2F;mssql&#x2F;bi">
+<meta property="og:description" content="一般来说只要看到malloc(strlen(str))基本都是错误的，正确的应该是malloc(strlen(str)+1)，由于需要为\0符号留出空间  NUL与NULL，前者为\0，后者表示什么也不指向（空指针）  多行字符串会发生自动拼接 123printf(&quot;First line &quot;     &quot;Second line &quot;     &quot;Third line&quot;); 将会打印First line">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://hustergs.github.io/archives/ea202796/%E9%80%89%E6%8B%A9%E8%AF%81%E4%B9%A6.png">
-<meta property="og:image" content="https://hustergs.github.io/archives/ea202796/%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81.png">
-<meta property="og:image" content="https://hustergs.github.io/archives/ea202796/%E6%8B%93%E5%B1%95.png">
-<meta property="og:image" content="https://hustergs.github.io/archives/ea202796/VScode%E6%88%AA%E5%9B%BE.png">
-<meta property="og:image" content="https://hustergs.github.io/archives/ea202796/datagrip%E6%88%AA%E5%9B%BE.png">
-<meta property="article:published_time" content="2020-04-12T08:46:53.000Z">
-<meta property="article:modified_time" content="2020-09-16T02:10:36.762Z">
+<meta property="article:published_time" content="2020-09-16T08:55:58.000Z">
+<meta property="article:modified_time" content="2020-09-16T08:55:58.797Z">
 <meta property="article:author" content="Samuel-G">
-<meta property="article:tag" content="SQL">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hustergs.github.io/archives/ea202796/%E9%80%89%E6%8B%A9%E8%AF%81%E4%B9%A6.png">
 
 
 
@@ -135,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://hustergs.github.io/archives/ea202796.html"/>
+  <link rel="canonical" href="https://hustergs.github.io/archives/b44e0c73.html"/>
 
 
 
 
 
-  <title>ArchLinux 安装mssql-server | Samuel's Blogs</title>
+  <title>C-C专家编程 Ch2 | Samuel's Blogs</title>
   
 
 
@@ -278,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ea202796.html">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/b44e0c73.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Samuel-G">
@@ -295,7 +288,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">ArchLinux 安装mssql-server</h2>
+          <h2 class="post-title" itemprop="name headline">C-C专家编程 Ch2</h2>
         
 
         <div class="post-meta">
@@ -307,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-12T16:46:53+08:00">
-                2020-04-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-16T16:55:58+08:00">
+                2020-09-16
               </time>
             
 
@@ -323,7 +316,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2020-09-16T16:55:58+08:00">
                 2020-09-16
               </time>
             
@@ -342,8 +335,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming Language</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
                   </a>
                 </span>
 
@@ -378,7 +382,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  338 words
+                  979 words
                 </span>
               
 
@@ -394,7 +398,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1 mins
+                  3 mins
                 </span>
               
             </div>
@@ -415,31 +419,51 @@
       
 
       
-        <h2 id="如何在ArchLinux中安装mssql-server"><a href="#如何在ArchLinux中安装mssql-server" class="headerlink" title="如何在ArchLinux中安装mssql-server"></a>如何在ArchLinux中安装mssql-server</h2><blockquote>
-<p>主要参考<a href="https://www.youtube.com/watch?v=KnIjhVkO5rw" target="_blank" rel="noopener">youtue视频</a></p>
+        <ol>
+<li><p>一般来说只要看到<code>malloc(strlen(str))</code>基本都是错误的，正确的应该是<code>malloc(strlen(str)+1)</code>，由于需要为<code>\0</code>符号留出空间</p>
+</li>
+<li><p><code>NUL</code>与<code>NULL</code>，前者为<code>\0</code>，后者表示什么也不指向（空指针）</p>
+</li>
+<li><p>多行字符串会发生自动拼接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"First line "</span></span><br><span class="line">     <span class="string">"Second line "</span></span><br><span class="line">     <span class="string">"Third line"</span>);</span><br></pre></td></tr></table></figure>
+<p>将会打印<code>First line Second line Third line</code>，其中除了最后一个字符串之外，其余字符串末尾的<code>\0</code>均被省略<br>以往通过<code>\</code>来进行多行信息拼接的方法不再需要。<br>同时需要注意的是这种默认行为在字符串数组的声明中可能带来的一些问题</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *available_resources[] = &#123;</span><br><span class="line">    <span class="string">"color monitor"</span>,</span><br><span class="line">    <span class="string">"big disk"</span>,</span><br><span class="line">    <span class="string">"Cary"</span> <span class="comment">// 此处少了一个逗号</span></span><br><span class="line">    <span class="string">"on-line drawing routhines"</span>,</span><br><span class="line">    <span class="string">"mouse"</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>缺少一个逗号将会使两个元素自动进行拼接，不仅仅字符串的值会发生变化，数组的大小也不再是预期值</p>
+<a id="more"></a></li>
+<li><p>奇技淫巧</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">generate_initializer(<span class="keyword">char</span> * <span class="built_in">string</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> separator = <span class="string">' '</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%c %s \n"</span>, seperator, <span class="built_in">string</span>);</span><br><span class="line">    seperator = <span class="string">','</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>static</code>变量来消除打印一个列表时想要在对象之间使用逗号之类的分隔符但是却要处理最后一个多余分隔符的问题</p>
+</li>
+<li><p>C中由于一些符号的重载导致了很多理解上的问题</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = N * <span class="keyword">sizeof</span> * q; <span class="comment">// 此处会让人疑惑到底是一个乘号还是两个，其实是一个，当sizeof的对象为类型时，需要加上括号，当是一个变量的时候就不必加括号。</span></span><br><span class="line">apple = <span class="keyword">sizeof</span>(<span class="keyword">int</span>) *p; <span class="comment">// 到底是int的长度乘上p还是将p的值解引用之后的值强制类型转换为int之后再求其size？经过测试之后可以发现是前者</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一些容易误解的优先级问题</p>
+<ul>
+<li><code>*p.f</code><br>容易误解为<code>(*p).f</code>，<code>.</code>的优先级要高于<code>*</code>，所以有了<code>-&gt;</code>操作符来消除这个问题</li>
+<li><code>int *ap[]</code><br><code>ap</code>是一个指针数组，而不是一个指向int数组的指针，<code>[]</code>的优先级要高于<code>*</code><blockquote>
+<p>如果没有记错的话，面对此类关于声明的时候的类型问题时，可以直接将声明当作实际使用时所需要遵循的格式，也即使用ap的时候应该是类似于<code>*ap[index]</code>再结合<code>[]</code>的优先级要高于<code>*</code>就可以很容易理解<code>ap</code>是一个指针数组</p>
 </blockquote>
-<h3 id="依次安装mssql-server-msodbcsql-mssql-tools"><a href="#依次安装mssql-server-msodbcsql-mssql-tools" class="headerlink" title="依次安装mssql-server, msodbcsql, mssql-tools"></a>依次安装<code>mssql-server</code>, <code>msodbcsql</code>, <code>mssql-tools</code></h3><p>   若使用<code>yay</code>作为包管理器则输入以下命令即可<br>   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S mssql-server msodbcsql mssql-tools</span><br></pre></td></tr></table></figure></p>
-<h3 id="进行相关配置-如证书以及密码"><a href="#进行相关配置-如证书以及密码" class="headerlink" title="进行相关配置,如证书以及密码"></a>进行相关配置,如证书以及密码</h3><ol>
-<li>选择证书版本以及配置密码<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/mssql/bin/mssql-conf setup</span><br></pre></td></tr></table></figure>
-<img src="/archives/ea202796/%E9%80%89%E6%8B%A9%E8%AF%81%E4%B9%A6.png" alt><br>此处我们选择第二个证书(<code>2) Developer (free, no production use rights)</code>),并同意相关条款(<code>yes</code>),接着设置<strong>符合规范</strong>的管理员密码<br><img src="/archives/ea202796/%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81.png" alt><a id="more"></a></li>
-<li>配置相关服务<br>开机自动启动服务:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> mssql-server</span><br></pre></td></tr></table></figure>
-手动启动服务:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start mssql-server</span><br></pre></td></tr></table></figure>
-查看运行状态<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status mssql-server</span><br></pre></td></tr></table></figure>
-
 </li>
-</ol>
-<h3 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h3><ol>
-<li><p>命令行操作<br>主要使用<code>sqlcmd</code>来进行登录</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlcm -U sa -P password</span><br></pre></td></tr></table></figure>
-<p>默认用户名为<code>sa</code>, 密码为一开始设置的密码,输入后即可键入命令执行</p>
+<li><code>(val &amp; mask != 0)</code><br><code>!=</code>以及<code>==</code>的优先级要高于位运算符，所以实际上是<code>val &amp; (mask != 0)</code></li>
+<li><code>c = getchar() != EOF</code><br> <code>==</code>以及<code>!=</code>高于<code>=</code></li>
+<li><code>msb &lt;&lt; 4 + lsb</code><br>算术运算符高于位移运算符</li>
+<li><code>i = 1,2</code><br>逗号运算符在所有的运算符中优先级最低，所以虽然逗号逗号运算符的结果就是最右边操作数的值，但是这里<code>i</code>依然等于1</li>
+</ul>
+<p>对于不确定的地方可以直接加括号保证顺序</p>
 </li>
-<li><p>使用vscode拓展<br>安装拓展<code>SQL Server(mssql)</code><br><img src="/archives/ea202796/%E6%8B%93%E5%B1%95.png" alt><br><code>Ctrl + Shift + p</code>创建新的数据库连接,连接成功后即可编写脚本,并会在右侧显示输出<br><img src="/archives/ea202796/VScode%E6%88%AA%E5%9B%BE.png" alt></p>
+<li><p><code>x = f() + g() + h();</code>中并不能保证三个函数的求值顺序</p>
 </li>
-<li><p>使用<code>DataGrip</code></p>
-<blockquote>
-<p>可能会提示没有相关驱动,点击下载即可</p>
-</blockquote>
-<p>添加新数据库,选择<code>Microsoft SQL Server</code><br>地址填写<code>localhost</code>,端口不用写<br>用户名为<code>sa</code><br>密码为上述设置的密码,点击<code>Test connection</code>测试连接是否成功,确认成功后点击<code>OK</code>即可<br><img src="/archives/ea202796/datagrip%E6%88%AA%E5%9B%BE.png" alt></p>
+<li><p>对于一个函数需要返回一个字符串或者某种数组之类的值时，有以下几种方法</p>
+<ul>
+<li>直接返回一个指向字符串常量的指针<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用全局声明的数组<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    global_array[i] = ...;</span><br><span class="line">    <span class="keyword">return</span> global_array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用静态数组<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> <span class="built_in">buffer</span>[<span class="number">20</span>];</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">buffer</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+函数的下一次调用将会覆盖内容，需要手动进行数据的备份</li>
+<li>显式的分配内存<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> * <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * s = <span class="built_in">malloc</span>(<span class="number">120</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+不会由于重复调用而覆盖之前的数据。但是由于内存的分配和释放并不在同一个地点（一个在函数内部，一个在调用者），所以可能会出现忘记释放内存的情况</li>
+<li><strong>调用者来分配/释放内存，并作为参数进行传递</strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span> * result, <span class="keyword">int</span> <span class="built_in">size</span>)</span></span>&#123;</span><br><span class="line">    <span class="built_in">strncpy</span>(result, <span class="string">"Test"</span>, <span class="built_in">size</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">buffer</span> = <span class="built_in">malloc</span>(<span class="built_in">size</span>);</span><br><span class="line">func(<span class="built_in">buffer</span>, <span class="built_in">size</span>);</span><br><span class="line">...</span><br><span class="line"><span class="built_in">free</span>(<span class="built_in">buffer</span>);</span><br></pre></td></tr></table></figure>
+可以说是最好的解决方案</li>
+</ul>
 </li>
 </ol>
 
@@ -459,9 +483,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SQL/" rel="tag"># SQL</a>
-          
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/C/" rel="tag"># C</a>
           
         </div>
       
@@ -474,8 +496,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/archives/ef45abe6.html" rel="next" title="gopl-ch6">
-                <i class="fa fa-chevron-left"></i> gopl-ch6
+              <a href="/archives/2d475dc9.html" rel="next" title="C-C专家编程 Ch1">
+                <i class="fa fa-chevron-left"></i> C-C专家编程 Ch1
               </a>
             
           </div>
@@ -483,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/archives/1babef01.html" rel="prev" title="ArchLinux安装javafx以及scene-builder">
-                ArchLinux安装javafx以及scene-builder <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -542,17 +560,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -664,22 +673,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何在ArchLinux中安装mssql-server"><span class="nav-number">1.</span> <span class="nav-text">如何在ArchLinux中安装mssql-server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依次安装mssql-server-msodbcsql-mssql-tools"><span class="nav-number">1.1.</span> <span class="nav-text">依次安装mssql-server, msodbcsql, mssql-tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进行相关配置-如证书以及密码"><span class="nav-number">1.2.</span> <span class="nav-text">进行相关配置,如证书以及密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接数据库"><span class="nav-number">1.3.</span> <span class="nav-text">链接数据库</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

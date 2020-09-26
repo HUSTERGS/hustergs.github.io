@@ -4,7 +4,10 @@ tags: C
 categories:
   - Programming Language
   - C
+abbrlink: 2a2a99d0
+date: 2020-09-26 21:50:49
 ---
+
 
 > 从本章开始将会每一篇博客整合多个章节的内容，发现每一章记录的内容不足以撑起一篇所谓的博客
 

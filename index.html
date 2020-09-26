@@ -187,8 +187,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-09-18 10:39:09" itemprop="dateCreated datePublished" datetime="2020-09-18T10:39:09+08:00">2020-09-18</time>
+              <time title="创建时间：2020-09-18 10:39:09 / 修改时间：10:54:04" itemprop="dateCreated datePublished" datetime="2020-09-18T10:39:09+08:00">2020-09-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,28 +236,14 @@
 <blockquote>
 <p>extern对象声明告诉编译器对象的类型和名字，对象的内存分配则在别处进行。由于并未在声明中为数组分配内存，所以并不需要提供关于数组长度的信息。对于多维数组，需要提供除最左边一维之外其他维的长度—-这就给编译器足够的信息产生相应的代码</p>
 </blockquote>
-<p>数组和指针的一个重要区别在于<strong>数组的地址在编译的时候就已经知道了</strong>，所以对于一个具体的数组变量<code>a</code>，编译器的符号表存的就是数组的起始地址。而对于某一个具体的指针变量<code>p</code>来说，编译的时候并不知道它所要指向的具体内容，需要进行解引用，所以编译器的符号表只知道这变量<code>p</code><strong>本身所在的地址</strong>，然后每次解引用的时候需要进行以下几个步骤</p>
-<ol>
-<li>根据符号表中<code>p</code>的地址读取变量<code>p</code>的内容，这是一次解引用</li>
-<li>根据<code>p</code>的内容（一个地址），找到其所指向的位置</li>
-<li>将上述的地址加上可能的偏移量，得到最终需要访问的地址，并取得其内容，这又是一次解引用</li>
-</ol>
-<p>所以当发生上述两个文件的头部声明的情况的时候。由于<code>mango</code>被声明为指针，那么就将会按照上述的3点来进行处理</p>
-<ol>
-<li>由于<code>mango</code>在符号表中存放的就是数组的起始位置，所以对其进行解引用，得到数组的第一个元素，一个int值</li>
-<li>将这个int值作为地址，找到其所指向的位置，这里就错的离谱了</li>
-<li>xxxx</li>
-</ol>
-<p>一般来说对于数组和指针声明(<code>extern</code>)和定义的情况有以下四种</p>
-<ol>
-<li>声明为指针，定义为指针</li>
-<li>声明为指针，定义为数组</li>
-<li>声明为数组，定义为指针</li>
-<li>声明为数组，定义为数组</li>
-</ol>
-<p>其中1，4都不会有问题，3，虽然可以正常工作，但其内部的机理和1，4还是不太相同，有点刚好碰对的感觉？2就是刚刚讲的例子，会出错</p>
-<p>感觉主要的差异还是由于编译器存储方式造成的，由于数组的地址在编译的时候就知道了，所以符号表里面直接就存了地址，但是指针却不同。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/5d2da946.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

@@ -23,15 +23,15 @@
     var CONFIG = {"hostname":"hustergs.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":280,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一般来说只要看到malloc(strlen(str))基本都是错误的，正确的应该是malloc(strlen(str)+1)，由于需要为\0符号留出空间  NUL与NULL，前者为\0，后者表示什么也不指向（空指针）  多行字符串会发生自动拼接 123printf(&quot;First line &quot;     &quot;Second line &quot;     &quot;Third line&quot;); 将会打印First line">
+  <meta name="description" content="一般来说只要看到malloc(strlen(str))基本都是错误的，正确的应该是malloc(strlen(str)+1)，由于需要为\0符号留出空间  NUL与NULL，前者为\0，后者表示什么也不指向（空指针）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C-C专家编程 Ch2">
 <meta property="og:url" content="https://hustergs.github.io/archives/b44e0c73.html">
 <meta property="og:site_name" content="Samuel&#39;s Blogs">
-<meta property="og:description" content="一般来说只要看到malloc(strlen(str))基本都是错误的，正确的应该是malloc(strlen(str)+1)，由于需要为\0符号留出空间  NUL与NULL，前者为\0，后者表示什么也不指向（空指针）  多行字符串会发生自动拼接 123printf(&quot;First line &quot;     &quot;Second line &quot;     &quot;Third line&quot;); 将会打印First line">
+<meta property="og:description" content="一般来说只要看到malloc(strlen(str))基本都是错误的，正确的应该是malloc(strlen(str)+1)，由于需要为\0符号留出空间  NUL与NULL，前者为\0，后者表示什么也不指向（空指针）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-16T08:55:58.000Z">
-<meta property="article:modified_time" content="2020-09-16T08:55:58.797Z">
+<meta property="article:modified_time" content="2020-10-03T02:08:51.414Z">
 <meta property="article:author" content="Samuel-G">
 <meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
@@ -195,6 +195,13 @@
 
               <time title="创建时间：2020-09-16 16:55:58" itemprop="dateCreated datePublished" datetime="2020-09-16T16:55:58+08:00">2020-09-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-03 10:08:51" itemprop="dateModified" datetime="2020-10-03T10:08:51+08:00">2020-10-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -238,13 +245,13 @@
 <li><p>一般来说只要看到<code>malloc(strlen(str))</code>基本都是错误的，正确的应该是<code>malloc(strlen(str)+1)</code>，由于需要为<code>\0</code>符号留出空间</p>
 </li>
 <li><p><code>NUL</code>与<code>NULL</code>，前者为<code>\0</code>，后者表示什么也不指向（空指针）</p>
-</li>
+<a id="more"></a></li>
 <li><p>多行字符串会发生自动拼接</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"First line "</span></span><br><span class="line">     <span class="string">"Second line "</span></span><br><span class="line">     <span class="string">"Third line"</span>);</span><br></pre></td></tr></table></figure>
 <p>将会打印<code>First line Second line Third line</code>，其中除了最后一个字符串之外，其余字符串末尾的<code>\0</code>均被省略<br>以往通过<code>\</code>来进行多行信息拼接的方法不再需要。<br>同时需要注意的是这种默认行为在字符串数组的声明中可能带来的一些问题</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *available_resources[] = &#123;</span><br><span class="line">    <span class="string">"color monitor"</span>,</span><br><span class="line">    <span class="string">"big disk"</span>,</span><br><span class="line">    <span class="string">"Cary"</span> <span class="comment">// 此处少了一个逗号</span></span><br><span class="line">    <span class="string">"on-line drawing routhines"</span>,</span><br><span class="line">    <span class="string">"mouse"</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>缺少一个逗号将会使两个元素自动进行拼接，不仅仅字符串的值会发生变化，数组的大小也不再是预期值</p>
-<a id="more"></a></li>
+<!-- more --></li>
 <li><p>奇技淫巧</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">generate_initializer(<span class="keyword">char</span> * <span class="built_in">string</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">char</span> separator = <span class="string">' '</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%c %s \n"</span>, seperator, <span class="built_in">string</span>);</span><br><span class="line">    seperator = <span class="string">','</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过<code>static</code>变量来消除打印一个列表时想要在对象之间使用逗号之类的分隔符但是却要处理最后一个多余分隔符的问题</p>
@@ -397,20 +404,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -476,12 +483,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">96k</span>
+    <span title="站点总字数">101k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:27</span>
+    <span title="站点阅读时长">1:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

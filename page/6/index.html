@@ -25,26 +25,26 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Samuel&#39;s Blogs">
-<meta property="og:url" content="https://hustergs.github.io/categories/Programming-Language/page/2/index.html">
+<meta property="og:url" content="https://hustergs.github.io/page/6/index.html">
 <meta property="og:site_name" content="Samuel&#39;s Blogs">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Samuel-G">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://hustergs.github.io/categories/Programming-Language/page/2/">
+<link rel="canonical" href="https://hustergs.github.io/page/6/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: Programming Language | Samuel's Blogs</title>
+  <title>Samuel's Blogs</title>
   
 
 
@@ -158,174 +158,145 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/6787f816.html">
 
-  
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Programming Language
-          <small>分类</small>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/6787f816.html" class="post-title-link" itemprop="url">Linux命令行与shell脚本编程大全</a>
         </h2>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-16 14:15:57" itemprop="dateCreated datePublished" datetime="2019-05-16T14:15:57+08:00">2019-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+          <h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><ul>
+<li>indicate the shell you use in the first line of your script, for example</li>
+</ul>
+<p>​    <code>#!/bin/bash</code></p>
+<ul>
+<li><p>to run your script without occurring the error <code>command ××× not found</code>, you can</p>
+<ul>
+<li><p>add the container folder of your script to the <code>PATH</code></p>
+<p>or</p>
+</li>
+<li><p>use absolute path</p>
+</li>
+</ul>
+</li>
+<li><p>while you can still find that you don’t have the privilege to run the script, you can use <code>chmod</code> command </p>
+<ul>
+<li><code>chmod u+x your_script</code></li>
+</ul>
+</li>
+<li><p><strong>display message</strong> </p>
+<ul>
+<li>use <code>echo</code>, but need to pay attention to the quotation in the sentence</li>
+<li><code>echo</code> has many parameters<ol>
+<li>use <code>-n</code> =&gt; do not output the trailing newline </li>
+<li>…..</li>
+</ol>
+</li>
+<li>use <code>man echo</code> to learn more</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/6787f816.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-18T10:39:09+08:00"
-              content="2020-09-18">
-          09-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/5d2da946.html" itemprop="url">
-            <span itemprop="name">C-C专家编程 Ch4</span>
-          </a>
-      </div>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-17T16:41:55+08:00"
-              content="2020-09-17">
-          09-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/c3493ce5.html" itemprop="url">
-            <span itemprop="name">C-C专家编程 Ch3</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-16T16:55:58+08:00"
-              content="2020-09-16">
-          09-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/b44e0c73.html" itemprop="url">
-            <span itemprop="name">C-C专家编程 Ch2</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-16T15:04:26+08:00"
-              content="2020-09-16">
-          09-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/2d475dc9.html" itemprop="url">
-            <span itemprop="name">C-C专家编程 Ch1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-05T00:38:19+08:00"
-              content="2020-08-05">
-          08-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/8fd86e1.html" itemprop="url">
-            <span itemprop="name">gopl-ch8</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-19T23:31:59+08:00"
-              content="2020-07-19">
-          07-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/65f283cf.html" itemprop="url">
-            <span itemprop="name">python-cookbook-ch4</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-06-03T16:34:44+08:00"
-              content="2020-06-03">
-          06-03
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/archives/fb96166c.html" itemprop="url">
-            <span itemprop="name">python-cookbook-ch3</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-    </div>
-  </div>
   
   
   
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/Programming-Language/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/Programming-Language/">1</a><span class="page-number current">2</span><a class="page-number" href="/categories/Programming-Language/page/3/">3</a><a class="page-number" href="/categories/Programming-Language/page/4/">4</a><a class="extend next" rel="next" href="/categories/Programming-Language/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
   </nav>
 
 

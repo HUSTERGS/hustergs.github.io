@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hustergs.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":280,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="C++ primer 看到了智能指针什么的，并且之后的几章看的有点粗略，就没有做多少笔记，之后抽时间看，直接开始看effective c++  由于书中的每一个Item涉及到的内容还是很多的，所以在每一个Item当中又会分出几个小点进行记录  使用const，enum以及inline而不是#define本节也可以被总结为，使用编译器而不是预处理器  constconst与#define最容易产生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective C++ ch1">
+<meta property="og:url" content="https://hustergs.github.io/archives/7194a4e1.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="C++ primer 看到了智能指针什么的，并且之后的几章看的有点粗略，就没有做多少笔记，之后抽时间看，直接开始看effective c++  由于书中的每一个Item涉及到的内容还是很多的，所以在每一个Item当中又会分出几个小点进行记录  使用const，enum以及inline而不是#define本节也可以被总结为，使用编译器而不是预处理器  constconst与#define最容易产生">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-09T01:35:47.000Z">
+<meta property="article:modified_time" content="2020-10-09T01:35:47.301Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hustergs.github.io/archives/7194a4e1.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Effective C++ ch1 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Samuel's Blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/7194a4e1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Effective C++ ch1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-09 09:35:47" itemprop="dateCreated datePublished" datetime="2020-10-09T09:35:47+08:00">2020-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>C++ primer 看到了智能指针什么的，并且之后的几章看的有点粗略，就没有做多少笔记，之后抽时间看，直接开始看effective c++</p>
+</blockquote>
+<p>由于书中的每一个<code>Item</code>涉及到的内容还是很多的，所以在每一个Item当中又会分出几个小点进行记录</p>
+<ol>
+<li><p>使用<code>const</code>，<code>enum</code>以及<code>inline</code>而不是<code>#define</code><br><strong>本节也可以被总结为，使用编译器而不是预处理器</strong></p>
+<ul>
+<li><p><code>const</code><br><code>const</code>与<code>#define</code>最容易产生交叉的点在于对常量的定义，当我们想要定义一个常量的时候，我们可能使用以下两种方式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>;</span><br></pre></td></tr></table></figure>
+<p>由于在编译的过程中，所有的<code>ASPECT_RATIO</code>将会被完全替换为<code>1.653</code>。如果我们使用的是一个基于符号表的调试器，那么我们可能根本不知道1.653从何而来，尤其是在使用他人编写的头文件中定义了该宏的时候。但是使用<code>const</code>单独定义一个常量将不会有这个问题。而且也有某种可能上，使用<code>const</code>所生成的代码要比使用<code>#define</code>得到的代码更少，因为预处理器的无脑替换，有可能在最终生成的<code>.o</code>文件中有很多重复的<code>1.653</code>，而使用<code>const double</code>按理来说不会超出一个.</p>
+<a id="more"></a>
+<p>使用指针的时候需要注意顶层和底层都需要加上<code>const</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> * <span class="keyword">const</span> authorName = <span class="string">"Scott Meyers"</span>; <span class="comment">// 本书作者</span></span><br><span class="line"><span class="comment">// 或者更好的方式是下面这种</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">authorName</span><span class="params">(<span class="string">"Scott Meyers"</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果我没有理解错的话，对于对象只需要使用一个const而无需担心声明的变量被指向另一个对象或者声明的变量自身发生改变。由于两者都被对象本身所具有的方法所控制，前者是运算符重载，后者是成员函数。对于一个const对象，其所能调用的成员函数是有限制的，必须是<code>const</code>函数至少使用string测试的时候是没问题的。</p>
+</blockquote>
+<p>在类中使用<code>const</code>定义的常量的时候，为了保证该成员不被重复定义，或者是为了节省空间？所以都会定义为<code>static const</code></p>
+</li>
+<li><p><code>enum</code><br><code>enum</code>可以在类中实现针对于类的常量。与上述使用<code>static const</code>成员不同，<code>enum</code>要更接近与<code>define</code>，如enum的值是在编译的时候就确定的，也就是可以用来确定数组的长度等等，以及无法取得一个<code>enum</code>/<code>#define</code>的地址而可以取得一个<code>static const</code>的地址。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GamePlayer</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   <span class="keyword">enum</span> &#123;NumTurns = <span class="number">5</span>&#125;;</span><br><span class="line">   <span class="keyword">int</span> scores[NumTurns];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种技巧被称之为<code>enum hack</code></p>
+</li>
+<li><p><code>inline</code><br>另一个使用<code>#define</code>的场景是通过<code>#define</code>来定义一个看起来是一个函数但是实际上并不需要付出函数调用所需的开销的宏</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_WITH_MAX(a, b) f((a) &gt; (b) ? (a) : (b))</span></span><br></pre></td></tr></table></figure>
+<p>但是这种宏非常容易出问题，比如如下的使用情景</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inta=<span class="number">5</span>,b=<span class="number">0</span>;</span><br><span class="line">CALL_WITH_MAX(++a, b); <span class="comment">// a is incremented twice</span></span><br><span class="line">CALL_WITH_MAX(++a, b+<span class="number">10</span>); <span class="comment">// a is incremented once</span></span><br></pre></td></tr></table></figure>
+<p><code>a</code>自增的次数竟然与其所比较的对象有关系<br>然而使用<code>inline</code>以及模板可以让我们在获得同样运行开销之外还不需要担心上述的问题，同时还可以将其定义为类的私有成员函数或者静态函数，这是宏所不具备的能力</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">callWithMax</span><span class="params">(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b)</span> </span>&#123;</span><br><span class="line">   f(a&gt;b?a:b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>尽量使用<code>const</code></p>
+<ul>
+<li><p>当声明一个<code>const</code>的对象的指针的时候，具体的类型与<code>const</code>的前后顺序并不会有影响，也即没有区别。但是两种情况都有可能出现，所以还是需要知道</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">(<span class="keyword">const</span> Widget *pw)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">(Widget <span class="keyword">const</span> * pw)</span></span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>两者都表示<code>pw</code>所指向的对象是不可修改的，个人倾向于使用第一种</p>
+</blockquote>
+</li>
+<li><p>STL中的迭代器是根据pointer建立的(STL iterators are modeled on pointers)，所以迭代器与<code>T *</code>类型的指针很像，如果将一个迭代器声明为<code>const</code>就像是声明了一个<code>T* const</code>类型的指针(此处不能将其看作是简单的文本替换，并不是<code>const T *</code>)，其自身不能指向别的对象，但是它所指向的对象可以发生改变，如果需要使指向的对象不能发生改变需要使用<code>const_iterator</code></p>
+</li>
+<li><p>函数返回一个<code>const</code>在大多数情况下是不合适的，但是有些情况下还是需要使用，如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>&#123;</span>...&#125;;</span><br><span class="line"><span class="keyword">const</span> Rational <span class="keyword">operator</span>*(<span class="keyword">const</span> Rational&amp; lhs, <span class="keyword">const</span> Rational&amp; rhs);</span><br></pre></td></tr></table></figure>
+<p>可能第一次看的时候无法理解为何乘法返回的是一个<code>const</code>对象，原因在于可能发生如下情况</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Rational a,b,c;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (a * b = c) ...</span><br></pre></td></tr></table></figure>
+<p>也就是可能发生在条件判断中打字错误，将<code>==</code>打成<code>=</code>的情况，如果将函数写成<code>const</code>就可以避免这种情况</p>
+<blockquote>
+<p>个人认为是在某些函数的返回值从功能上可以判定为一定为一个右值的时候就写成<code>const</code>?</p>
+</blockquote>
+</li>
+<li><p>使用<code>const</code>成员函数<br>有两个原因</p>
+<ol>
+<li>标识那些函数可以在<code>const</code>上调用，有利于理解代码</li>
+<li>提升C++程序的一个重要途径就是传递<code>const</code>引用(pass objects by reference-to-const)</li>
+</ol>
+<p>针对const成员函数有两种理解，第一种是被称之为物理不变（physical constness）const函数不应该改变任何非静态成员，这也是编译器所实现的方式，但是有些情况却并不能被编译器检测到</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTextBlock</span> &#123;</span> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   ...</span><br><span class="line">   <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> <span class="built_in">position</span>) <span class="keyword">const</span> &#123; <span class="keyword">return</span> pText[<span class="built_in">position</span>]; &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   <span class="keyword">char</span> *pText; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> CTextBlock <span class="title">cctb</span><span class="params">(<span class="string">"Hello"</span>)</span></span>;</span><br><span class="line"><span class="keyword">char</span> *pc = &amp;cctb[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">*pc = <span class="string">'J'</span>;</span><br></pre></td></tr></table></figure>
+<p>其中的<code>[]</code>重载函数并没有对对象进行任何的修改，但是却返回了对象成员的一个引用（此处不是值的拷贝而是引用，后面的小节应该会详细介绍，并且上述代码在mmacOS Catalina下会出现bus error）。<br>所以就有了第二种理解，被称之为逻辑不变（logical constness），其认为const成员函数也可以更改成员，但是不能让调用的客户程序发现这一点，这也是作者推荐我们理解。然而这样也引出了一个新的问题，虽然我们主观上像用第二种理解，但编译器确是按照第一种理解来的，我们并不能更改const对象的成员，所以这里就引出了<code>mutable</code>关键字。使用<code>mutable</code>关键字修饰的成员可以在const函数中进行修改。</p>
+</li>
+<li><p>如何避免代码重复<br>根据上述的说明，我们往往需要为一个类的某一个功能同时制定const类型以及非const类型的成员函数，而这两者的代码段可能完全相同。这里我们可以通过<strong>强制类型转换</strong>来解决这个问题。虽然说强制类型转换也不是什么好鸟，但是这里我们为了解决代码重复还是破例使用它。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextBlock</span> &#123;</span> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   ...</span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> <span class="built_in">position</span>) <span class="keyword">const</span> &#123;</span><br><span class="line">       ... <span class="comment">// do bounds checking</span></span><br><span class="line">       ... <span class="comment">// log access data</span></span><br><span class="line">       ... <span class="comment">// verify data integrity return text[position];</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> <span class="built_in">position</span>) &#123;</span><br><span class="line">       ... <span class="comment">// do bounds checking</span></span><br><span class="line">       ... <span class="comment">// log access data</span></span><br><span class="line">       ... <span class="comment">// verify data integrity return text[position];</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">private</span>: <span class="built_in">std</span>::<span class="built_in">string</span> <span class="built_in">text</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上述代码中的两个重载函数代码完全一致，可以通过以下代码去除代码重复</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextBlock</span> &#123;</span> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   ...</span><br><span class="line">   <span class="keyword">const</span> <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> <span class="built_in">position</span>) <span class="keyword">const</span> &#123;</span><br><span class="line">       ...</span><br><span class="line">       ...</span><br><span class="line">       ...</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">text</span>[<span class="built_in">position</span>]; </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">char</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> <span class="built_in">position</span>) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span>&amp;&gt;(</span><br><span class="line">           <span class="keyword">static_cast</span>&lt;<span class="keyword">const</span> TextBlock&amp;&gt;(*<span class="keyword">this</span>) [<span class="built_in">position</span>]</span><br><span class="line">       );</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>主要分析非const版本。在非const版本中，先通过<code>static_cast</code>将<code>TextBlock</code>类型的<code>*this</code>转化为<code>const TextBlock</code>，从而调用const版本的重载函数。得到的结果是一个<code>const char &amp;</code>的数据，接着再通过<code>const_cast</code>将<code>const</code>去除，返回<code>char &amp;</code>类型的结果，实现了代码复用。因为每次调用非const类型的函数就说明肯定有一个非const的对象，所以调用它的const函数不回出现什么问题，但是反过来就不一定了。如果我们在const函数中调用非const函数就有可能出问题。</p>
+</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Samuel-G
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hustergs.github.io/archives/7194a4e1.html" title="Effective C++ ch1">https://hustergs.github.io/archives/7194a4e1.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/933a175.html" rel="prev" title="C++ Primer Ch7">
+      <i class="fa fa-chevron-left"></i> C++ Primer Ch7
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Samuel-G"
+      src="/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">Samuel-G</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HUSTERGS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HUSTERGS" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:songge.huster@gmail.com" title="E-Mail → mailto:songge.huster@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.hustunique.com/" title="https:&#x2F;&#x2F;www.hustunique.com&#x2F;" rel="noopener" target="_blank">UniqueStudio</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://alexfan.cn/" title="https:&#x2F;&#x2F;alexfan.cn&#x2F;" rel="noopener" target="_blank">AlexFan</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.aaron-xin.tech/" title="https:&#x2F;&#x2F;blog.aaron-xin.tech&#x2F;" rel="noopener" target="_blank">一口闰心</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.bolun.xyz/" title="http:&#x2F;&#x2F;www.bolun.xyz&#x2F;" rel="noopener" target="_blank">Bolun</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">105k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:36</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<span><br></span>	
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-group"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+    	<span>访问总量&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'f4626645f5cf0431c84a',
+      clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+      repo        : 'hustergs.github.io',
+      owner       : 'HUSTERGS',
+      admin       : ['HUSTERGS'],
+      id          : '0e065180cf38c148cf3925c6386bddf4',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

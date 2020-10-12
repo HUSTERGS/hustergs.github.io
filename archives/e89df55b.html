@@ -23,20 +23,20 @@
     var CONFIG = {"hostname":"hustergs.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":280,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="跳过了4,5两章，着实没有什么好记录的   函数传递默认为值传递，也就是传入的变量会被复制一遍，使用引用为引用调用，原变量会被直接传入，从而避免拷贝，在传入大型类或者容器的时候非常有必要。C中一般使用指针，但是C++中建议将指针都改为引用，但是需要注意的是如果传入的变量在函数调用过程中不会被改变，那么最好是传递一个常量引用">
+  <meta name="description" content="禁止拷贝（或其他操作）一般来说，对于普通的功能，我们不想要支持只需要不实现即可，但是对于赋值等操作，如果我们不实现，那么编译器会帮我们自动生成。所以我们可以通过将拷贝函数设定为private的方式来避免调用，然而这样还是可能会出问题，因为友元函数&#x2F;类的存在，所以还是有机会调用这个函数，所以我们可以通过只声明而不定义拷贝函数，使得调用者在链接的时候报错，从而避免拷贝。 C++11支持使用delet">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ Primer Ch6">
-<meta property="og:url" content="https://hustergs.github.io/archives/7e3491e3.html">
+<meta property="og:title" content="Effective C++ ch2">
+<meta property="og:url" content="https://hustergs.github.io/archives/e89df55b.html">
 <meta property="og:site_name" content="Samuel&#39;s Blogs">
-<meta property="og:description" content="跳过了4,5两章，着实没有什么好记录的   函数传递默认为值传递，也就是传入的变量会被复制一遍，使用引用为引用调用，原变量会被直接传入，从而避免拷贝，在传入大型类或者容器的时候非常有必要。C中一般使用指针，但是C++中建议将指针都改为引用，但是需要注意的是如果传入的变量在函数调用过程中不会被改变，那么最好是传递一个常量引用">
+<meta property="og:description" content="禁止拷贝（或其他操作）一般来说，对于普通的功能，我们不想要支持只需要不实现即可，但是对于赋值等操作，如果我们不实现，那么编译器会帮我们自动生成。所以我们可以通过将拷贝函数设定为private的方式来避免调用，然而这样还是可能会出问题，因为友元函数&#x2F;类的存在，所以还是有机会调用这个函数，所以我们可以通过只声明而不定义拷贝函数，使得调用者在链接的时候报错，从而避免拷贝。 C++11支持使用delet">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-03T02:09:55.000Z">
-<meta property="article:modified_time" content="2020-10-03T02:10:32.033Z">
+<meta property="article:published_time" content="2020-10-12T12:48:00.000Z">
+<meta property="article:modified_time" content="2020-10-12T12:48:00.107Z">
 <meta property="article:author" content="Samuel-G">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://hustergs.github.io/archives/7e3491e3.html">
+<link rel="canonical" href="https://hustergs.github.io/archives/e89df55b.html">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>C++ Primer Ch6 | Samuel's Blogs</title>
+  <title>Effective C++ ch2 | Samuel's Blogs</title>
   
 
 
@@ -170,7 +170,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/7e3491e3.html">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/e89df55b.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
@@ -183,7 +183,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          C++ Primer Ch6
+          Effective C++ ch2
         </h1>
 
         <div class="post-meta">
@@ -192,9 +192,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-03 10:09:55 / 修改时间：10:10:32" itemprop="dateCreated datePublished" datetime="2020-10-03T10:09:55+08:00">2020-10-03</time>
+              <time title="创建时间：2020-10-12 20:48:00" itemprop="dateCreated datePublished" datetime="2020-10-12T20:48:00+08:00">2020-10-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,14 +215,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>441</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -235,20 +234,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>跳过了4,5两章，着实没有什么好记录的</p>
-</blockquote>
-<ol>
-<li><p>函数传递默认为值传递，也就是传入的变量会被复制一遍，使用引用为引用调用，原变量会被直接传入，从而避免拷贝，在传入大型类或者容器的时候非常有必要。C中一般使用指针，但是C++中建议将指针都改为引用，但是需要注意的是如果传入的变量在函数调用过程中不会被改变，那么最好是传递一个常量引用</p>
+        <ol>
+<li><p>禁止拷贝（或其他操作）<br>一般来说，对于普通的功能，我们不想要支持只需要不实现即可，但是对于赋值等操作，如果我们不实现，那么编译器会帮我们自动生成。所以我们可以通过将拷贝函数设定为<code>private</code>的方式来避免调用，然而这样还是可能会出问题，因为友元函数/类的存在，所以还是有机会调用这个函数，所以我们可以通过只声明而不定义拷贝函数，使得调用者在链接的时候报错，从而避免拷贝。</p>
+<p><strong>C++11支持使用<code>delete</code>关键字来非常方便的实现上述功能</strong></p>
 <a id="more"></a></li>
-<li><p>如果函数返回的是一个引用，将不会发生变量拷贝</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">string</span> &amp;<span class="title">shorterString</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s1, <span class="keyword">const</span> <span class="built_in">string</span> &amp;s2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.<span class="built_in">size</span>() &lt;= s2.<span class="built_in">size</span>() ? s1 : s2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>由多态以及析构函数所引发的一些问题<br>考虑如下代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TimeKeeper</span> &#123;</span> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     TimeKeeper( ); </span><br><span class="line">     ~TimeKeeper( ); </span><br><span class="line">     ...</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AtomicClock</span>:</span> <span class="keyword">public</span> TimeKeeper &#123; ... &#125;; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WaterClock</span>:</span> <span class="keyword">public</span> TimeKeeper &#123; ... &#125;; </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WristWatch</span>:</span> <span class="keyword">public</span> TimeKeeper &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+<p>当我们编写了一个工厂函数（在函数内部使用动态内存创建一个对象，该对象由调用者负责销毁），返回某一个指向子类的指针的时候，使用基类<code>TimeKeeper</code>来接收</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TimeKeeper* <span class="title">getTimeKeeper</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这是多态的典型用法之一？但是注意基类<code>TimeKeeper</code>有一个非虚析构函数(non-virtual destructor)。那么在用户尝试销毁的时候，可能只有基类的部分被销毁，而子类的部分并没有被销毁（不是很清楚为何原文说的是<strong>可能</strong>）<br>想要解决这个问题也非常简单，将基类的析构函数写成虚函数即可</p>
+<blockquote>
+<p>一般来说，如果一个类没有虚函数，那么这个类就不应该作为基类</p>
+</blockquote>
+<p>另一方面，如果一个类并不是作为基类设计的，而将其析构函数写成了虚函数，也会造成不好的影响，考虑如下类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> &#123;</span> </span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">     Point(<span class="keyword">int</span> xCoord, <span class="keyword">int</span> yCoord); </span><br><span class="line">     ~Point( );</span><br><span class="line"> <span class="keyword">private</span>: </span><br><span class="line">     <span class="keyword">int</span> x, y;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>如果<code>int</code>类型是<code>32</code>位，那么一个<code>Point</code>类刚好可以放进一个64位的寄存器。并且这样一个类可以很方便的传递给其他的语言，比如C或者Fortran。如果我们将析构函数定义为虚函数，那么情况就不一样了。为了使虚函数可以正确工作，每一个对象需要有一个<strong>虚表指针</strong>，用于指向<strong>虚函数表</strong>，从而在调用的时候确定到底使调用的哪一个函数。在一个64位的架构上，Point类型的大小将会变为128位，整整增加了100%。point类不仅不再能够装入寄存器，它也不再具有了与其他的语言沟通的能力，因为其他的语言并不能理解虚表指针。<br>总的来说，不论是习惯性的将析构函数定义为虚函数还是定义为非虚函数都有可能产生问题。<br>同时由于继承的存在，对于一些具有非虚析构函数的类，我们最好也不要尝试定义其子类，如<code>string</code>，以及标准库中的大多数容器。</p>
+<p>对于抽象类，由于抽象类必须有一个纯虚函数，而抽象类一般来说就是为了作为基类而被设计的，所以自然而然的，最好的方法就是将析构函数定义为纯虚函数。需要注意的需要提供对应的定义，因为子类在调用析构函数的时候会也会调用基类的析构函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AWOV</span> &#123;</span> <span class="comment">// AWOV = “Abstract w/o Virtuals” public:</span></span><br><span class="line">     <span class="keyword">virtual</span> ~AWOV() = <span class="number">0</span>; <span class="comment">// declare pure virtual destructor </span></span><br><span class="line"> &#125;;</span><br><span class="line">AWOV::~AWOV() &#123;&#125; <span class="comment">// definition of pure virtual dtor</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>使用<code>NDEBUG</code>预处理变量来调整程序行为，如<code>assert</code>有时可以在编译的时候就很方便的定义，而不需要手动修改源码<br><code>$ CC -D NDEBUG main.C</code></p>
+<li><p>一般来说我们尽量不要强行压制一个<strong>异常</strong>。但如果我们在析构函数中有可能发生异常的时候，如连接/关闭数据库的操作，最好还是通过<code>try/catch</code>来进行压制，因为一个类析构失败将会导致使用该类为成员的类的销毁也失败，以及装载该类的容器的销毁也会失败，等等诸如此类。当然更好的解决办法是在对应的类中加上一个指示性的成员，用来标识操作相关的操作是否成功</p>
 </li>
-<li><p>使用<code>constexpr</code>标识一个函数返回的值是一个常量。同样在接受该函数的返回值所用的变量在声明的时候也需要使用<code>constexpr</code></p>
+<li><p>不要在构造函数或者析构函数中调用虚函数。因为在派生类构建的时候，会先调用基类的构造函数，而此时派生类的成员都还没有初始化，所以显而易见的是，此时调用的虚函数将会是基类中的版本，而不是派生类中的版本。</p>
+<blockquote>
+<p>在Java中也不能在构造方法中调用抽象函数</p>
+</blockquote>
 </li>
-<li><p>内联函数</p>
+<li><p>赋值重载函数应该始终返回<code>*this</code>的引用，虽然不返回引用也可以编译成功，但是由于所有的内置类都是这样实现的，所以我们最好也这样做</p>
+</li>
+<li><p>在赋值重载函数中处理对自身赋值情况的处理<br>考虑如下代码 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bitmap</span>&#123;</span>...&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span> &#123;</span></span><br><span class="line"> ...</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">     Bitmap *pb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Widget&amp;</span><br><span class="line">Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs) &#123;</span><br><span class="line">    <span class="keyword">delete</span> pb;</span><br><span class="line">    pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们将一个<code>Widget</code>对象赋值给它自身的时候，成员<code>pb</code>将会先被delete，此时<code>rhs.pb</code>将会指向一个无意义的对象，新的<code>pb</code>也会随之出现问题。对于这种情况我们一般有两种解决方法</p>
+<ul>
+<li>在函数的开始进行相等性的检查<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp;</span><br><span class="line">Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">this</span> == &amp;rhs) <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">   <span class="keyword">delete</span> pb;</span><br><span class="line">   pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">   <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+但是即使如此依然会有异常的问题，比如new操作出了问题，那么pb将指向一个被删除的对象。同时需要注意的是相等性检查并不是免费的，我们同样需要考虑它的开销，可以结合自身拷贝这种情况发生的概率来做综合的决策</li>
+<li>仔细调整函数体中敏感操作（如上述<code>delete</code>）的顺序<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; Widget::<span class="keyword">operator</span>=(<span class="keyword">const</span> Widget&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">   Bitmap *pOrig = pb;</span><br><span class="line">   pb = <span class="keyword">new</span> Bitmap(*rhs.pb); </span><br><span class="line">   <span class="keyword">delete</span> pOrig;</span><br><span class="line">   <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+先保存之前的pb，如果new失败了pb也可以保持之前的状态</li>
+</ul>
+<blockquote>
+<p>自身拷贝并不一定以上文中所述的那么直白的方式展现出来，在数组下标赋值<code>a[i] = a[j]</code>甚至在不同的类之间也有可能出现类似的问题（基类和派生类）</p>
+</blockquote>
 </li>
 </ol>
 
@@ -266,7 +290,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://hustergs.github.io/archives/7e3491e3.html" title="C++ Primer Ch6">https://hustergs.github.io/archives/7e3491e3.html</a>
+    <a href="https://hustergs.github.io/archives/e89df55b.html" title="Effective C++ ch2">https://hustergs.github.io/archives/e89df55b.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -286,13 +310,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/e5e656c.html" rel="prev" title="C++ Primer Ch3">
-      <i class="fa fa-chevron-left"></i> C++ Primer Ch3
+    <a href="/archives/7194a4e1.html" rel="prev" title="Effective C++ ch1">
+      <i class="fa fa-chevron-left"></i> Effective C++ ch1
     </a></div>
-      <div class="post-nav-item">
-    <a href="/archives/933a175.html" rel="next" title="C++ Primer Ch7">
-      C++ Primer Ch7 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -529,7 +550,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'hustergs.github.io',
       owner       : 'HUSTERGS',
       admin       : ['HUSTERGS'],
-      id          : 'df5166045205289665842777aa747ef8',
+      id          : '5547fc6aebaa9862c28adf72fd733362',
         language: 'zh-CN',
       distractionFreeMode: true
     });

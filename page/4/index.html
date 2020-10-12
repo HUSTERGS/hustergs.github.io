@@ -164,6 +164,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ea202796.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/ea202796.html" class="post-title-link" itemprop="url">ArchLinux 安装mssql-server</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-12 16:46:53" itemprop="dateCreated datePublished" datetime="2020-04-12T16:46:53+08:00">2020-04-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>678</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="如何在ArchLinux中安装mssql-server"><a href="#如何在ArchLinux中安装mssql-server" class="headerlink" title="如何在ArchLinux中安装mssql-server"></a>如何在ArchLinux中安装mssql-server</h2><blockquote>
+<p>主要参考<a href="https://www.youtube.com/watch?v=KnIjhVkO5rw" target="_blank" rel="noopener">youtue视频</a></p>
+</blockquote>
+<h3 id="依次安装mssql-server-msodbcsql-mssql-tools"><a href="#依次安装mssql-server-msodbcsql-mssql-tools" class="headerlink" title="依次安装mssql-server, msodbcsql, mssql-tools"></a>依次安装<code>mssql-server</code>, <code>msodbcsql</code>, <code>mssql-tools</code></h3><p>   若使用<code>yay</code>作为包管理器则输入以下命令即可<br>   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S mssql-server msodbcsql mssql-tools</span><br></pre></td></tr></table></figure></p>
+<h3 id="进行相关配置-如证书以及密码"><a href="#进行相关配置-如证书以及密码" class="headerlink" title="进行相关配置,如证书以及密码"></a>进行相关配置,如证书以及密码</h3><ol>
+<li>选择证书版本以及配置密码<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/mssql/bin/mssql-conf setup</span><br></pre></td></tr></table></figure>
+<img src="/archives/ea202796/%E9%80%89%E6%8B%A9%E8%AF%81%E4%B9%A6.png" alt><br>此处我们选择第二个证书(<code>2) Developer (free, no production use rights)</code>),并同意相关条款(<code>yes</code>),接着设置<strong>符合规范</strong>的管理员密码<br><img src="/archives/ea202796/%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81.png" alt></li></ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/ea202796.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ef45abe6.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -848,120 +949,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/a5c9fab8.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/a5c9fab8.html" class="post-title-link" itemprop="url">Core Java Chapter6</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-30 15:31:22" itemprop="dateCreated datePublished" datetime="2020-03-30T15:31:22+08:00">2020-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Interfaces-Lambda-Expressions-and-InnerClasses"><a href="#Interfaces-Lambda-Expressions-and-InnerClasses" class="headerlink" title="Interfaces, Lambda Expressions, and InnerClasses"></a>Interfaces, Lambda Expressions, and InnerClasses</h2><blockquote>
-<p>又来写只给自己看到笔记了.每次读一本书读不完,或者读完了又由于没有实践就都忘记是真的很烦，作为这个系列的第一篇，希望可以开一个好头。主要的计划是将原本一本书一个md文件改为一个章节一个文件，也许会有帮助？ </p>
-</blockquote>
-<h3 id="6-1-Interfaces"><a href="#6-1-Interfaces" class="headerlink" title="6.1 Interfaces"></a>6.1 Interfaces</h3><ol>
-<li><p>从Java5以来对于<code>Comparable</code>有了一些改动，提供了另外一个可选的泛型接口接口的<code>compareTo</code>函数由原来的接收一个<code>Object</code>作为参数，变为接收一个泛型<code>T</code>作为参数，在这种情况下可以免去强制类型转换以及类型判定的繁琐操作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T other)</span></span>;<span class="comment">// 参数有了类型T</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Employee</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Employee other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Double.compare(salary, other.salary);</span><br><span class="line">        <span class="comment">// 没有cast</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当然这也只是可选项，并没有强制要求</p>
-<blockquote>
-<p>对于Comparable，如果比较的是int，double等可能发生溢出的类型的时候(相减的时候)，需要使用对应的包装类(boxed class)的<code>compare</code>方法来避免溢出。</p>
-</blockquote>
-<blockquote>
-<p>同时理论上，对于大部分的类来说，当<code>equals</code>方法返回<code>true</code>的时候，<code>compareTo</code>方法也应该返回0，两者在这种情况下应该保持一致性，其中一个特例为<code>BigDecimal</code>，由于<code>equals</code>判定的时候考虑了精度</p>
-</blockquote>
-<blockquote>
-<p>理论上Comparable应该实现反向对称性(antisymmetry)，即<code>X.compareTo(Y) = - Y.compareTo(X)</code>，而继承有时候会破坏这一点(如果使用泛型的<code>Comparable</code>接口的话)</p>
-</blockquote></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/a5c9fab8.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1033,7 +1020,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1112,12 +1099,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">105k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:36</span>
+    <span title="站点阅读时长">1:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

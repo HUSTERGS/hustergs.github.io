@@ -164,6 +164,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/23dc19dd.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/23dc19dd.html" class="post-title-link" itemprop="url">Mac编译Chromium</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-18 20:40:27 / 修改时间：20:41:58" itemprop="dateCreated datePublished" datetime="2020-12-18T20:40:27+08:00">2020-12-18</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由于最近看的一本书(TPOSA)中的第一章讲的就是Chromium，所以突然就想下载一下源码，然后又想要不就试试编译一下？</p>
+<p>首先官方有一个<a href="https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md" target="_blank" rel="noopener">指导文档</a></p>
+<p>可能不会列出所有的可能性，但是还是稍微记录一下我本人的具体步骤以及踩过的坑吧</p>
+<p>时间：2020/12/17<br>Mac: macbook pro late 2013 15’<br>Mac系统版本: <code>10.15.7 (19H15)</code><br>Chromium版本(hash): <code>a7361976c2c0be7139f4de8eb8844702a198f0cf</code></p>
+<p>参考的博客</p>
+<ul>
+<li><a href="https://juejin.cn/post/6844904110848933902" target="_blank" rel="noopener">macOS 10.15 下载及编译 Chromium</a></li>
+<li><a href="https://www.jianshu.com/p/4ba1d2275767" target="_blank" rel="noopener">mac上面进行chromium编译</a></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/23dc19dd.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ef4f8410.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -187,8 +275,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-12-16 23:16:33" itemprop="dateCreated datePublished" datetime="2020-12-16T23:16:33+08:00">2020-12-16</time>
+              <time title="创建时间：2020-12-16 23:16:33 / 修改时间：23:24:03" itemprop="dateCreated datePublished" datetime="2020-12-16T23:16:33+08:00">2020-12-16</time>
             </span>
 
           <br>
@@ -229,32 +318,15 @@
 </li>
 <li><p>Chrome使用Blink作为layout引擎。而对于js，Chrome实现了V8 runtime</p>
 </li>
-<li><p>浏览器对不同网络资源能够根据其延迟等信息来进行优先级的判定是非常重要的一点</p>
-</li>
-</ol>
-<h4 id="1-3-What-is-a-Modern-Web-Application"><a href="#1-3-What-is-a-Modern-Web-Application" class="headerlink" title="1.3 What is a Modern Web Application"></a>1.3 What is a Modern Web Application</h4><ol>
-<li>通过统计不同网站对于不同网络资源的请求情况（js, html, css, media）等。可以知道大部分的网络连接都是短而小的，但是底层的TCP连接是针对<em>large, streaming downloads</em></li>
-</ol>
-<h4 id="1-4-The-Life-of-a-Resource-Request-on-the-Wire"><a href="#1-4-The-Life-of-a-Resource-Request-on-the-Wire" class="headerlink" title="1.4 The Life of a Resource Request on the Wire"></a>1.4 The Life of a Resource Request on the Wire</h4><ul>
-<li>本地Cache</li>
-<li>DNS</li>
-<li>TCP</li>
-<li>SSL</li>
-<li>request for server</li>
-<li>server processing</li>
-<li>response from server</li>
-</ul>
-<p>上述的这几个延时是针对单一资源请求的，占到了总时间的80%</p>
-<h4 id="1-5-What-is-“Fast-Enough”？"><a href="#1-5-What-is-“Fast-Enough”？" class="headerlink" title="1.5 What is “Fast Enough”？"></a>1.5 What is “Fast Enough”？</h4><h4 id="1-6-Chrome‘s-Network-Stack-from-10000-Feet"><a href="#1-6-Chrome‘s-Network-Stack-from-10000-Feet" class="headerlink" title="1.6 Chrome‘s Network Stack from 10000 Feet"></a>1.6 Chrome‘s Network Stack from 10000 Feet</h4><h5 id="Multi-Process-Architecture"><a href="#Multi-Process-Architecture" class="headerlink" title="Multi-Process Architecture"></a>Multi-Process Architecture</h5><p>一般来说Chrome是<em>process-per-site model<em>，每一个不同的site在不同的进程当中，而相同网站的实例被集中在一起。每一个tab页面有自己单独的Blink以及V8引擎，同时在自己的沙箱中运行。不同的进程对系统资源包括网络都只有有限的访问权限，想要获取相关权限需要向主进程(</em>kernel process</em>)发起申请（通过IPC）</p>
-<h5 id="Inter-Process-Communication-and-Multi-Process-Resource-Loading"><a href="#Inter-Process-Communication-and-Multi-Process-Resource-Loading" class="headerlink" title="Inter-Process Communication and Multi-Process Resource Loading"></a>Inter-Process Communication and Multi-Process Resource Loading</h5><h5 id="Cross-Platform-Resource-Fetching"><a href="#Cross-Platform-Resource-Fetching" class="headerlink" title="Cross-Platform Resource Fetching"></a>Cross-Platform Resource Fetching</h5><h5 id="Architechure-and-Performance-on-Mobile-Platforms"><a href="#Architechure-and-Performance-on-Mobile-Platforms" class="headerlink" title="Architechure and Performance on Mobile Platforms"></a>Architechure and Performance on Mobile Platforms</h5><p>在移动端与桌面端基本相同，在Android上由于内存的原因可能不能为每一个tab都分配一个Blink。而在iOS中由于系统层面的限制无法使用多进程，而是使用了多线程。同时考虑到流量的原因，诸如<em>prerendering</em>等特性可能只会在Wi-Fi状态下被启用。</p>
-<h5 id="Speculative-Optimization-with-Chrome’s-Predictor"><a href="#Speculative-Optimization-with-Chrome’s-Predictor" class="headerlink" title="Speculative Optimization with Chrome’s Predictor"></a>Speculative Optimization with Chrome’s Predictor</h5><p><code>Predictor</code>通过分析网络请求的规律来预测之后可能的模式</p>
-<p>常规的用户模式</p>
-<ul>
-<li>鼠标放在链接上可能会点击</li>
-<li>每天访问的网站</li>
-<li>…</li>
-</ul>
-<h4 id="1-7-The-Lifetime-of-Your-Browser-Session"><a href="#1-7-The-Lifetime-of-Your-Browser-Session" class="headerlink" title="1.7 The Lifetime of Your Browser Session"></a>1.7 The Lifetime of Your Browser Session</h4>
+<li><p>浏览器对不同网络资源能够根据其延迟等信息来进行优先级的判定是非常重要的一点</p></li></ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/ef4f8410.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -755,103 +827,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/795955fa.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/795955fa.html" class="post-title-link" itemprop="url">C++ Primer Ch2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-03 10:09:38" itemprop="dateCreated datePublished" datetime="2020-10-03T10:09:38+08:00">2020-10-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li><p>现代的C++程序最使用<code>nullptr</code>而不是<code>NULL</code>由于<code>NULL</code>实际上是一个预处理变量，使用<code>NULL</code>进行初始化与使用<code>0</code>进行初始化没有区别，因为<code>NULL</code>会在预处理阶段被朴素的文本替换为<code>0</code>。<code>nullptr</code>是C++11引入的新的字面量</p>
-</li>
-<li><p>个人觉得C/C++的变量声明其实算是设计上的失误？</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p1, v; <span class="comment">// 其中p1为指向int的指针，而v只是简单的int变量，这时候可以认为*是和p在一起的</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p; <span class="comment">// p指向的是一个不能被改变的int值，这时候const可以认为是和int在一起的？</span></span><br></pre></td></tr></table></figure>
-<p>个人认为理解记忆起来还是有点绕</p></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/795955fa.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -923,7 +898,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1002,12 +977,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">109k</span>
+    <span title="站点总字数">114k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:39</span>
+    <span title="站点阅读时长">1:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

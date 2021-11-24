@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hustergs.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":280,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads;  因为race condition一般来说都是时间敏感(timing-sensitive)的，所以如果直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp concurrency in action ch3">
+<meta property="og:url" content="https://hustergs.github.io/archives/a1477cf6.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads;  因为race condition一般来说都是时间敏感(timing-sensitive)的，所以如果直">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-24T08:36:48.000Z">
+<meta property="article:modified_time" content="2021-11-24T08:39:59.720Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="concurrency">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hustergs.github.io/archives/a1477cf6.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cpp concurrency in action ch3 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Samuel's Blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/a1477cf6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp concurrency in action ch3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-24 16:36:48 / 修改时间：16:39:59" itemprop="dateCreated datePublished" datetime="2021-11-24T16:36:48+08:00">2021-11-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads;</p>
+</blockquote>
+<p>因为race condition一般来说都是<strong>时间敏感</strong>(<em>timing-sensitive</em>)的，所以如果直接debug的话经常就无法复现</p>
+<h4 id="避免race-condition"><a href="#避免race-condition" class="headerlink" title="避免race condition"></a>避免race condition</h4><p>主要有三种方法避免race condition</p>
+<ol>
+<li><p>使用锁之类的机制</p>
+</li>
+<li><p>更改数据结构以实现无锁并发</p>
+</li>
+<li><p>将对数据结构的更新作为一个<strong>事务</strong>(<em>transaction</em>)</p>
+<blockquote>
+<p>好像有相关的术语<em>software transactional memory (STM)</em>，可以了解一下？</p>
+</blockquote>
+</li>
+</ol>
+<a id="more"></a>
+
+<p>即使使用了锁等机制，也可能由于<strong>接口</strong>(<em>interface</em>)本身的设计问题而导致race condition</p>
+<ol>
+<li>接口中返回了对数据的引用或者指针</li>
+<li>在接口中执行了用户自定义的函数，而该函数可以对被保护的数据进行操作</li>
+<li>接口本身的设计问题</li>
+</ol>
+<p>主要对<code>3</code>进行进一步的说明</p>
+<p>比如一个stack</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s; </span><br><span class="line"><span class="keyword">if</span>(!s.empty()) &#123;</span><br><span class="line">	<span class="keyword">int</span> <span class="keyword">const</span> value=s.top(); </span><br><span class="line">  s.pop(); </span><br><span class="line">  do_something(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就会出问题，可能两个线程都认为没有空，但是实际上只有一个元素，结果pop了两次</p>
+<h4 id="在C-中使用mutex"><a href="#在C-中使用mutex" class="headerlink" title="在C++中使用mutex"></a>在C++中使用mutex</h4><blockquote>
+<p>感觉所谓的RAII好像就是在对象的析构函数里面干一些事情，比如释放资源之类的，保证在异常发生的时候资源也可以被释放</p>
+</blockquote>
+<ol>
+<li><p><code>std::lock_guard</code></p>
+<p>构建的过程就会上锁</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; some_list;</span><br><span class="line"><span class="built_in">std</span>::mutex some_mutex;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_to_list</span><span class="params">(<span class="keyword">int</span> new_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">guard</span><span class="params">(some_mutex)</span></span>;</span><br><span class="line">  some_list.push_back(new_value); </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">list_contains</span><span class="params">(<span class="keyword">int</span> value_to_find)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">guard</span><span class="params">(some_mutex)</span></span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">std</span>::<span class="built_in">find</span>(some_list.<span class="built_in">begin</span>(),some_list.<span class="built_in">end</span>(),value_to_find) != some_list.<span class="built_in">end</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C++17有一个新的特性称之为<em>class template argument deduction</em>，可以写成</p>
+<p><code>std::lock_guard guard(some_mutex);</code></p>
+<p>一般来说会将锁以及需要保护的数据结构整合在一起。（可能需要将锁定义为mutable，使得对于const的对象也可以上锁）</p>
+<blockquote>
+<p>可以使用<code>std::adopt_lock</code>作为第二个参数传入<code>lock_guard</code>，来接受一个已经锁上的锁</p>
+</blockquote>
+</li>
+<li><p><code>std::unique_lock</code></p>
+<p>不管是<code>std::lock_guard</code>还是<code>std::scoped_lock</code>，默认模式基本都是，构建的时候上锁，析构的时候解锁，但是在中间不能在对锁进行操作。但是<code>std::unique_lock</code>就提供了更多的灵活性，不仅与<code>std::lock_guard</code>一样可以接受<code>std::adopt_lock</code>来接受一个已经上锁的锁，也可以接受<code>std::defer_lock</code>来取消在构建的时候上锁。同时在构建之后也可以<code>lock</code>/<code>unlock</code></p>
+</li>
+</ol>
+<h4 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h4><p>死锁的一个重要原因是锁住多个锁，然后在多线程的时候就有可能会有问题</p>
+<ol>
+<li><p><code>std::lock</code></p>
+<p>可以一次性锁住多个锁</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">some_big_object</span>;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(some_big_object&amp; lhs,some_big_object&amp; rhs)</span></span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  some_big_object some_detail;</span><br><span class="line">  <span class="built_in">std</span>::mutex m;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  X(some_big_object <span class="keyword">const</span>&amp; sd):some_detail(sd)&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(X&amp; lhs, X&amp; rhs)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(&amp;lhs==&amp;rhs)</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">std</span>::lock(lhs.m,rhs.m);</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock_a</span><span class="params">(lhs.m,<span class="built_in">std</span>::adopt_lock)</span></span>; <span class="comment">// 使用std::adopt_lock来接受一个已经上锁的锁</span></span><br><span class="line">    <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lock_b</span><span class="params">(rhs.m,<span class="built_in">std</span>::adopt_lock)</span></span>;</span><br><span class="line">    swap(lhs.some_detail,rhs.some_detail);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>std::scoped_lock</code></p>
+<p>类似于<code>std::lock_guard</code>，但是可以同时锁住多个锁</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(X&amp; lhs, X&amp; rhs)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(&amp;lhs==&amp;rhs)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">	<span class="function"><span class="built_in">std</span>::scoped_lock <span class="title">guard</span><span class="params">(lhs.m,rhs.m)</span></span>;</span><br><span class="line">  swap(lhs.some_detail,rhs.some_detail);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p><strong>避免死锁的一些指导方针</strong></p>
+<ol>
+<li>尽量避免在已经获得了一个锁的情况下，去获取另一个锁</li>
+<li>避免在获得一个锁的时候，<strong>执行用户自定义的函数</strong></li>
+<li>如果<code>1</code>无法避免，那么不同的线程尽量以固定的顺序获得锁</li>
+</ol>
+<h4 id="protecting-shared-data-during-initialization"><a href="#protecting-shared-data-during-initialization" class="headerlink" title="protecting shared data during initialization"></a>protecting shared data during initialization</h4><p>比如有这样一个需求，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;some_resource&gt; resource_ptr;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!resource_ptr)</span><br><span class="line">  &#123;</span><br><span class="line">    resource_ptr.reset(<span class="keyword">new</span> some_resource); </span><br><span class="line">  &#125;</span><br><span class="line">  resource_ptr-&gt;do_something();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在调用<code>foo</code>时需要保证<code>resource_ptr</code>已经被正确设置</p>
+<p>第一种做法:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;some_resource&gt; resource_ptr;</span><br><span class="line"><span class="built_in">std</span>::mutex resource_mutex;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lk</span><span class="params">(resource_mutex)</span></span>;</span><br><span class="line">  <span class="keyword">if</span>(!resource_ptr)</span><br><span class="line">  &#123;</span><br><span class="line">    resource_ptr.reset(<span class="keyword">new</span> some_resource); </span><br><span class="line">  &#125;</span><br><span class="line">	lk.unlock();</span><br><span class="line">	resource_ptr-&gt;do_something();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接在函数中加锁，这样会导致所有的线程都线性的执行，完全丧失了并行的优势。</p>
+<p>另一种非常<strong>infamous</strong>的做法是<em>double-checked locking</em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">undefined_behaviour_with_double_checked_locking</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!resource_ptr)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">lk</span><span class="params">(resource_mutex)</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(!resource_ptr)</span><br><span class="line">    &#123;</span><br><span class="line">      resource_ptr.reset(<span class="keyword">new</span> some_resource); &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  resource_ptr-&gt;do_something();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>中间的另一次对<code>resource_ptr</code>的检查是为了防止在前一个对<code>resource_ptr</code>的判断和获取锁的中间，已经有别的线程进行了初始化。但是即使如此，依然会有问题（如果没有问题就不会说是<strong>infamous</strong>了）</p>
+<p>对<code>resource_ptr</code>的读和写没有进行同步</p>
+<blockquote>
+<p>如果<code>resource_ptr</code>本身是原子量的话就可以吗？</p>
+</blockquote>
+<p>使用<code>std::once_flag</code>以及<code>std::call_once</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;some_resource&gt; resource_ptr;</span><br><span class="line"><span class="built_in">std</span>::once_flag resource_flag;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_resource</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	resource_ptr.reset(<span class="keyword">new</span> some_resource); </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">std</span>::call_once(resource_flag,init_resource);</span><br><span class="line">	resource_ptr-&gt;do_something();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h4><blockquote>
+<p>The C++17 Standard Library provides two such mutexes out of the box, <code>std:: shared_mutex</code> and <code>std::shared_timed_mutex</code>. C++14 only features <code>std::shared_ timed_mutex</code>, and C++11 didn’t provide either.</p>
+</blockquote>
+<blockquote>
+<p>The difference between <code>std::shared_mutex</code> and <code>std::shared_timed_mutex</code> is that <code>std::shared_timed_mutex</code> supports additional operations (as described in section 4.3), so <code>std::shared_mutex</code> might offer a performance benefit on some platforms, if you don’t need the additional operations.</p>
+</blockquote>
+<p>对于写者，使用<code>std::lock_guard&lt;std::shared_mutex&gt;</code>，对于读者，使用<code>std::shared_lock&lt;std::shared_mutex&gt;</code></p>
+<p>本章还提到了一些其他的东西，但是讲的很细，建议直接看原文</p>
+<ol>
+<li><p>对于双向链表，如果每一个节点都有一个锁，那么需要以固定的顺序获取锁，比如说遍历的时候，需要依次获得当前节点以及之后节点的锁，别的操作，比如插入也会有类似的需求，被称为<em>hand-over-hand locking</em></p>
+</li>
+<li><p>hierarchy lock</p>
+<p>每一个锁具有一个<em>等级</em>，在获得一个锁之后，无法获得比当前锁等级更高的锁</p>
+</li>
+<li><p>recursive_mutex</p>
+<p>可重入锁，同一个线程可以lock多次，同时解锁的时候也需要unlock多次</p>
+<blockquote>
+<p>一般不建议使用</p>
+</blockquote>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Samuel-G
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hustergs.github.io/archives/a1477cf6.html" title="cpp concurrency in action ch3">https://hustergs.github.io/archives/a1477cf6.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/concurrency/" rel="tag"># concurrency</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/d6404c60.html" rel="prev" title="cpp concurrency in action ch2">
+      <i class="fa fa-chevron-left"></i> cpp concurrency in action ch2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#避免race-condition"><span class="nav-number">1.</span> <span class="nav-text">避免race condition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在C-中使用mutex"><span class="nav-number">2.</span> <span class="nav-text">在C++中使用mutex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决死锁"><span class="nav-number">3.</span> <span class="nav-text">解决死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#protecting-shared-data-during-initialization"><span class="nav-number">4.</span> <span class="nav-text">protecting shared data during initialization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写锁"><span class="nav-number">5.</span> <span class="nav-text">读写锁</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Samuel-G"
+      src="/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">Samuel-G</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HUSTERGS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HUSTERGS" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:songge.huster@gmail.com" title="E-Mail → mailto:songge.huster@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.hustunique.com/" title="https:&#x2F;&#x2F;www.hustunique.com&#x2F;" rel="noopener" target="_blank">UniqueStudio</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://alexfan.cn/" title="https:&#x2F;&#x2F;alexfan.cn&#x2F;" rel="noopener" target="_blank">AlexFan</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.aaron-xin.tech/" title="https:&#x2F;&#x2F;blog.aaron-xin.tech&#x2F;" rel="noopener" target="_blank">一口闰心</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.bolun.xyz/" title="http:&#x2F;&#x2F;www.bolun.xyz&#x2F;" rel="noopener" target="_blank">Bolun</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">132k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<span><br></span>	
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-group"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+    	<span>访问总量&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'f4626645f5cf0431c84a',
+      clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+      repo        : 'hustergs.github.io',
+      owner       : 'HUSTERGS',
+      admin       : ['HUSTERGS'],
+      id          : '52b12da4c577f27cec302ee8f5d2183c',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

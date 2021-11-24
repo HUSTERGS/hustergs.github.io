@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<meta name="google-site-verification" content="9vjYc2mcnPHoWoqvRJjAaAgmdlI8TGUjzsSrytuhTYA" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hustergs.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":280,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="C++标准每三年制定一次11, 14, 17 并发方式主要有两种并发方式  task swichting genuine concurrency">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp concurrency in action Ch1">
+<meta property="og:url" content="https://hustergs.github.io/archives/77045b3a.html">
+<meta property="og:site_name" content="Samuel&#39;s Blogs">
+<meta property="og:description" content="C++标准每三年制定一次11, 14, 17 并发方式主要有两种并发方式  task swichting genuine concurrency">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hustergs.github.io/archives/77045b3a/image-20211122095434176.png">
+<meta property="og:image" content="https://hustergs.github.io/archives/77045b3a/image-20211122095512414.png">
+<meta property="article:published_time" content="2021-11-24T08:31:58.000Z">
+<meta property="article:modified_time" content="2021-11-24T10:32:12.192Z">
+<meta property="article:author" content="Samuel-G">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="concurrency">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hustergs.github.io/archives/77045b3a/image-20211122095434176.png">
+
+<link rel="canonical" href="https://hustergs.github.io/archives/77045b3a.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>cpp concurrency in action Ch1 | Samuel's Blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Samuel's Blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/77045b3a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          cpp concurrency in action Ch1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-24 16:31:58 / 修改时间：18:32:12" itemprop="dateCreated datePublished" datetime="2021-11-24T16:31:58+08:00">2021-11-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>C++标准每三年制定一次<br>11, 14, 17</p>
+<h3 id="并发方式"><a href="#并发方式" class="headerlink" title="并发方式"></a>并发方式</h3><p>主要有两种并发方式</p>
+<ol>
+<li>task swichting</li>
+<li>genuine concurrency</li>
+</ol>
+<a id="more"></a>
+
+<p>前者通过在processor上快速切换任务来达到并发的”错觉”，而后者通过多个硬件core，来实现”真正”的并发。即使是在多核的处理器当中，也少不了task switching，因为同时运行的程序往往远远大于硬件所能支持的硬件并发数。</p>
+<p>同时，后者相较于前者也会出现一些由于memory model所导致的新问题。task switch由于会涉及到操作系统层面的context switch从而不可避免的会存在额外的性能损失。所以如果一个执行单元的执行时间太短，甚至和task switch的时间对等，那么并发的性能可能甚至会低于非并发的性能</p>
+<p><img src="/archives/77045b3a/image-20211122095434176.png" alt="image-20211122095434176"></p>
+<p><img src="/archives/77045b3a/image-20211122095512414.png" alt="image-20211122095512414"></p>
+<h3 id="并发实现方式"><a href="#并发实现方式" class="headerlink" title="并发实现方式"></a>并发实现方式</h3><p>具体来说，并发的实现方式主要有两种</p>
+<ol>
+<li>多进程</li>
+<li>多线程</li>
+</ol>
+<p>前者的优势在于每一个进程相对来说较为独立，管理起来可能不容易出错，但是同时在不同进程之前进行交流的”代价”很高，同时操作系统启动一个进程的时间要远多于一个线程的时间。</p>
+<blockquote>
+<p><code>Erlang</code>使用进程而不是线程作为并发的最小单位</p>
+</blockquote>
+<p>后者在线程之间的交流之间有着巨大的优势—-全局变量可以直接访问，同时指针或者引用可以在线程之间方便地传递。但同时，代码构建者也需要保证，如果数据被多个线程访问到，那么在任何时候这个数据都是consistent的。虽然线程相对于进程要轻量化很多，但也不是没有上限。由于每一个线程需要一个单独的栈空间（很好理解，至少每一个线程执行的函数的函数栈肯定是独立的），这对于32位的机器可能会出现问题，因为32位的机器每一个进程的地址空间只有4G。这时候一般使用线程池来一定程度地解决这个问题。</p>
+<blockquote>
+<p>本书主要着重介绍后者</p>
+</blockquote>
+<h3 id="为什么使用并发"><a href="#为什么使用并发" class="headerlink" title="为什么使用并发"></a>为什么使用并发</h3><p>一般来说，有两种情况需要使用并发</p>
+<ol>
+<li>分离/解耦合</li>
+<li>性能需求</li>
+</ol>
+<p>很好理解</p>
+<h3 id="C-与并发"><a href="#C-与并发" class="headerlink" title="C++ 与并发"></a>C++ 与并发</h3><p>在c++11之前，并发的代码通常会使用一些platform-specific的代码，这就会导致代码的移植性变得很差。而C++11提供了统一的接口来抹平不同平台的差异。</p>
+<blockquote>
+<p>One particularly important design that’s common to many C++ class libraries, and that provides considerable benefit to the programmer, is the use of the Resource Acquisition Is Initialization (RAII) idiom with locks to ensure that mutexes are unlocked when the relevant scope is exited.</p>
+</blockquote>
+<p>C++的并发库，很大程度上借鉴了Boost，同时Boost也随着C++新标准的发布逐步改变了自己的接口从而与新标准适配。</p>
+<ol>
+<li><p>C++11</p>
+<p>memory model, atomic operation, threads</p>
+</li>
+<li><p>C++14</p>
+<p>a new mutex type for protecting shared data</p>
+</li>
+<li><p>C++17</p>
+<p>a full suite of parallel algorithms</p>
+</li>
+</ol>
+<p>虽然C++标准库对这些平台差异化的代码进行了抽象，但一般来说这种抽象是有代价的，意味着某些之前可能不需要执行的新代码段需要被执行，这被称为abstraction penalty，但一般来说C++标准库的性能还是非常好的，即使profiling显示性能瓶颈在标准库，比如mutex，那也可能是应用设计的问题，比如让太多的线程来同时竞争这一个锁，这时候与其想要提升mutex的性能，不如减少竞争mutex的线程数。</p>
+<blockquote>
+<p>感觉有时候也不是那么好实现的</p>
+</blockquote>
+<p>Although the C++ Thread Library provides reasonably comprehensive facilities for multithreading and concurrency, on any given platform there will be platform-specific facilities that go beyond what’s offered. In order to gain easy access to those facilities without giving up the benefits of using the Standard C++ Thread Library, the types in the C++ Thread Library may offer a <code>native_handle()</code> member function that allows the underlying implementation to be directly manipulated using a platform-specific API. By its nature, any operations performed using native_handle() are entirely platform dependent</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Samuel-G
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://hustergs.github.io/archives/77045b3a.html" title="cpp concurrency in action Ch1">https://hustergs.github.io/archives/77045b3a.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/concurrency/" rel="tag"># concurrency</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/9fc146c2.html" rel="prev" title="make & makefile">
+      <i class="fa fa-chevron-left"></i> make & makefile
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/d6404c60.html" rel="next" title="cpp concurrency in action ch2">
+      cpp concurrency in action ch2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发方式"><span class="nav-number">1.</span> <span class="nav-text">并发方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发实现方式"><span class="nav-number">2.</span> <span class="nav-text">并发实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用并发"><span class="nav-number">3.</span> <span class="nav-text">为什么使用并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-与并发"><span class="nav-number">4.</span> <span class="nav-text">C++ 与并发</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Samuel-G"
+      src="/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">Samuel-G</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HUSTERGS" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HUSTERGS" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:songge.huster@gmail.com" title="E-Mail → mailto:songge.huster@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.hustunique.com/" title="https:&#x2F;&#x2F;www.hustunique.com&#x2F;" rel="noopener" target="_blank">UniqueStudio</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://alexfan.cn/" title="https:&#x2F;&#x2F;alexfan.cn&#x2F;" rel="noopener" target="_blank">AlexFan</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.aaron-xin.tech/" title="https:&#x2F;&#x2F;blog.aaron-xin.tech&#x2F;" rel="noopener" target="_blank">一口闰心</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.bolun.xyz/" title="http:&#x2F;&#x2F;www.bolun.xyz&#x2F;" rel="noopener" target="_blank">Bolun</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Samuel-G</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">132k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<span><br></span>	
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-group"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+    	<span>访问总量&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'f4626645f5cf0431c84a',
+      clientSecret: 'c3c86f82433c73bd9b1994eb1645606eec522ffd',
+      repo        : 'hustergs.github.io',
+      owner       : 'HUSTERGS',
+      admin       : ['HUSTERGS'],
+      id          : '2ae42e56af7fbfcae9d277b5c0d4b83e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300,"vOffset":-70},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -164,6 +164,267 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/a1477cf6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/a1477cf6.html" class="post-title-link" itemprop="url">cpp concurrency in action ch3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-24 16:36:48 / 修改时间：16:39:59" itemprop="dateCreated datePublished" datetime="2021-11-24T16:36:48+08:00">2021-11-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>In concurrency, a race condition is anything where the outcome depends on the relative ordering of execution of operations on two or more threads;</p>
+</blockquote>
+<p>因为race condition一般来说都是<strong>时间敏感</strong>(<em>timing-sensitive</em>)的，所以如果直接debug的话经常就无法复现</p>
+<h4 id="避免race-condition"><a href="#避免race-condition" class="headerlink" title="避免race condition"></a>避免race condition</h4><p>主要有三种方法避免race condition</p>
+<ol>
+<li><p>使用锁之类的机制</p>
+</li>
+<li><p>更改数据结构以实现无锁并发</p>
+</li>
+<li><p>将对数据结构的更新作为一个<strong>事务</strong>(<em>transaction</em>)</p>
+<blockquote>
+<p>好像有相关的术语<em>software transactional memory (STM)</em>，可以了解一下？</p>
+</blockquote>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/a1477cf6.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/d6404c60.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/d6404c60.html" class="post-title-link" itemprop="url">cpp concurrency in action ch2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-24 16:33:45 / 修改时间：16:40:13" itemprop="dateCreated datePublished" datetime="2021-11-24T16:33:45+08:00">2021-11-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>可以通过定义<code>operator()</code>来使一个对象变成可调用对象，从而可以作为thread的构造函数的参数来使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">background_task</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">()</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        do_something();</span><br><span class="line">        do_something_else();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">background_task f;</span><br><span class="line"><span class="function"><span class="built_in">std</span>::thread <span class="title">my_thread</span><span class="params">(f)</span></span>;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/d6404c60.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/77045b3a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/77045b3a.html" class="post-title-link" itemprop="url">cpp concurrency in action Ch1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-11-24 16:31:58 / 修改时间：18:32:12" itemprop="dateCreated datePublished" datetime="2021-11-24T16:31:58+08:00">2021-11-24</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>C++标准每三年制定一次<br>11, 14, 17</p>
+<h3 id="并发方式"><a href="#并发方式" class="headerlink" title="并发方式"></a>并发方式</h3><p>主要有两种并发方式</p>
+<ol>
+<li>task swichting</li>
+<li>genuine concurrency</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/77045b3a.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/9fc146c2.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -187,8 +448,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-05-25 19:01:01" itemprop="dateCreated datePublished" datetime="2021-05-25T19:01:01+08:00">2021-05-25</time>
+              <time title="创建时间：2021-05-25 19:01:01 / 修改时间：19:01:07" itemprop="dateCreated datePublished" datetime="2021-05-25T19:01:01+08:00">2021-05-25</time>
             </span>
 
           <br>
@@ -494,300 +756,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ef4f8410.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/ef4f8410.html" class="post-title-link" itemprop="url">TPOSA Ch1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-12-16 23:16:33 / 修改时间：23:24:03" itemprop="dateCreated datePublished" datetime="2020-12-16T23:16:33+08:00">2020-12-16</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>算是一本有点老的书了？因为之前大一的时候打印了出来一只没看，就想着要不找个时间看完算了</p>
-<h3 id="High-Performance-Networking-in-Chrome"><a href="#High-Performance-Networking-in-Chrome" class="headerlink" title="High Performance Networking in Chrome"></a>High Performance Networking in Chrome</h3><h4 id="1-2-The-Many-Facets-of-Performance"><a href="#1-2-The-Many-Facets-of-Performance" class="headerlink" title="1.2 The Many Facets of Performance"></a>1.2 The Many Facets of Performance</h4><ol>
-<li><p>Chrome是作为一个平台来设计的。在Chrome之前的浏览器都是单一进程，每一个页面共享同一个内存空间，如果某一个页面出了问题，那么其他的页面也可能会受到影响。而Chromes是多进程来工作的。每一个tab页面都是一个单独的进程，拥有自己的内存空间以及一个<em>沙箱</em>(<em>sandbox</em>)</p>
-</li>
-<li><p>浏览器的工作主要就是三个步骤</p>
-<ul>
-<li>获得资源</li>
-<li>页面渲染</li>
-<li>执行脚本<br>其中页面渲染和脚本的执行是单线程并且交错执行的(<em>single-threaded, interleaved model of execution</em>)–无法对DOM进行并发的修改，这其中一部分是因为js本身是单线程执行的语言。所以提速的方向主要是在如何将两者一起结合起来快速的运行。</li>
-</ul>
-</li>
-<li><p>Chrome使用Blink作为layout引擎。而对于js，Chrome实现了V8 runtime</p>
-</li>
-<li><p>浏览器对不同网络资源能够根据其延迟等信息来进行优先级的判定是非常重要的一点</p></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/ef4f8410.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/e89df55b.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/e89df55b.html" class="post-title-link" itemprop="url">Effective C++ ch2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-12 20:48:00 / 修改时间：20:48:04" itemprop="dateCreated datePublished" datetime="2020-10-12T20:48:00+08:00">2020-10-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li><p>禁止拷贝（或其他操作）<br>一般来说，对于普通的功能，我们不想要支持只需要不实现即可，但是对于赋值等操作，如果我们不实现，那么编译器会帮我们自动生成。所以我们可以通过将拷贝函数设定为<code>private</code>的方式来避免调用，然而这样还是可能会出问题，因为友元函数/类的存在，所以还是有机会调用这个函数，所以我们可以通过只声明而不定义拷贝函数，使得调用者在链接的时候报错，从而避免拷贝。</p>
-<p><strong>C++11支持使用<code>delete</code>关键字来非常方便的实现上述功能</strong></p></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/e89df55b.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/7194a4e1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/7194a4e1.html" class="post-title-link" itemprop="url">Effective C++ ch1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-09 09:35:47 / 修改时间：09:35:55" itemprop="dateCreated datePublished" datetime="2020-10-09T09:35:47+08:00">2020-10-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>C++ primer 看到了智能指针什么的，并且之后的几章看的有点粗略，就没有做多少笔记，之后抽时间看，直接开始看effective c++</p>
-</blockquote>
-<p>由于书中的每一个<code>Item</code>涉及到的内容还是很多的，所以在每一个Item当中又会分出几个小点进行记录</p>
-<ol>
-<li><p>使用<code>const</code>，<code>enum</code>以及<code>inline</code>而不是<code>#define</code><br><strong>本节也可以被总结为，使用编译器而不是预处理器</strong></p>
-<ul>
-<li><p><code>const</code><br><code>const</code>与<code>#define</code>最容易产生交叉的点在于对常量的定义，当我们想要定义一个常量的时候，我们可能使用以下两种方式</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ASPECT_RATIO 1.653</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> AspectRatio = <span class="number">1.653</span>;</span><br></pre></td></tr></table></figure>
-<p>由于在编译的过程中，所有的<code>ASPECT_RATIO</code>将会被完全替换为<code>1.653</code>。如果我们使用的是一个基于符号表的调试器，那么我们可能根本不知道1.653从何而来，尤其是在使用他人编写的头文件中定义了该宏的时候。但是使用<code>const</code>单独定义一个常量将不会有这个问题。而且也有某种可能上，使用<code>const</code>所生成的代码要比使用<code>#define</code>得到的代码更少，因为预处理器的无脑替换，有可能在最终生成的<code>.o</code>文件中有很多重复的<code>1.653</code>，而使用<code>const double</code>按理来说不会超出一个.</p></li></ul></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/7194a4e1.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -855,7 +827,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -868,7 +840,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -934,12 +906,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">124k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

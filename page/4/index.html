@@ -164,6 +164,333 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/8fd86e1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/8fd86e1.html" class="post-title-link" itemprop="url">gopl-ch8</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 00:38:19" itemprop="dateCreated datePublished" datetime="2020-08-05T00:38:19+08:00">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Chapter"><a href="#Chapter" class="headerlink" title="Chapter"></a>Chapter</h2><blockquote>
+<p>Goroutines and Channels</p>
+</blockquote>
+<h3 id="Goroutines"><a href="#Goroutines" class="headerlink" title="Goroutines"></a>Goroutines</h3><ol>
+<li><p>第一个<code>gorountine</code>为<code>main</code></p>
+</li>
+<li><p>使用<code>go</code>关键字，例子如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"> <span class="keyword">import</span> (</span><br><span class="line">     <span class="string">"fmt"</span></span><br><span class="line">     <span class="string">"time"</span></span><br><span class="line"> )</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">     <span class="keyword">go</span> spinner(<span class="number">100</span> * time.Millisecond)</span><br><span class="line">     <span class="keyword">const</span> n = <span class="number">45</span></span><br><span class="line">     fibN := fib(n)</span><br><span class="line">     fmt.Printf(<span class="string">"\rFibonacci(%d) = %d\n"</span>, n, fibN)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">spinner</span><span class="params">(delay time.Duration)</span></span> &#123;</span><br><span class="line">     <span class="keyword">for</span> &#123;</span><br><span class="line">         <span class="keyword">for</span> _, r := <span class="keyword">range</span> <span class="string">`-\|/`</span> &#123;</span><br><span class="line">             fmt.Printf(<span class="string">"\r%c"</span>, r)</span><br><span class="line">             time.Sleep(delay)</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">fib</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">     <span class="keyword">if</span> x &lt; <span class="number">2</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> x</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> fib(x<span class="number">-1</span>) + fib(x<span class="number">-2</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了退出之外没有其他办法使得一个<code>gorountine</code>停止另外一个，当然，依然可以通过<code>gorountine</code>之间的交流来<em>请求</em>对方停止</p>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/8fd86e1.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/65f283cf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/65f283cf.html" class="post-title-link" itemprop="url">python-cookbook-ch4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-19 23:31:59" itemprop="dateCreated datePublished" datetime="2020-07-19T23:31:59+08:00">2020-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>终于考完了，开始更新啦！</strong></p>
+<h2 id="Chapter-4"><a href="#Chapter-4" class="headerlink" title="Chapter 4"></a>Chapter 4</h2><blockquote>
+<p>Iterators and Generators<br>这一章的内容个人其实很少用到，但是又感觉还是比较重要，所以可能记录的点比较多，甚至于全部记录</p>
+</blockquote>
+<ol>
+<li>手动消费一个迭代器(<em>iterator</em>)<br> 使用<code>next(iterator[, default])</code>函数 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'/etc/passwd'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            line = next(f)</span><br><span class="line">            print(line, end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="comment">## 或者</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'/etc/passwd'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            line = next(f, <span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">if</span> line <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            print(line, end=<span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+ 也即，当传入第二个参数的时候，将会返回第二个参数作为默认值，而不是抛出<code>StopIteration</code>异常</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/65f283cf.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/fb96166c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Samuel-G">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Samuel's Blogs">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/fb96166c.html" class="post-title-link" itemprop="url">python-cookbook-ch3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-03 16:34:44" itemprop="dateCreated datePublished" datetime="2020-06-03T16:34:44+08:00">2020-06-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-Language/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a>Chapter 3</h2><blockquote>
+<p>Numbers, Dates, and Times</p>
+</blockquote>
+<ol>
+<li><p>舍入小数到某一指定小数点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">round(<span class="number">1.23</span>, <span class="number">1</span>) <span class="comment"># 1.2</span></span><br><span class="line">round(<span class="number">1.27</span>, <span class="number">1</span>) <span class="comment"># 1.3</span></span><br></pre></td></tr></table></figure>
+<p>采用四舍五入,如果第二个参数为负数,那么就会指示十位百位,,,以此类错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">round(<span class="number">1627731</span>, <span class="number">-1</span>) <span class="comment"># 1627730</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进行<strong>准确</strong>的十进制计算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python, js等语言均有类似的问题</span></span><br><span class="line">a = <span class="number">4.2</span></span><br><span class="line">b = <span class="number">2.1</span></span><br><span class="line">a + b <span class="comment"># 6.300000000000001</span></span><br><span class="line">(a + b) == <span class="number">6.3</span> <span class="comment"># False</span></span><br></pre></td></tr></table></figure>
+<p>想要避免这种问题,使用<code>Decimal</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> decimal <span class="keyword">import</span> Decimal</span><br><span class="line">a = Decimal(<span class="string">'4.2'</span>)</span><br><span class="line">b = Decimal(<span class="string">'2.1'</span>)</span><br><span class="line">a + b <span class="comment"># Deciaml('6.3')</span></span><br><span class="line">(a + b) == Decimal(<span class="string">'6.3'</span>) <span class="comment">#  True</span></span><br><span class="line">(a + b) == <span class="number">6.3</span> <span class="comment">#  False</span></span><br></pre></td></tr></table></figure></li></ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/fb96166c.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/8c9126fa.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -578,323 +905,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/1babef01.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/1babef01.html" class="post-title-link" itemprop="url">ArchLinux安装javafx以及scene-builder</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-15 19:48:58" itemprop="dateCreated datePublished" datetime="2020-04-15T19:48:58+08:00">2020-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>基本信息:</p>
-<ul>
-<li>系统: <code>manjaro-deepin</code></li>
-<li>Java版本: <code>java-8-openjdk</code></li>
-<li>javafx也是基于Java8的版本，scene-builder为Gluon的版本，也是基于Java8</li>
-<li>Intellij版本: <code>2020.1</code><blockquote>
-<p>主要参考<a href="https://www.jianshu.com/p/8ced98d4f73c" target="_blank" rel="noopener">在Linux/Ubuntu上配置开发JavaFx程序 (更新)</a></p>
-</blockquote>
-</li>
-</ul>
-<h2 id="安装Javafx"><a href="#安装Javafx" class="headerlink" title="安装Javafx"></a>安装Javafx</h2><p>一开始尝试过安装最新的Java13版本，但是遇到了各种问题，最终还是选择了Java8版本<br>如果使用<code>yay</code>作为包管理器的话通过以下命令进行安装(如果不是的话，建议尝试一下<code>yay</code>)</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S java8-openjfx</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/1babef01.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ea202796.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/ea202796.html" class="post-title-link" itemprop="url">ArchLinux 安装mssql-server</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-12 16:46:53" itemprop="dateCreated datePublished" datetime="2020-04-12T16:46:53+08:00">2020-04-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>678</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="如何在ArchLinux中安装mssql-server"><a href="#如何在ArchLinux中安装mssql-server" class="headerlink" title="如何在ArchLinux中安装mssql-server"></a>如何在ArchLinux中安装mssql-server</h2><blockquote>
-<p>主要参考<a href="https://www.youtube.com/watch?v=KnIjhVkO5rw" target="_blank" rel="noopener">youtue视频</a></p>
-</blockquote>
-<h3 id="依次安装mssql-server-msodbcsql-mssql-tools"><a href="#依次安装mssql-server-msodbcsql-mssql-tools" class="headerlink" title="依次安装mssql-server, msodbcsql, mssql-tools"></a>依次安装<code>mssql-server</code>, <code>msodbcsql</code>, <code>mssql-tools</code></h3><p>   若使用<code>yay</code>作为包管理器则输入以下命令即可<br>   <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S mssql-server msodbcsql mssql-tools</span><br></pre></td></tr></table></figure></p>
-<h3 id="进行相关配置-如证书以及密码"><a href="#进行相关配置-如证书以及密码" class="headerlink" title="进行相关配置,如证书以及密码"></a>进行相关配置,如证书以及密码</h3><ol>
-<li>选择证书版本以及配置密码<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/mssql/bin/mssql-conf setup</span><br></pre></td></tr></table></figure>
-<img src="/archives/ea202796/%E9%80%89%E6%8B%A9%E8%AF%81%E4%B9%A6.png" alt><br>此处我们选择第二个证书(<code>2) Developer (free, no production use rights)</code>),并同意相关条款(<code>yes</code>),接着设置<strong>符合规范</strong>的管理员密码<br><img src="/archives/ea202796/%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81.png" alt></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/ea202796.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hustergs.github.io/archives/ef45abe6.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Samuel-G">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Samuel's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/archives/ef45abe6.html" class="post-title-link" itemprop="url">gopl-ch6</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-09 10:33:16" itemprop="dateCreated datePublished" datetime="2020-04-09T10:33:16+08:00">2020-04-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 10:10:36" itemprop="dateModified" datetime="2020-09-16T10:10:36+08:00">2020-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/" itemprop="url" rel="index"><span itemprop="name">Programming Language</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming-Language/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Chapter-6"><a href="#Chapter-6" class="headerlink" title="Chapter 6"></a>Chapter 6</h2><blockquote>
-<p>Methods</p>
-</blockquote>
-<h3 id="Methods-Declarations"><a href="#Methods-Declarations" class="headerlink" title="Methods Declarations"></a>Methods Declarations</h3><ol>
-<li>在函数名前面加上对应的具名类型即可<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> geometry</span><br><span class="line"><span class="keyword">import</span> <span class="string">"math"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span>&#123;X, Y <span class="keyword">float64</span>&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Distance</span><span class="params">(p, q Point)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Point)</span> <span class="title">Distance</span><span class="params">(q Point)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">p := Point&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">q := Point&#123;<span class="number">4</span>, <span class="number">6</span>&#125;</span><br><span class="line">fmt.Println(Distance(p, q))</span><br><span class="line">fmt.Println(p.Distance(q))</span><br></pre></td></tr></table></figure>
-额外的<code>(p Point)</code>称之为方法的<code>接收者</code>(<em>receiver</em>)<br>并不是非要使用<code>this</code>或者<code>self</code>,一般采用对应类型的开头字母的小写(<code>p</code>对应<code>Point</code>)<br>两个<code>Distance</code>函数并不会产生名称冲突,他们一个是包级别的函数(<code>geometry.Distance</code>),另一个是具名类型<code>Point</code>的方法(<code>Point.Distance</code>)<blockquote>
-<p>Go中的<code>struct</code><strong>不支持重载</strong>,所以不能有两个方法名相同,也不能有成员和方法相同</p>
-</blockquote></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/ef45abe6.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -962,7 +976,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -975,7 +989,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1041,12 +1055,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">124k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
